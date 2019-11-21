@@ -37,6 +37,7 @@ $offset = ($pageno-1) * $no_of_records_per_page;
 $total_rows = getCountSearchPagination($connection, $searchinput);
 $total_pages = ceil($total_rows / $no_of_records_per_page);
 // End pagination
+
 ?>
 
 <!DOCTYPE html>
