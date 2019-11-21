@@ -5,6 +5,7 @@ include ("PHP/functions.php");
 <!DOCTYPE html>
 <html>
 <head>
+    
     <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
     <div class="header">
         <a href="index.php"><img src="IMG/wwi-logo.png"></a>
@@ -121,15 +122,15 @@ include ("PHP/functions.php");
                 <div class="container">
                     <div class="mySlides">
                         <div class="numbertext">1 / 4</div>
-                        <img src="IMG/voorkant.jpg" style="width:20%">
+                        <img src="IMG/voorkant.jpg" style="width:40%">
                     </div>
                     <div class="mySlides">
                         <div class="numbertext">2 / 4</div>
-                        <img src="IMG/achterkant.jpg" style="width:20%">
+                        <img src="IMG/achterkant.jpg" style="width:40%">
                     </div>
                     <div class="mySlides">
                         <div class="numbertext">3 / 4</div>
-                        <img src="IMG/Dichtbij.jpg" style="width:20%">
+                        <img src="IMG/Dichtbij.jpg" style="width:40%">
                     </div>
                     <a class="prev" onclick="plusSlides(-1)">❮</a>
                     <a class="next" onclick="plusSlides(1)">❯</a>
