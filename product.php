@@ -20,6 +20,36 @@ include ("PHP/functions.php");
     </div>
 </head>
 <body>
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+        captionText.innerHTML = dots[slideIndex-1].alt;
+    }
+</script>
 </div>
 <div class="row">
     <div class="leftcolumn">
@@ -87,42 +117,36 @@ include ("PHP/functions.php");
                     ?>
                 </div>
             </div>
-                <h2 style="text-align:center">Afbeeldingen</h2>
+                <h2 style="text-align:left">Afbeeldingen</h2>
                 <div class="container">
                     <div class="mySlides">
                         <div class="numbertext">1 / 4</div>
-                        <img src="IMG/voorkant.jpg" style="width:90%">
+                        <img src="IMG/voorkant.jpg" style="width:20%">
                     </div>
                     <div class="mySlides">
                         <div class="numbertext">2 / 4</div>
-                        <img src="IMG/achterkant.jpg" style="width:90%">
+                        <img src="IMG/achterkant.jpg" style="width:20%">
                     </div>
                     <div class="mySlides">
                         <div class="numbertext">3 / 4</div>
-                        <img src="IMG/Dichtbij.jpg" style="width:90%">
-                    </div>
-                    <div class="mySlides">
-                        <div class="numbertext">4 / 4</div>
-                        <img src="IMG/achterkant.jpg" style="width:90%">
+                        <img src="IMG/Dichtbij.jpg" style="width:20%">
                     </div>
                     <a class="prev" onclick="plusSlides(-1)">❮</a>
                     <a class="next" onclick="plusSlides(1)">❯</a>
                     <div class="caption-container">
                         <p id="caption"></p>
                     </div>
-                    <div class="rowr">
+                    <div class="row">
                         <div class="column">
-                            <img class="demo cursor" src="IMG/voorkant.jpg" style="width:60%" onclick="currentSlide(1)" alt="Voorkant">
+                            <img class="demo cursor" src="IMG/voorkant.jpg" style="width:50%" onclick="currentSlide(1)" alt="Voorkant">
                         </div>
                         <div class="column">
-                            <img class="demo cursor" src="IMG/achterkant.jpg" style="width:60%" onclick="currentSlide(2)" alt="Achterkant">
+                            <img class="demo cursor" src="IMG/achterkant.jpg" style="width:50%" onclick="currentSlide(2)" alt="Achterkant">
                         </div>
                         <div class="column">
-                            <img class="demo cursor" src="IMG/Dichtbij.jpg" style="width:60%" onclick="currentSlide(3)" alt="Borstzakje">
+                            <img class="demo cursor" src="IMG/Dichtbij.jpg" style="width:50%" onclick="currentSlide(3)" alt="Borstzakje">
                         </div>
-                        <div class="column">
-                            <img class="demo cursor" src="IMG/Dichtbij.jpg" style="width:60%" onclick="currentSlide(4)" alt="4">
-                        </div>
+
             </div>
 
         </div>
