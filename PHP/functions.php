@@ -261,5 +261,32 @@ function displayPagination($total_pages, $pageno) {
         <a href="{getFullURI();}"><input type="submit" value="50" name="rpp"></a>
         <a href="{getFullURI();}"><input type="submit" value="100" name="rpp"></a>
     </form>';
+}
 
+function displaySearchRows($connection, $searchinput)
+{
+    $intconvert = (int)$searchinput;
+
+    if ($intconvert != 0) {
+        $search = "$searchinput";
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
+                                            JOIN stockitems USING (StockItemID)
+                                            JOIN stockgroups USING (StockGroupID) 
+                                            WHERE StockItemID = ? LIMIT 1 offset 1");
+        $stmt->bind_param("s", $search);
+        $stmt->execute();
+        $stmt->store_result();
+        print $stmt->num_rows;
+    } elseif ($intconvert == 0) {
+        $search = "%$searchinput%";
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
+                                            JOIN stockitems USING (StockItemID)
+                                            JOIN stockgroups USING (StockGroupID) 
+                                            WHERE searchdetails LIKE ? group by stockitemid");
+        $stmt->bind_param("s", $search);
+        $stmt->execute();
+        $stmt->store_result();
+        print $stmt->num_rows;
+        $stmt->close();
+    }
 }
