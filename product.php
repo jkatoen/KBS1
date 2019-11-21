@@ -10,9 +10,15 @@ include ("PHP/functions.php");
         <a href="index.php"><img src="IMG/wwi-logo.png"></a>
     </div>
     <div class="topnav">
+<<<<<<< HEAD
+        <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="56"></a>
+        <a href="account.php"><h3>Account aanmaken</h3></a>
+        <a><h3>Contact</h3></a>
+=======
         <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
         <a href="login.php"><h3>Login</h3></a>
         <a href="contact.php"><h3>Contact</h3></a>
+>>>>>>> 09451f54567af19affc4cfd38a977fdf2ab9f650
         <form class="nav-search" method="get" action="search.php">
             <input class="text" type="text" name="searchinput">
             <input type="submit" name="submitinput" value="Search">

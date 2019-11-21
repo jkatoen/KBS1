@@ -225,20 +225,22 @@ function setRecordsPerPageSession(){
     }
 }
 
-function accountAanmaken() {
-    $voornaam = $_POST["voornaam"];
-    $achternaam = $_POST["achternaam"];
-    $mail = $_POST["emailadres"];
-    $volnaam = $voornaam.$achternaam;
-    $password = password_hash(($_POST["password"]), PASSWORD_DEFAULT);
-    var_dump($password);
-    var_dump($volnaam);
-    $sql1 = "INSERT INTO people (FullName, IsPermitted, HashedPassword, IsSystemUser, IsEmployee, IsSalesperson, EmailAddress)
-            VALUES ($volnaam, 1, $password, 1, 0, 0, $mail)";
-    /*$sql2 = "INSERT INTO "*/
+function accountAanmaken($connection) {
+        $voornaam = $_POST["voornaam"];
+        $achternaam = $_POST["achternaam"];
+        $address = $_POST["adres"];
+        $password = password_hash(($_POST["password"]), PASSWORD_DEFAULT);
+        $mail = $_POST["emailadres"];
+        var_dump($voornaam);
+        var_dump($achternaam);
+        var_dump($address);
+        var_dump($password);
+        var_dump($mail);
+        $SQLACCOUNT = "INSERT INTO account (FirstName, LastName, Address, Password, Emailadress)
+            VALUES ($voornaam, $achternaam, $address, $password, $mail)";
 
 
-}
+    }
 function displayPagination($total_pages, $pageno) {
     if ($total_pages >= 1) {
         // First page button
@@ -259,5 +261,32 @@ function displayPagination($total_pages, $pageno) {
         <a href="{getFullURI();}"><input type="submit" value="50" name="rpp"></a>
         <a href="{getFullURI();}"><input type="submit" value="100" name="rpp"></a>
     </form>';
+}
 
+function displaySearchRows($connection, $searchinput)
+{
+    $intconvert = (int)$searchinput;
+
+    if ($intconvert != 0) {
+        $search = "$searchinput";
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
+                                            JOIN stockitems USING (StockItemID)
+                                            JOIN stockgroups USING (StockGroupID) 
+                                            WHERE StockItemID = ? LIMIT 1 offset 1");
+        $stmt->bind_param("s", $search);
+        $stmt->execute();
+        $stmt->store_result();
+        print $stmt->num_rows;
+    } elseif ($intconvert == 0) {
+        $search = "%$searchinput%";
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
+                                            JOIN stockitems USING (StockItemID)
+                                            JOIN stockgroups USING (StockGroupID) 
+                                            WHERE searchdetails LIKE ? group by stockitemid");
+        $stmt->bind_param("s", $search);
+        $stmt->execute();
+        $stmt->store_result();
+        print $stmt->num_rows;
+        $stmt->close();
+    }
 }
