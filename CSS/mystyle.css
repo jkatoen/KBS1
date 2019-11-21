@@ -290,3 +290,11 @@ input:required {
 .row {
     display: flex;
 }
+
+.login {
+    margin-left: 45%;
+}
+
+.login2 {
+    margin-left: 38%;
+}
