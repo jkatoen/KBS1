@@ -137,58 +137,58 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
 {
 
 
-        $intconvert = (int)$searchinput;
+    $intconvert = (int)$searchinput;
 
-        if($intconvert != 0){
-            $search = "$searchinput";
-            $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
+    if($intconvert != 0){
+        $search = "$searchinput";
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
                                             JOIN stockgroups USING (StockGroupID) 
                                             WHERE StockItemID = ? LIMIT 1 offset 1");
-            $stmt->bind_param("s", $search);
-            $stmt->execute();
-            $stmt->store_result();
-            //if ($stmt->num_rows === 0) exit('No rows'); IF NO RESULT SHOW SOMETHING ELSE
-            $stmt->bind_result($StockItemID, $StockItemName, $UnitPrice, $TaxRate, $StockGroupID, $Photo);
-            while ($stmt->fetch()) {
-                print("<a class='logolink' href='product.php?id=$StockItemID'><div class='product-item'> ");
-                if (!empty($Photo)) {
-                    echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
-                } else {
-                    echo "<img style='height: 100px; width:100px;' src='IMG/category{$StockGroupID}.png'/>";
-                }
-                //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-                print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
-                print("</div></a>");
+        $stmt->bind_param("s", $search);
+        $stmt->execute();
+        $stmt->store_result();
+        //if ($stmt->num_rows === 0) exit('No rows'); IF NO RESULT SHOW SOMETHING ELSE
+        $stmt->bind_result($StockItemID, $StockItemName, $UnitPrice, $TaxRate, $StockGroupID, $Photo);
+        while ($stmt->fetch()) {
+            print("<a class='logolink' href='product.php?id=$StockItemID'><div class='product-item'> ");
+            if (!empty($Photo)) {
+                echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
+            } else {
+                echo "<img style='height: 100px; width:100px;' src='IMG/category{$StockGroupID}.png'/>";
             }
-            $stmt->close();
-        }elseif($intconvert ==0){
-            $search = "%$searchinput%";
-            $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
+            //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
+            print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+            print("</div></a>");
+        }
+        $stmt->close();
+    }elseif($intconvert ==0){
+        $search = "%$searchinput%";
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
                                             JOIN stockgroups USING (StockGroupID) 
                                             WHERE searchdetails LIKE ? LIMIT ?,?");
-            $stmt->bind_param("sii", $search, $offset, $no_of_records_per_page);
-            $stmt->execute();
-            $stmt->store_result();
-            //if ($stmt->num_rows === 0) exit('No rows returned.'); IF NO RESULT SHOW SOMETHING ELSE
-            $stmt->bind_result($StockItemID, $StockItemName, $UnitPrice, $TaxRate, $StockGroupID, $Photo);
-            while ($stmt->fetch()) {
-                print("<a class='logolink' href='product.php?id=$StockItemID'><div class='product-item'> ");
-                if (!empty($Photo)) {
-                    echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
-                } else {
-                    echo "<img style='height: 100px; width:100px;' src='IMG/category{$StockGroupID}.png'/>";
-                }
-                //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-                print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
-                print("</div></a>");
+        $stmt->bind_param("sii", $search, $offset, $no_of_records_per_page);
+        $stmt->execute();
+        $stmt->store_result();
+        //if ($stmt->num_rows === 0) exit('No rows'); IF NO RESULT SHOW SOMETHING ELSE
+        $stmt->bind_result($StockItemID, $StockItemName, $UnitPrice, $TaxRate, $StockGroupID, $Photo);
+        while ($stmt->fetch()) {
+            print("<a class='logolink' href='product.php?id=$StockItemID'><div class='product-item'> ");
+            if (!empty($Photo)) {
+                echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
+            } else {
+                echo "<img style='height: 100px; width:100px;' src='IMG/category{$StockGroupID}.png'/>";
             }
-            $stmt->close();
+            //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
+            print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+            print("</div></a>");
         }
-        elseif($intconvert === 0) {
-            print ("Er zijn geen resulaten gevonden. Probeer opnieuw te zoeken.");
-        }
+        $stmt->close();
+    }
+
+
+
 }
 
 function setPage() {
@@ -198,11 +198,47 @@ function setPage() {
         return 1;
     }
 }
-function setRecordsPerPage(){
+function setRecordsPerPageSession(){
     if (isset($_POST['rpp'])) {
         $_SESSION['rpp'] = $_POST['rpp'];
     } elseif (!isset($_SESSION['rpp'])) {
         $_SESSION['rpp'] = 25;
     }
 }
-?>
+
+function accountAanmaken() {
+    $voornaam = $_POST["voornaam"];
+    $achternaam = $_POST["achternaam"];
+    $mail = $_POST["emailadres"];
+    $volnaam = $voornaam.$achternaam;
+    $password = password_hash(($_POST["password"]), PASSWORD_DEFAULT);
+    var_dump($password);
+    var_dump($volnaam);
+    $sql1 = "INSERT INTO people (FullName, IsPermitted, HashedPassword, IsSystemUser, IsEmployee, IsSalesperson, EmailAddress)
+            VALUES ($volnaam, 1, $password, 1, 0, 0, $mail)";
+    /*$sql2 = "INSERT INTO "*/
+
+
+}
+function displayPagination($total_pages, $pageno) {
+    if ($total_pages >= 1) {
+        // First page button
+        $disabled = ($pageno <= 1) ? "disabled" : "";
+        print "<a href='?pageno=1'><button {$disabled}>First</button></a>";
+        // Previous page button
+        $disabled = ($pageno <= 1) ? "disabled" : "";
+        print "<a href=?pageno=".($pageno-1)."><button {$disabled}>Prev</button></a>";
+        // Next page button
+        $disabled = ($pageno >= $total_pages) ? "disabled" : "";
+        print "<a href=?pageno=".($pageno+1)."><button {$disabled}>Next</button></a>";
+        // Last page button
+        print "<a href=?pageno={$total_pages}><button {$disabled}>Last</button></a>";
+    }
+    print '
+    <form action="" method="post">
+        <a href="{getFullURI();}"><input type="submit" value="25" name="rpp"></a>
+        <a href="{getFullURI();}"><input type="submit" value="50" name="rpp"></a>
+        <a href="{getFullURI();}"><input type="submit" value="100" name="rpp"></a>
+    </form>';
+
+}
