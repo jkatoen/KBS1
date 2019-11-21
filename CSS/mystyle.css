@@ -156,6 +156,7 @@ img {
     border-radius: 30px;
     padding: 5%;;
     background-color: dodgerblue;
+    text-decoration: none;
 }
 
 .product-right-add-to-cart:hover {
