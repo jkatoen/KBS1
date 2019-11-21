@@ -138,8 +138,13 @@ img {
     float: bottom;
     border-radius: 30px;
     padding: 5%;;
-    background-color: cornflowerblue;
+    background-color: dodgerblue;
 }
+
+.product-right-add-to-cart:hover {
+    background-color: yellowgreen;
+}
+
 /* Style the top navigation bar */
 .topnav {
     overflow: hidden;
