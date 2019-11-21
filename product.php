@@ -49,6 +49,7 @@ include ("PHP/functions.php");
         dots[slideIndex-1].className += " active";
         captionText.innerHTML = dots[slideIndex-1].alt;
     }
+
 </script>
 </div>
 <div class="row">
@@ -112,9 +113,7 @@ include ("PHP/functions.php");
 
             ?>
                 <a href=""><div class="product-right-add-to-cart">
-                    <?php
-                     echo "Voeg aan winkelwagen toe";
-                    ?>
+                        Voeg aan winkelwagen toe
                     </div></a>
             </div>
                 <h2 style="text-align:left">Afbeeldingen</h2>
@@ -146,7 +145,6 @@ include ("PHP/functions.php");
                         <div class="column">
                             <img class="demo cursor" src="IMG/Dichtbij.jpg" style="width:50%" onclick="currentSlide(3)" alt="Borstzakje">
                         </div>
-
             </div>
 
         </div>
