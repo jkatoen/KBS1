@@ -19,6 +19,7 @@
   <component name="ProjectId" id="1Tv8x5P9qTiJrV3JjRDLBCzdp2E" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../oefentoets1" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -27,6 +28,9 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+>>>>>>> d810292b95682e8b2eda53a0c694f26d29e6a3f6
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -51,7 +55,12 @@
       <option name="presentableId" value="Default" />
       <updated>1574329452897</updated>
       <workItem from="1574329458984" duration="244000" />
+<<<<<<< HEAD
       <workItem from="1574338434934" duration="3822000" />
+=======
+      <workItem from="1574334830401" duration="4012000" />
+      <workItem from="1574338927590" duration="2151000" />
+>>>>>>> d810292b95682e8b2eda53a0c694f26d29e6a3f6
     </task>
     <servers />
   </component>

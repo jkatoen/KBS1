@@ -3,7 +3,6 @@
 session_start();
 include_once("PHP/connectdb.php");
 include("PHP/functions.php");
-
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +14,7 @@ include("PHP/functions.php");
     </div>
     <div class="topnav">
         <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="56"></a>
-        <a href="account.php"><h3>Account aanmaken</h3></a>
+        <a href="account.php"><h3>Login</h3></a>
         <a href="contact.php"><h3>Contact</h3></a>
 
         <form class="nav-search" method="get" action="search.php">
@@ -50,8 +49,8 @@ include("PHP/functions.php");
                 <?php
                 if (isset($_POST['register'])) {
                     echo "dsf";
-                    if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["password"]) && isset($_POST["emailadres"])) {
-                        accountAanmaken($connection);
+                    if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["ww"]) && isset($_POST["emailadres"])) {
+                        print("Account aangemaakt!");
                     }
                 }
                 ?>
