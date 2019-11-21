@@ -14,22 +14,8 @@ if (isset($_GET['searchinput'])) {
 }
 
 // Pagination
-if (isset($_GET['pageno'])) {
-    $pageno = $_GET['pageno'];
-} else {
-    $pageno = 1;
-}
-
-if (isset($_GET['pageno'])) {
-    $pageno = $_GET['pageno'];
-} else {
-    $pageno = 1;
-}
-if (isset($_POST['rpp'])) {
-    $_SESSION['rpp'] = $_POST['rpp'];
-} elseif (!isset($_SESSION['rpp'])) {
-    $_SESSION['rpp'] = 25;
-}
+$pageno = setPage();
+setRecordsPerPageSession();
 
 $no_of_records_per_page = $_SESSION['rpp'];
 $offset = ($pageno-1) * $no_of_records_per_page;
@@ -72,23 +58,8 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
         <div class="card" class="product-container">
             <h2><?php echo "Gezocht op: {$searchinput}"; ?></h2>
 
-            <!--Pagination-->
-            <ul class="pagination">
-                <li><a href="?pageno=1">First</a></li>
-                <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
-                    <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
-                </li>
-                <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
-                    <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
-                </li>
-                <li><a href="<?php echo "?pageno={$total_pages}"; ?>">Last</a></li>
-            </ul>
-            <form action="" method="post">
-                <a href="<?php echo getFullURI(); ?>"><input type="submit" value="25" name="rpp"></a>
-                <a href="<?php echo getFullURI(); ?>"><input type="submit" value="50" name="rpp"></a>
-                <a href="<?php echo getFullURI(); ?>"><input type="submit" value="100" name="rpp"></a>
-            </form>
-            <!--End Pagination-->
+            <!--Pagination and filter on amount per page-->
+            <?php displayPagination($total_pages, $pageno); ?>
 
             <div class="product-container">
                 <?php
