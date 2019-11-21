@@ -1,0 +1,212 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial;
+    padding: 0px;
+    margin: 0px;
+    background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+    padding: 10px;
+    text-align: center;
+    background: white;
+}
+.header h1 {
+    font-size: 50px;
+}
+.logolink {
+    color: black;
+    text-decoration: none;
+}
+.category-container{
+    background-color: #ddd;
+}
+.category-container :hover {
+    background-color: lightblue;
+}
+.category-item{
+    border: 1px solid black;
+    font-size: 20px;
+    padding: 20px;
+}
+.category-item a {
+    color: black;
+    text-decoration: none;
+}
+
+.product-container{
+    display: inline-grid ;
+    grid-template-columns: auto auto auto auto ;
+    padding: 10px;
+}
+.product-container :hover{
+    background-color: lightblue;
+}
+.product-item{
+    background-color: #ddd;
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+}
+.product-item-price{
+    background-color: lightgray;
+}
+
+.product-right-info{
+    float: right;
+    text-align: left;
+}
+.product-right-add-to-cart{
+    float: bottom;
+    border-radius: 30px;
+    padding: 5%;;
+    background-color: cornflowerblue;
+}
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: darkgrey;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: right;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 0px 10px;
+    margin: 3px;
+    text-decoration: none;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    color: dodgerblue;
+}
+
+.nav-search {
+    margin-top: 32px;
+    margin-left: 35%;
+}
+
+.form{
+    text-align: center;
+}
+.text {
+    width: 40%;
+    background-color: lightgray;
+    border: 0px;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+    float: left;
+    width: 25%;
+    padding-right: 20px;
+}
+
+.productleft{
+    float: left;
+}
+
+.midcolumn {
+    float:left;
+    width: 50%;
+    background-color:lightgray;
+    text-align:center;
+    height:100%;
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 25%;
+    background-color: #f1f1f1;
+    padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+    float: left;
+    grid-template-columns: auto auto auto auto;
+    background-color: white;
+    padding: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Footer */
+.footer {
+    float: bottom;
+    padding: 5px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
+}
+/* Nieuw voor account aanmaken */
+
+.inlog{
+    text-align: left;
+    padding-left:5%;
+    background-color: lightgrey;
+    color:black;
+
+}
+
+.button{
+    border-radius: 5px;
+    border:0;
+    width: 30%;
+    height:35px;
+    background-color: green;
+    color:white;
+    font-weight:bold;
+}
+
+.textinbox{
+    border-radius: 3px;
+    border:0;
+    font-size:100%;
+}
+input:required {
+    background-color: white;
+}
+
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
+}
+
+.row {
+    display: flex;
+}
