@@ -236,8 +236,23 @@ function accountAanmaken($connection) {
         var_dump($address);
         var_dump($password);
         var_dump($mail);
+
+    $stmt = $connection->prepare("INSERT INTO account (FirstName, LastName, Address, Password, Emailadress)
+                                  VALUES (?,?,?,?,?)") ;
+    $stmt->bind_param("sssss", $voornaam, $achternaam, $address, $password, $mail);
+    $stmt->execute();
+    $stmt->store_result();
+    // Page not found moet nog toegevoegd worden!
+    if ($stmt->num_rows === 0) {
+        exit('404 Page Not Found');
+    }
+    $stmt->bind_result($StockGroupName);
+    $stmt->fetch();
+    print $StockGroupName;
+
         $SQLACCOUNT = "INSERT INTO account (FirstName, LastName, Address, Password, Emailadress)
-            VALUES ($voornaam, $achternaam, $address, $password, $mail)";
+                       VALUES ($voornaam, $achternaam, $address, $password, $mail)";
+
 
 
     }
