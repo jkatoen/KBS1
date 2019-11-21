@@ -2,9 +2,9 @@
 function getURI()
 {
     if (!empty($_SERVER['HTTPS']) && ('on' === $_SERVER['HTTPS'])) {
-        return 'https://'.$_SERVER['HTTP_HOST' . '/index.php'] ;
+        return 'https://'.$_SERVER['HTTP_HOST'] . '/index.php';
     } else {
-        return 'http://'.$_SERVER['HTTP_HOST' . '/index.php'];
+        return 'http://'.$_SERVER['HTTP_HOST'] . '/index.php';
     }
 }
 

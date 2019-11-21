@@ -1,24 +1,9 @@
 <?php
 session_start();
-include_once("php/connectdb.php");
+include("PHP/connectdb.php");
 include("PHP/functions.php");
 
-$sql2 = "select stockgroupid, stockgroupname, count(*) from stockgroups
-         join  stockitemstockgroups using(stockgroupid)
-         join stockitems using(stockitemid)
-         group by stockgroupname";
-$result2 = mysqli_query($connection,$sql2);
-
-$category = isCategorySet();
-$_SESSION['category'] = $category;
-
-
-if (!empty($_SERVER['HTTPS']) && ('on' === $_SERVER['HTTPS'])) {
-    $uri = 'https://';
-} else {
-    $uri = 'http://';
-}
-$uri .= $_SERVER['HTTP_HOST'];
+$uri = getURI(); // Get uri of page
 
 ?>
 <!DOCTYPE html>
