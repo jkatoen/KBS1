@@ -17,14 +17,13 @@
 </head>
 
 <body>
-<form>
+<h2>Inloggen</h2><br><br>
+    <form>
     <input type="text" name="Naam"><br>
     <input type="password" name="passwd"><br>
     <input type="submit" name="verzenden"><br><br>
-    <p>
     <h3>Nog geen account? Maak dan nu een account aan.</h3><br>
         <a href="account.php"><h4>Account aanmaken</h4></a>
-    </p>
 </form>
 </body>
 <footer class="footer">
