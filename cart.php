@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<h1>MAND!!!</h1>
+<h1>Winkelwagenpagina</h1>
 </body>
 <footer class="footer">
     <h3>© Copyrights 2019 - World Wide Importers</h3>
