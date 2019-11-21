@@ -3,7 +3,6 @@
 session_start();
 include_once("PHP/connectdb.php");
 include("PHP/functions.php");
-
 ?>
 
 <!DOCTYPE html>

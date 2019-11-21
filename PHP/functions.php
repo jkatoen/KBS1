@@ -210,3 +210,54 @@ function DisplaySpecialItems($connection)
     }
     $stmt->close();
 }
+function setPage() {
+    if (isset($_GET['pageno'])) {
+        return $_GET['pageno'];
+    } else {
+        return 1;
+    }
+}
+function setRecordsPerPageSession(){
+    if (isset($_POST['rpp'])) {
+        $_SESSION['rpp'] = $_POST['rpp'];
+    } elseif (!isset($_SESSION['rpp'])) {
+        $_SESSION['rpp'] = 25;
+    }
+}
+
+function accountAanmaken() {
+    $voornaam = $_POST["voornaam"];
+    $achternaam = $_POST["achternaam"];
+    $mail = $_POST["emailadres"];
+    $volnaam = $voornaam.$achternaam;
+    $password = password_hash(($_POST["password"]), PASSWORD_DEFAULT);
+    var_dump($password);
+    var_dump($volnaam);
+    $sql1 = "INSERT INTO people (FullName, IsPermitted, HashedPassword, IsSystemUser, IsEmployee, IsSalesperson, EmailAddress)
+            VALUES ($volnaam, 1, $password, 1, 0, 0, $mail)";
+    /*$sql2 = "INSERT INTO "*/
+
+
+}
+function displayPagination($total_pages, $pageno) {
+    if ($total_pages >= 1) {
+        // First page button
+        $disabled = ($pageno <= 1) ? "disabled" : "";
+        print "<a href='?pageno=1'><button {$disabled}>First</button></a>";
+        // Previous page button
+        $disabled = ($pageno <= 1) ? "disabled" : "";
+        print "<a href=?pageno=".($pageno-1)."><button {$disabled}>Prev</button></a>";
+        // Next page button
+        $disabled = ($pageno >= $total_pages) ? "disabled" : "";
+        print "<a href=?pageno=".($pageno+1)."><button {$disabled}>Next</button></a>";
+        // Last page button
+        print "<a href=?pageno={$total_pages}><button {$disabled}>Last</button></a>";
+    }
+    print '
+    <form action="" method="post">
+        <a href="{getFullURI();}"><input type="submit" value="25" name="rpp"></a>
+        <a href="{getFullURI();}"><input type="submit" value="50" name="rpp"></a>
+        <a href="{getFullURI();}"><input type="submit" value="100" name="rpp"></a>
+    </form>';
+
+}
