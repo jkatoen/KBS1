@@ -23,6 +23,7 @@ $offset = ($pageno-1) * $no_of_records_per_page;
 $total_rows = getCountSearchPagination($connection, $searchinput);
 $total_pages = ceil($total_rows / $no_of_records_per_page);
 // End pagination
+
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +58,7 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
     <div class="midcolumn">
         <div class="card" class="product-container">
             <h2><?php echo "Gezocht op: {$searchinput}"; ?></h2>
-            <p><?php displaySearchRows($connection, $searchinput);?></p>
+            <p>Aantal gevonden producten: <?php echo displaySearchRows($connection, $searchinput);?></p>
 
             <!--Pagination and filter on amount per page-->
             <?php displayPagination($total_pages, $pageno); ?>

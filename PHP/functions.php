@@ -290,8 +290,8 @@ function displaySearchRows($connection, $searchinput)
                                             WHERE StockItemID = ? LIMIT 1 offset 1");
         $stmt->bind_param("s", $search);
         $stmt->execute();
-        $stmt->store_result();
-        print $stmt->num_rows;
+        $amountRows = $stmt->num_rows;
+        $stmt->close();
     } elseif ($intconvert == 0) {
         $search = "%$searchinput%";
         $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
@@ -301,7 +301,8 @@ function displaySearchRows($connection, $searchinput)
         $stmt->bind_param("s", $search);
         $stmt->execute();
         $stmt->store_result();
-        print $stmt->num_rows;
+        $amountRows = $stmt->num_rows;
         $stmt->close();
     }
+    return $amountRows;
 }
