@@ -237,7 +237,7 @@ function accountAanmaken($connection) {
         var_dump($password);
         var_dump($mail);
 
-    $stmt = $connection->prepare("INSERT INTO account (FirstName, LastName, Address, Password, Emailadress)
+    $stmt = $connection->prepare("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
                                   VALUES (?,?,?,?,?)") ;
     $stmt->bind_param("sssss", $voornaam, $achternaam, $address, $password, $mail);
     $stmt->execute();
@@ -250,7 +250,7 @@ function accountAanmaken($connection) {
     $stmt->fetch();
     print $StockGroupName;
 
-        $SQLACCOUNT = "INSERT INTO account (FirstName, LastName, Address, Password, Emailadress)
+        $SQLACCOUNT = "INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
                        VALUES ($voornaam, $achternaam, $address, $password, $mail)";
 
 
