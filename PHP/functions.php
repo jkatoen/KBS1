@@ -237,32 +237,17 @@ function accountAanmaken($connection) {
         $address = $_POST["adres"];
         $password = password_hash(($_POST["password"]), PASSWORD_DEFAULT);
         $mail = $_POST["emailadres"];
-        var_dump($voornaam);
-        var_dump($achternaam);
-        var_dump($address);
-        var_dump($password);
-        var_dump($mail);
 
-        $stmt = $connection->prepare("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
+        $stmt = $connection->prepare("INSERT INTO gebruikers
                                       VALUES (?,?,?,?,?)") ;
         $stmt->bind_param("sssss", $voornaam, $achternaam, $address, $password, $mail);
         $stmt->execute();
-        $stmt->store_result();
-        // Page not found moet nog toegevoegd worden!
-        if ($stmt->num_rows === 0) {
-            exit('404 Page Not Found');
-        }
-        $stmt->bind_result($voornaam, $achternaam, $address, $password, $mail);
-        while( $stmt->fetch()){
-            print("hallo");
-        };
+        printf("gelukt kil", $stmt->affected_rows);
         print "$voornaam, $achternaam, $address, $password, $mail";
         $stmt->close;
-            $SQLACCOUNT = "INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
-                           VALUES ($voornaam, $achternaam, $address, $password, $mail)";
-
-
-
+           /* $SQLACCOUNT = "INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
+                           VALUES ($voornaam, $achternaam, $address, $password, $mail)";*/
+        $connection->close();
     }
 function displayPagination($total_pages, $pageno) {
     if ($total_pages >= 1) {
