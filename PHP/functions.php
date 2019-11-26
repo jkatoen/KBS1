@@ -16,7 +16,7 @@ function isCategorySet() {
     if (isset($_GET['category'])) {
         return $_GET['category'];
     } elseif (!isset($_SESSION['category'])) {
-        echo "404 Page not found";
+        header('location:index.php');
         exit;
     } else {
         return $_SESSION['category'];
