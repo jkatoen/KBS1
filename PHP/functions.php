@@ -243,21 +243,23 @@ function accountAanmaken($connection) {
         var_dump($password);
         var_dump($mail);
 
-    $stmt = $connection->prepare("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
-                                  VALUES (?,?,?,?,?)") ;
-    $stmt->bind_param("sssss", $voornaam, $achternaam, $address, $password, $mail);
-    $stmt->execute();
-    $stmt->store_result();
-    // Page not found moet nog toegevoegd worden!
-    if ($stmt->num_rows === 0) {
-        exit('404 Page Not Found');
-    }
-    $stmt->bind_result($voornaam, $achternaam, $address, $password, $mail);
-    $stmt->fetch();
-    print "$voornaam, $achternaam, $address, $password, $mail";
-    $stmt->close;
-        $SQLACCOUNT = "INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
-                       VALUES ($voornaam, $achternaam, $address, $password, $mail)";
+        $stmt = $connection->prepare("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
+                                      VALUES (?,?,?,?,?)") ;
+        $stmt->bind_param("sssss", $voornaam, $achternaam, $address, $password, $mail);
+        $stmt->execute();
+        $stmt->store_result();
+        // Page not found moet nog toegevoegd worden!
+        if ($stmt->num_rows === 0) {
+            exit('404 Page Not Found');
+        }
+        $stmt->bind_result($voornaam, $achternaam, $address, $password, $mail);
+        while( $stmt->fetch()){
+            print("hallo");
+        };
+        print "$voornaam, $achternaam, $address, $password, $mail";
+        $stmt->close;
+            $SQLACCOUNT = "INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
+                           VALUES ($voornaam, $achternaam, $address, $password, $mail)";
 
 
 
