@@ -270,12 +270,14 @@ function displayPagination($total_pages, $pageno) {
         // Last page button
         print "<a href=?pageno={$total_pages}><button {$disabled}>Last</button></a>";
     }
-    print '
-    <form action="" method="post">
-        <a href="{getFullURI();}"><input type="submit" value="25" name="rpp"></a>
-        <a href="{getFullURI();}"><input type="submit" value="50" name="rpp"></a>
-        <a href="{getFullURI();}"><input type="submit" value="100" name="rpp"></a>
-    </form>';
+    if ($total_pages > 1 || $_SESSION['rpp'] != 25) {
+        print '
+            <form action="" method="post">
+                <a href="{getFullURI();}"><input type="submit" value="25" name="rpp"></a>
+                <a href="{getFullURI();}"><input type="submit" value="50" name="rpp"></a>
+                <a href="{getFullURI();}"><input type="submit" value="100" name="rpp"></a>
+            </form>';
+    }
 }
 
 function displaySearchRows($connection, $searchinput)
