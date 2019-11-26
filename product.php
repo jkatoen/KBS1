@@ -1,5 +1,5 @@
 <?php
-include_once("php/connectdb.php");
+include("php/connectdb.php");
 include ("PHP/functions.php");
 ?>
 <!DOCTYPE html>
