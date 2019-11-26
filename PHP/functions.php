@@ -24,18 +24,24 @@ function isCategorySet() {
 }
 
 function getCountProductsPagination($connection, $category) {
+    $total_rows = 0;
     $total_pages_sql = "SELECT COUNT(*) FROM stockitemstockgroups 
                             JOIN stockitems USING (StockItemID) 
                             WHERE StockGroupId = {$category}";
     $result = mysqli_query($connection, $total_pages_sql);
-    $total_rows = mysqli_fetch_array($result)[0];
+    if ($result) {
+        $total_rows = mysqli_fetch_array($result)[0];
+    }
     return $total_rows;
 }
 function getCountSearchPagination($connection, $searchinput) {
+    $total_rows = 0;
     $total_pages_sql = "SELECT COUNT(*) FROM stockitems 
                             WHERE SearchDetails LIKE '%{$searchinput}%'";
     $result = mysqli_query($connection, $total_pages_sql);
-    $total_rows = mysqli_fetch_array($result)[0];
+    if ($result) {
+        $total_rows = mysqli_fetch_array($result)[0];
+    }
     return $total_rows;
 }
 
