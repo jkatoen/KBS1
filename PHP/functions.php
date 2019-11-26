@@ -24,18 +24,24 @@ function isCategorySet() {
 }
 
 function getCountProductsPagination($connection, $category) {
+    $total_rows = 0;
     $total_pages_sql = "SELECT COUNT(*) FROM stockitemstockgroups 
                             JOIN stockitems USING (StockItemID) 
                             WHERE StockGroupId = {$category}";
     $result = mysqli_query($connection, $total_pages_sql);
-    $total_rows = mysqli_fetch_array($result)[0];
+    if ($result) {
+        $total_rows = mysqli_fetch_array($result)[0];
+    }
     return $total_rows;
 }
 function getCountSearchPagination($connection, $searchinput) {
+    $total_rows = 0;
     $total_pages_sql = "SELECT COUNT(*) FROM stockitems 
                             WHERE SearchDetails LIKE '%{$searchinput}%'";
     $result = mysqli_query($connection, $total_pages_sql);
-    $total_rows = mysqli_fetch_array($result)[0];
+    if ($result) {
+        $total_rows = mysqli_fetch_array($result)[0];
+    }
     return $total_rows;
 }
 
@@ -270,12 +276,14 @@ function displayPagination($total_pages, $pageno) {
         // Last page button
         print "<a href=?pageno={$total_pages}><button {$disabled}>Last</button></a>";
     }
-    print '
-    <form action="" method="post">
-        <a href="{getFullURI();}"><input type="submit" value="25" name="rpp"></a>
-        <a href="{getFullURI();}"><input type="submit" value="50" name="rpp"></a>
-        <a href="{getFullURI();}"><input type="submit" value="100" name="rpp"></a>
-    </form>';
+    if ($total_pages > 1 || $_SESSION['rpp'] != 25) {
+        print '
+            <form action="" method="post">
+                <a href="{getFullURI();}"><input type="submit" value="25" name="rpp"></a>
+                <a href="{getFullURI();}"><input type="submit" value="50" name="rpp"></a>
+                <a href="{getFullURI();}"><input type="submit" value="100" name="rpp"></a>
+            </form>';
+    }
 }
 
 function displaySearchRows($connection, $searchinput)
