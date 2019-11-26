@@ -246,10 +246,10 @@ function accountAanmaken($connection) {
     if ($stmt->num_rows === 0) {
         exit('404 Page Not Found');
     }
-    $stmt->bind_result($StockGroupName);
+    $stmt->bind_result($voornaam, $achternaam, $address, $password, $mail);
     $stmt->fetch();
-    print $StockGroupName;
-
+    print "$voornaam, $achternaam, $address, $password, $mail";
+    $stmt->close;
         $SQLACCOUNT = "INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
                        VALUES ($voornaam, $achternaam, $address, $password, $mail)";
 
