@@ -285,13 +285,9 @@ function accountAanmaken($connection) {
         $stmt = $connection->prepare("INSERT INTO gebruikers
                                       VALUES (?,?,?,?,?,?)");
         $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
-
-        $voornaam = $_POST["voornaam"];
-        $achternaam = $_POST["achternaam"];
-        $address = $_POST["adres"];
-        $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
-        $mail = $_POST["emailadres"];
+        
         $stmt->execute();
+
         printf("gelukt kil ", $stmt->affected_rows);
         print "$voornaam, $achternaam, $address, $ww, $mail";
         $stmt->close();
