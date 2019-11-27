@@ -9,7 +9,7 @@ $uri = getURI(); // Get uri of page
 //include ("header2.php");
 //}
 //else {
-//include ("header.php");
+include ("header.php");
 //}
 ?>
 
