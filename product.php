@@ -64,16 +64,12 @@ include("header.php");
         $StockGroupID_row = mysqli_fetch_assoc($StockGroupID_result);
         $StockGroupID = $StockGroupID_row['StockGroupId'];
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            /*if (!empty($row['Photo'])) {
-                echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $row['Photo'] )."'/>";
-            } else {
-                echo "<img style='height: 100px; width:100px;' src='IMG/category{$StockGroupID}.png'/>";
-            }*/
+            $hiddenid = $row['StockItemId'];
+            $hiddenname = $row['StockItemName'];
+            $hiddenprice = $row['UnitPrice'];
             $print_name = "<h2>" . "Product: " . $row["StockItemName"] . "</h2>" . "<br>";
             $print_marketingcomments = "Aantekening: " . $row["MarketingComments"] . "<br>";
             $print_price = "<h1>" . "Prijs: $" . number_format(round(($row['UnitPrice'] + (($row['TaxRate'] / 100) * $row['UnitPrice'])), 2), 2) . "</h1>" . "<br>";
-            $print_photo = $row["Photo"] . "<br>";
-            $print_quantity = "";
             if ($row["QuantityOnHand"] > 1000) {
                 $print_quantity =  "Ruim op vooraad";
             } else {
@@ -82,26 +78,28 @@ include("header.php");
 
         }
         ?>
-        <div class="card">
-            <div class="product-container">
-                <?php
-                echo $print_name;
-                ?>
-            </div>
-            <div class="productleft">
-                <iframe width="600" height="337" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <div class="product-right-info">
-            <?php
-            echo $print_price;
-            echo $print_marketingcomments;
-            echo $print_photo;
-            echo $print_quantity;
+                <div class="card">
+                    <form method="post" action="cart.php?action=add&id=<?php echo $hiddenid; ?>">
+                            <h4 class="product-container"><?php echo $print_name; ?></h4>
 
-            ?>
-                <a href=""><div class="product-right-add-to-cart">
-                        Voeg aan winkelwagen toe
-                    </div></a>
-            </div>
+                        <div class="productleft">
+                            <iframe width="600" height="337" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="product-right-info">
+                             <?php echo $print_price;
+                              echo $print_marketingcomments;
+                              echo $print_quantity;?>
+
+                            <input type="text" name="quantity" value="1" class="form-control" />
+
+                            <input type="hidden" name="hidden_name" value="<?php echo $hiddenname; ?>" />
+
+                            <input type="hidden" name="hidden_price" value="<?php echo $hiddenprice; ?>" />
+
+                            <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />
+                        </div>
+                    </form>
+                </div>
                 <h2 style="text-align:left">Afbeeldingen</h2>
                 <div class="container">
                     <div class="mySlides">
