@@ -64,7 +64,6 @@ include("header.php");
         $StockGroupID_result = mysqli_stmt_get_result($StockGroupID_stmt);
         $StockGroupID_row = mysqli_fetch_assoc($StockGroupID_result);
         $StockGroupID = $StockGroupID_row['StockGroupId'];
-        $row = mysqli_fetch_array($result);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             /*if (!empty($row['Photo'])) {
                 echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $row['Photo'] )."'/>";
