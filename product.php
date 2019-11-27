@@ -1,7 +1,11 @@
 <?php
-include_once("php/connectdb.php");
-include ("PHP/functions.php");
+session_start();
+include("PHP/connectdb.php");
+include("PHP/functions.php");
+include("header.php");
+
 ?>
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +24,8 @@ include ("PHP/functions.php");
         </form>
     </div>
 </head>
+=======
+>>>>>>> 7e1b3dfc1f46a0a19624957d4c5225124eaf8632
 <body>
 <script>
     var slideIndex = 1;
@@ -50,6 +56,7 @@ include ("PHP/functions.php");
         dots[slideIndex-1].className += " active";
         captionText.innerHTML = dots[slideIndex-1].alt;
     }
+
 </script>
 </div>
 <div class="row">
@@ -64,13 +71,14 @@ include ("PHP/functions.php");
     <div class="midcolumn">
         <?php
         $sql = "SELECT StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, Photo, SupplierName, QuantityOnHand
-                       FROM stockitems Stock
+                       FROM stockitems
                        JOIN suppliers USING (SupplierID)
                        JOIN stockitemholdings USING (StockItemID)
                        WHERE StockItemID = {$_GET['id']}";
         $statement = mysqli_prepare($connection, $sql);
         mysqli_stmt_execute($statement);
         $result = mysqli_stmt_get_result($statement);
+
         $StockGroupID_sql = "SELECT StockGroupId FROM stockitemstockgroups WHERE StockItemId = {$_GET['id']}";
         $StockGroupID_stmt = mysqli_prepare($connection, $StockGroupID_sql);
         mysqli_stmt_execute($StockGroupID_stmt);
@@ -93,7 +101,6 @@ include ("PHP/functions.php");
             } else {
                 $print_quantity = "Er zijn  " . $row["QuantityOnHand"] . " producten op voorraad" . "<br>";
             }
-
         }
         ?>
         <div class="card">
@@ -113,9 +120,7 @@ include ("PHP/functions.php");
 
             ?>
                 <a href=""><div class="product-right-add-to-cart">
-                    <?php
-                     echo "Voeg aan winkelwagen toe";
-                    ?>
+                        Voeg aan winkelwagen toe
                     </div></a>
             </div>
                 <h2 style="text-align:left">Afbeeldingen</h2>
@@ -147,7 +152,6 @@ include ("PHP/functions.php");
                         <div class="column">
                             <img class="demo cursor" src="IMG/Dichtbij.jpg" style="width:50%" onclick="currentSlide(3)" alt="Borstzakje">
                         </div>
-
             </div>
 
         </div>

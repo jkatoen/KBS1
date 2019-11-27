@@ -1,7 +1,7 @@
 <?php
 session_start();
-include("PHP/connectdb.php");
-include("PHP/functions.php");
+include ("PHP/connectdb.php");
+include ("PHP/functions.php");
 
 // Setting category id, from get or session
 $category = isCategorySet();
@@ -17,25 +17,9 @@ $offset = ($pageno-1) * $no_of_records_per_page;
 $total_rows = getCountProductsPagination($connection, $category);
 $total_pages = ceil($total_rows / $no_of_records_per_page);
 // End pagination
-?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
-    <div class="header">
-        <a href="index.php"><img src="IMG/wwi-logo.png"></a>
-    </div>
-    <div class="topnav">
-        <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="56"></a>
-        <a><h3>Login</h3></a>
-        <a><h3>Contact</h3></a>
-        <form class="nav-search" method="get" action="search.php">
-            <input class="text" type="text" name="searchinput">
-            <input type="submit" name="submitinput" value="Search">
-        </form>
-    </div>
-</head>
+include ("header.php");
+?>
 
 <body>
 <div class="row">
