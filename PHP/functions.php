@@ -282,19 +282,19 @@ function accountAanmaken($connection) {
         $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
         $mail = $_POST["emailadres"];
 
-        $stmt = $connection->prepare("INSERT INTO gebruikers
-                                      VALUES (?,?,?,?,?,?)");
-        $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
+        if($stmt = $connection->prepare("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+                                      VALUES(?,?,?,?,?)")){
+            $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
 
-        $stmt->execute();
+            $stmt->execute();
 
-        printf("gelukt kil ", $stmt->affected_rows);
-        print "$voornaam, $achternaam, $address, $ww, $mail";
-        $stmt->close();
-           /* $SQLACCOUNT = "INSERT INTO gebruikers (?, FirstName, LastName, Address, Password, Emailadress)
-                           VALUES ($voornaam, $achternaam, $address, $password, $mail)";*/
-        $connection->close();
-    }
+            printf("Registreren gelukt!", $stmt->affected_rows);
+            $stmt->close();
+            $connection->close();
+    }   else{
+            $error = $connection->errno . ' ' . $connection->error;
+          echo $error;
+        }}
 
 function displayPagination($total_pages, $pageno) {
     if ($total_pages >= 1) {
@@ -325,7 +325,8 @@ function displayPagination($total_pages, $pageno) {
  * @param $searchinput
  * @return mixed
  */
-function displaySearchRows($connection, $searchinput) {
+function displaySearchRows($connection, $searchinput)
+{
     $intconvert = (int)$searchinput;
     if ($intconvert != 0) {
         $search = "$searchinput";
