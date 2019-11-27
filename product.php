@@ -49,15 +49,15 @@ include("header.php");
     </div>
     <div class="midcolumn">
         <?php
-        $sql = "SELECT StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, Photo, SupplierName, QuantityOnHand, StockImagePath
+        $sql = "SELECT StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, Photo, SupplierName, QuantityOnHand
                        FROM stockitems
                        JOIN suppliers USING (SupplierID)
                        JOIN stockitemholdings USING (StockItemID)
-                       JOIN stockimage USING (StockItemID)
                        WHERE StockItemID = {$_GET['id']}";
         $statement = mysqli_prepare($connection, $sql);
         mysqli_stmt_execute($statement);
         $result = mysqli_stmt_get_result($statement);
+
         $StockGroupID_sql = "SELECT StockGroupId FROM stockitemstockgroups WHERE StockItemId = {$_GET['id']}";
         $StockGroupID_stmt = mysqli_prepare($connection, $StockGroupID_sql);
         mysqli_stmt_execute($StockGroupID_stmt);
