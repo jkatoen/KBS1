@@ -285,7 +285,7 @@ function accountAanmaken($connection) {
         $stmt = $connection->prepare("INSERT INTO gebruikers
                                       VALUES (?,?,?,?,?,?)");
         $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
-        
+
         $stmt->execute();
 
         printf("gelukt kil ", $stmt->affected_rows);
@@ -295,11 +295,7 @@ function accountAanmaken($connection) {
                            VALUES ($voornaam, $achternaam, $address, $password, $mail)";*/
         $connection->close();
     }
-
-/**
- * @param $total_pages
- * @param $pageno
- */
+    
 function displayPagination($total_pages, $pageno) {
     if ($total_pages >= 1) {
         // First page button
