@@ -44,8 +44,7 @@ function getCountSearchPagination($connection, $searchinput) {
     return $total_rows;
 }
 
-function displayLeftCategories($connection)
-{
+function displayLeftCategories($connection) {
     $sql2 = "select StockGroupId, stockgroupname, count(*) from stockgroups
          join  stockitemstockgroups using(stockgroupid)
          join stockitems using(stockitemid)
@@ -61,6 +60,7 @@ function displayLeftCategories($connection)
         print("</div>");
     }
 }
+
 function displayCategoryName($connection, $category) {
     $stmt = $connection->prepare("SELECT StockGroupName FROM stockgroups WHERE StockGroupID = ?") ;
     $stmt->bind_param("i", $category);
@@ -75,8 +75,7 @@ function displayCategoryName($connection, $category) {
     print $StockGroupName;
 }
 
-function displayCategoryProducts($connection, $category, $offset, $no_of_records_per_page)
-{
+function displayCategoryProducts($connection, $category, $offset, $no_of_records_per_page) {
     $stmt = $connection->prepare("SELECT StockItemName, UnitPrice, TaxRate, StockItemID, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID) 
                                             WHERE StockGroupId = ?
@@ -104,8 +103,7 @@ function displayCategoryProducts($connection, $category, $offset, $no_of_records
     $stmt->close();
 }
 
-function displayAllProducts($connection)
-{
+function displayAllProducts($connection) {
     $stmt = $connection->prepare("SELECT StockItemName, UnitPrice, TaxRate, StockItemID, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
                                             GROUP BY StockItemId");
@@ -131,13 +129,10 @@ function displayAllProducts($connection)
     $stmt->close();
 }
 
-function displaySearchProducts($connection, $searchinput, $offset, $no_of_records_per_page)
-{
-
-
+function displaySearchProducts($connection, $searchinput, $offset, $no_of_records_per_page) {
         $intconvert = (int)$searchinput;
 
-        if($intconvert != 0){
+        if($intconvert != 0) {
             $search = "$searchinput";
             $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
@@ -163,7 +158,7 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
                 print("</div></a>");
             }
             $stmt->close();
-        }elseif($intconvert ==0){
+        } elseif($intconvert ==0) {
             $search = "%$searchinput%";
             $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
@@ -189,9 +184,6 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
             }
             $stmt->close();
         }
-
-
-
 }
 
 function DisplaySpecialItems($connection)
