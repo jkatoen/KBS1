@@ -19,7 +19,7 @@ include ("header.php");
     <div class="midcolumn">
         <div class="inlog" class="inlog">
             <h1>Account aanmaken</h1>
-            <form action="account.php" method="POST">
+            <form action="index.php" method="POST">
                 Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
                 Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
                 Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>

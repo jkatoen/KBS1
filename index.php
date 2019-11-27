@@ -5,7 +5,12 @@ include("PHP/functions.php");
 
 $uri = getURI(); // Get uri of page
 
+if () {
+include ("header2.php");
+}
+else {
 include ("header.php");
+}
 ?>
 
 <body>
