@@ -145,7 +145,8 @@ img {
     text-align: center;
     margin: 5px;
     padding: 10px;
-    height: 350px;
+    height: 290px;
+    width: 250px;
 }
 .product-item-price{
     background-color: lightgray;
