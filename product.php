@@ -49,10 +49,11 @@ include("header.php");
     </div>
     <div class="midcolumn">
         <?php
-        $sql = "SELECT StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, Photo, SupplierName, QuantityOnHand
-                       FROM stockitems Stock
+        $sql = "SELECT StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, Photo, SupplierName, QuantityOnHand, StockImagePath
+                       FROM stockitems
                        JOIN suppliers USING (SupplierID)
                        JOIN stockitemholdings USING (StockItemID)
+                       JOIN stockimage USING (StockItemID)
                        WHERE StockItemID = {$_GET['id']}";
         $statement = mysqli_prepare($connection, $sql);
         mysqli_stmt_execute($statement);
@@ -79,7 +80,6 @@ include("header.php");
             } else {
                 $print_quantity = "Er zijn  " . $row["QuantityOnHand"] . " producten op voorraad" . "<br>";
             }
-
         }
         ?>
         <div class="card">
