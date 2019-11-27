@@ -24,7 +24,6 @@ include ("header.php");
             <div class="product-container">
                 <?php
                 DisplaySpecialItems($connection);
-
                 ?>
             </div>
         </div>
