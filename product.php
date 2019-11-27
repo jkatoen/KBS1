@@ -50,13 +50,14 @@ include("header.php");
     <div class="midcolumn">
         <?php
         $sql = "SELECT StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, Photo, SupplierName, QuantityOnHand
-                       FROM stockitems Stock
+                       FROM stockitems
                        JOIN suppliers USING (SupplierID)
                        JOIN stockitemholdings USING (StockItemID)
                        WHERE StockItemID = {$_GET['id']}";
         $statement = mysqli_prepare($connection, $sql);
         mysqli_stmt_execute($statement);
         $result = mysqli_stmt_get_result($statement);
+
         $StockGroupID_sql = "SELECT StockGroupId FROM stockitemstockgroups WHERE StockItemId = {$_GET['id']}";
         $StockGroupID_stmt = mysqli_prepare($connection, $StockGroupID_sql);
         mysqli_stmt_execute($StockGroupID_stmt);
@@ -75,7 +76,6 @@ include("header.php");
             } else {
                 $print_quantity = "Er zijn  " . $row["QuantityOnHand"] . " producten op voorraad" . "<br>";
             }
-
         }
         ?>
                 <div class="card">
@@ -104,15 +104,15 @@ include("header.php");
                 <div class="container">
                     <div class="mySlides">
                         <div class="numbertext">1 / 4</div>
-                        <img src="IMG/voorkant.jpg" style="width:20%">
+                        <img src="IMG/voorkant.jpg" style="width:40%">
                     </div>
                     <div class="mySlides">
                         <div class="numbertext">2 / 4</div>
-                        <img src="IMG/achterkant.jpg" style="width:20%">
+                        <img src="IMG/achterkant.jpg" style="width:40%">
                     </div>
                     <div class="mySlides">
                         <div class="numbertext">3 / 4</div>
-                        <img src="IMG/Dichtbij.jpg" style="width:20%">
+                        <img src="IMG/Dichtbij.jpg" style="width:40%">
                     </div>
                     <a class="prev" onclick="plusSlides(-1)">❮</a>
                     <a class="next" onclick="plusSlides(1)">❯</a>

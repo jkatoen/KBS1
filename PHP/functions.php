@@ -1,4 +1,10 @@
 <?php
+/**
+ * Gets the server link and returns it, in this case it also returns going back to index.php
+ * Either HTTP or HTTPS
+ * Frans Tuinstra
+ * @return string
+ */
 function getURI() {
     if (!empty($_SERVER['HTTPS']) && ('on' === $_SERVER['HTTPS'])) {
         return 'https://'.$_SERVER['HTTP_HOST'] . '/index.php';
@@ -7,10 +13,23 @@ function getURI() {
     }
 }
 
+/**
+ * Gets the full server link and returns it, this including things like 'categoryid=1'
+ * Either HTTP or HTTPS
+ * Frans Tuinstra
+ * @return string
+ */
 function getFullURI() {
     return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 }
 
+/**
+ * Check if category is set to display category products,
+ * if none is set it'll redirect to the home page,
+ * else it will check for the uri and will change accordingly
+ * Frans Tuinstra
+ * @return mixed
+ */
 function isCategorySet() {
     if (isset($_GET['category'])) {
         return $_GET['category'];
@@ -22,6 +41,37 @@ function isCategorySet() {
     }
 }
 
+/**
+ * Pagination sets the page
+ * @return int|mixed
+ */
+function setPage() {
+    if (isset($_GET['pageno'])) {
+        return $_GET['pageno'];
+    } else {
+        return 1;
+    }
+}
+
+/**
+ * Pagination sets the amount of found items each page
+ */
+function setRecordsPerPageSession(){
+    if (isset($_POST['rpp'])) {
+        $_SESSION['rpp'] = $_POST['rpp'];
+    } elseif (!isset($_SESSION['rpp'])) {
+        $_SESSION['rpp'] = 25;
+    }
+}
+
+/**
+ * Pagination returns total found rows to adjust pagination
+ * Can't we just make this into 1 function with getCountSearchPagination?
+ * Frans Tuinstra
+ * @param $connection
+ * @param $category
+ * @return int
+ */
 function getCountProductsPagination($connection, $category) {
     $total_rows = 0;
     $total_pages_sql = "SELECT COUNT(*) FROM stockitemstockgroups 
@@ -33,6 +83,15 @@ function getCountProductsPagination($connection, $category) {
     }
     return $total_rows;
 }
+
+/**
+ * Pagination returns total found rows to adjust pagination
+ * Can't we just make this into 1 function with getCountProductsPagination?
+ * Frans Tuinstra
+ * @param $connection
+ * @param $searchinput
+ * @return int
+ */
 function getCountSearchPagination($connection, $searchinput) {
     $total_rows = 0;
     $total_pages_sql = "SELECT COUNT(*) FROM stockitems 
@@ -44,8 +103,12 @@ function getCountSearchPagination($connection, $searchinput) {
     return $total_rows;
 }
 
-function displayLeftCategories($connection)
-{
+/**
+ * Displays the categories in the left-hand menu
+ * Bas Hendriks
+ * @param $connection
+ */
+function displayLeftCategories($connection) {
     $sql2 = "select StockGroupId, stockgroupname, count(*) from stockgroups
          join  stockitemstockgroups using(stockgroupid)
          join stockitems using(stockitemid)
@@ -61,6 +124,13 @@ function displayLeftCategories($connection)
         print("</div>");
     }
 }
+
+/**
+ * Displays the current category name for the category.php page
+ * Frans Tuinstra
+ * @param $connection
+ * @param $category
+ */
 function displayCategoryName($connection, $category) {
     $stmt = $connection->prepare("SELECT StockGroupName FROM stockgroups WHERE StockGroupID = ?") ;
     $stmt->bind_param("i", $category);
@@ -75,8 +145,15 @@ function displayCategoryName($connection, $category) {
     print $StockGroupName;
 }
 
-function displayCategoryProducts($connection, $category, $offset, $no_of_records_per_page)
-{
+/**
+ * Displays products from set categories with adjusted price (incl tax)
+ * Frans Tuinstra, Julian
+ * @param $connection
+ * @param $category
+ * @param $offset
+ * @param $no_of_records_per_page
+ */
+function displayCategoryProducts($connection, $category, $offset, $no_of_records_per_page) {
     $stmt = $connection->prepare("SELECT StockItemName, UnitPrice, TaxRate, StockItemID, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID) 
                                             WHERE StockGroupId = ?
@@ -104,40 +181,19 @@ function displayCategoryProducts($connection, $category, $offset, $no_of_records
     $stmt->close();
 }
 
-function displayAllProducts($connection)
-{
-    $stmt = $connection->prepare("SELECT StockItemName, UnitPrice, TaxRate, StockItemID, StockGroupID, Photo FROM stockitemstockgroups 
-                                            JOIN stockitems USING (StockItemID)
-                                            GROUP BY StockItemId");
-    $stmt->execute();
-    $stmt->store_result();
-    // Page not found moet nog toegevoegd worden!
-    if ($stmt->num_rows === 0) {
-        exit('404 Page Not Found');
-    }
-    $stmt->bind_result($StockItemName, $UnitPrice, $TaxRate, $StockItemID, $StockGroupID, $Photo);
-
-    while ($stmt->fetch()) {
-        print("<a class='logolink' href='product.php?id=$StockItemID'><div class='product-item'> ");
-        if (!empty($Photo)) {
-            echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
-        } else {
-            echo "<img style='height: 100px; width:100px;' src='IMG/category{$StockGroupID}.png'/>";
-        }
-        //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-        print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
-        print("</div></a>");
-    }
-    $stmt->close();
-}
-
-function displaySearchProducts($connection, $searchinput, $offset, $no_of_records_per_page)
-{
-
-
+/**
+ * Displays found products on search.php from the $searchinput done by the user
+ * Also checks if searching for articleid (is integer) or just keywords (string)
+ * Bas Hendriks
+ * @param $connection
+ * @param $searchinput
+ * @param $offset
+ * @param $no_of_records_per_page
+ */
+function displaySearchProducts($connection, $searchinput, $offset, $no_of_records_per_page) {
         $intconvert = (int)$searchinput;
 
-        if($intconvert != 0){
+        if($intconvert != 0) {
             $search = "$searchinput";
             $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
@@ -163,7 +219,7 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
                 print("</div></a>");
             }
             $stmt->close();
-        }elseif($intconvert ==0){
+        } elseif($intconvert ==0) {
             $search = "%$searchinput%";
             $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
@@ -189,11 +245,13 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
             }
             $stmt->close();
         }
-
-
-
 }
 
+/**
+ * Displays on deal items on home page
+ * Bas Hendriks
+ * @param $connection
+ */
 function DisplaySpecialItems($connection)
 {
     //$stmt = $connection->prepare("SELECT StockItemName, UnitPrice, StockItemId  FROM stockitems limit $offset, $no_of_records_per_page");
@@ -215,39 +273,29 @@ function DisplaySpecialItems($connection)
     }
     $stmt->close();
 }
-function setPage() {
-    if (isset($_GET['pageno'])) {
-        return $_GET['pageno'];
-    } else {
-        return 1;
-    }
-}
-function setRecordsPerPageSession(){
-    if (isset($_POST['rpp'])) {
-        $_SESSION['rpp'] = $_POST['rpp'];
-    } elseif (!isset($_SESSION['rpp'])) {
-        $_SESSION['rpp'] = 25;
-    }
-}
+
 
 function accountAanmaken($connection) {
         $voornaam = $_POST["voornaam"];
         $achternaam = $_POST["achternaam"];
         $address = $_POST["adres"];
-        $password = password_hash(($_POST["password"]), PASSWORD_DEFAULT);
+        $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
         $mail = $_POST["emailadres"];
 
-        $stmt = $connection->prepare("INSERT INTO gebruikers
-                                      VALUES (?,?,?,?,?)") ;
-        $stmt->bind_param("sssss", $voornaam, $achternaam, $address, $password, $mail);
-        $stmt->execute();
-        printf("gelukt kil", $stmt->affected_rows);
-        print "$voornaam, $achternaam, $address, $password, $mail";
-        $stmt->close;
-           /* $SQLACCOUNT = "INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadress)
-                           VALUES ($voornaam, $achternaam, $address, $password, $mail)";*/
-        $connection->close();
-    }
+        if($stmt = $connection->prepare("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+                                      VALUES(?,?,?,?,?)")){
+            $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
+
+            $stmt->execute();
+
+            printf("Registreren gelukt!", $stmt->affected_rows);
+            $stmt->close();
+            $connection->close();
+    }   else{
+            $error = $connection->errno . ' ' . $connection->error;
+          echo $error;
+        }}
+
 function displayPagination($total_pages, $pageno) {
     if ($total_pages >= 1) {
         // First page button
@@ -272,31 +320,31 @@ function displayPagination($total_pages, $pageno) {
     }
 }
 
+/**
+ * @param $connection
+ * @param $searchinput
+ * @return mixed
+ */
 function displaySearchRows($connection, $searchinput)
 {
     $intconvert = (int)$searchinput;
-
     if ($intconvert != 0) {
         $search = "$searchinput";
         $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
                                             JOIN stockgroups USING (StockGroupID) 
                                             WHERE StockItemID = ? LIMIT 1 offset 1");
-        $stmt->bind_param("s", $search);
-        $stmt->execute();
-        $amountRows = $stmt->num_rows;
-        $stmt->close();
     } elseif ($intconvert == 0) {
         $search = "%$searchinput%";
         $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
                                             JOIN stockgroups USING (StockGroupID) 
                                             WHERE searchdetails LIKE ? group by stockitemid");
-        $stmt->bind_param("s", $search);
-        $stmt->execute();
-        $stmt->store_result();
-        $amountRows = $stmt->num_rows;
-        $stmt->close();
     }
+    $stmt->bind_param("s", $search);
+    $stmt->execute();
+    $stmt->store_result();
+    $amountRows = $stmt->num_rows;
+    $stmt->close();
     return $amountRows;
 }
