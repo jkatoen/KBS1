@@ -30,8 +30,9 @@ include ("header.php");
             <div class="product-container">
                 <?php
                 if (isset($_POST['register'])) {
-                    echo "dsf";
-                    if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["password"]) && isset($_POST["emailadres"])) {
+                    print_r($_POST);
+                    if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["ww"]) && isset($_POST["emailadres"])) {
+                        echo "dsf";
                         accountAanmaken($connection);
                     }
                 }
