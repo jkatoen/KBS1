@@ -49,10 +49,11 @@ include("header.php");
     </div>
     <div class="midcolumn">
         <?php
-        $sql = "SELECT StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, Photo, SupplierName, QuantityOnHand
-                       FROM stockitems Stock
+        $sql = "SELECT StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, Photo, SupplierName, QuantityOnHand, StockImagePath
+                       FROM stockitems
                        JOIN suppliers USING (SupplierID)
                        JOIN stockitemholdings USING (StockItemID)
+                       JOIN stockimage USING (StockItemID)
                        WHERE StockItemID = {$_GET['id']}";
         $statement = mysqli_prepare($connection, $sql);
         mysqli_stmt_execute($statement);
@@ -63,6 +64,7 @@ include("header.php");
         $StockGroupID_result = mysqli_stmt_get_result($StockGroupID_stmt);
         $StockGroupID_row = mysqli_fetch_assoc($StockGroupID_result);
         $StockGroupID = $StockGroupID_row['StockGroupId'];
+        $row = mysqli_fetch_array($result);
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             /*if (!empty($row['Photo'])) {
                 echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $row['Photo'] )."'/>";
@@ -79,7 +81,6 @@ include("header.php");
             } else {
                 $print_quantity = "Er zijn  " . $row["QuantityOnHand"] . " producten op voorraad" . "<br>";
             }
-
         }
         ?>
         <div class="card">
