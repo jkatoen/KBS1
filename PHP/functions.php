@@ -234,12 +234,12 @@ function accountAanmaken($connection) {
         $voornaam = $_POST["voornaam"];
         $achternaam = $_POST["achternaam"];
         $address = $_POST["adres"];
-        $password = password_hash(($_POST["password"]), PASSWORD_DEFAULT);
+        $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
         $mail = $_POST["emailadres"];
 
         $stmt = $connection->prepare("INSERT INTO gebruikers
                                       VALUES (?,?,?,?,?)") ;
-        $stmt->bind_param("sssss", $voornaam, $achternaam, $address, $password, $mail);
+        $stmt->bind_param("sssss", $voornaam, $achternaam, $address, $ww, $mail);
         $stmt->execute();
         printf("gelukt kil", $stmt->affected_rows);
         print "$voornaam, $achternaam, $address, $password, $mail";
