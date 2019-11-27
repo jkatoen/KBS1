@@ -295,7 +295,7 @@ function accountAanmaken($connection) {
                            VALUES ($voornaam, $achternaam, $address, $password, $mail)";*/
         $connection->close();
     }
-    
+
 function displayPagination($total_pages, $pageno) {
     if ($total_pages >= 1) {
         // First page button
