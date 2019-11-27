@@ -15,7 +15,7 @@ include ("header.php");
 </form>
 </div>
 <div class="login2"><h3>Nog geen account? Maak dan nu een account aan.</h3>
-    <a href="account.php"><h4>Account aanmaken</h4></a></div>
+    <a href="accaanmaken.php"><h4>Account aanmaken</h4></a></div>
 </body>
 <footer class="footer">
     <h3>© Copyrights 2019 - World Wide Importers</h3>
