@@ -8,7 +8,7 @@ include ("header.php");
 <body>
 <div class="login">
 <h2>Inloggen</h2><br>
-    <form>
+    <form method="get" action="">
     <input type="text" name="Naam"><br><br>
     <input type="password" name="passwd"><br><br>
     <input type="submit" name="verzenden"><br><br>
