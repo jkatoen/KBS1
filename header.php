@@ -1,3 +1,13 @@
+<?php
+// Als pagina niet search.php is hoeft er geen sessie met search zijn
+if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') !== false) {
+    if (isset($_SESSION['searchinput'])) {
+        unset($_SESSION['searchinput']);
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

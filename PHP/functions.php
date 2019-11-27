@@ -1,6 +1,5 @@
 <?php
-function getURI()
-{
+function getURI() {
     if (!empty($_SERVER['HTTPS']) && ('on' === $_SERVER['HTTPS'])) {
         return 'https://'.$_SERVER['HTTP_HOST'] . '/index.php';
     } else {
