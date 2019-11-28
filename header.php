@@ -17,8 +17,8 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
     </div>
     <div class="topnav">
         <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
-        <a href="account.php"><h3>Account aanmaken</h3></a>
-        <a href="login.php"><h3>Login</h3></a>
+        <a href="login.php"><h3>Log in</h3></a>
+        <a href="accaanmaken.php"><h3>Account aanmaken</h3></a>
         <a href="contact.php"><h3>Contact</h3></a>
         <form class="nav-search" method="get" action="search.php">
             <input class="text" type="text" name="searchinput">
