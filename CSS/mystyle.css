@@ -131,10 +131,11 @@ img {
 }
 
 .product-container{
-    display: inline-grid ;
+    display: grid ;
     grid-template-columns: auto auto auto auto ;
-    padding: 10px;
+    padding: 5px;
 }
+
 .product-container :hover{
     background-color: lightblue;
 }
@@ -142,7 +143,9 @@ img {
     background-color: #ddd;
     border: 1px solid black;
     text-align: center;
+    margin: 5px;
     padding: 10px;
+    height: 350px;
 }
 .product-item-price{
     background-color: lightgray;
@@ -216,7 +219,7 @@ img {
 
 .midcolumn {
     float:left;
-    width: 50%;
+    width: 55%;
     background-color:lightgray;
     text-align:center;
     height:100%;
