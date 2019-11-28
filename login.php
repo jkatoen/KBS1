@@ -21,7 +21,7 @@ include ("header.php");
         <div class="inlog">
             <h1>Inloggen</h1><br>
             <form method="get" action="">
-                Emailadres<br><input type="email" name="Emailadres"><br><br>
+                Emailadres<br><input type="email" name="email"><br><br>
                 Wachtwoord<br><input type="password" name="passwd"><br><br>
                 <input type="submit" name="verzenden" class="button"><br><br>
             </form>
