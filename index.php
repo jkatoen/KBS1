@@ -28,8 +28,7 @@ include ("header.php");
             <h2>Special Deals</h2>
             <div class="product-container">
                 <?php
-                DisplaySpecialItems($connection);
-                ?>
+                DisplaySpecialItems($connection); ?>
             </div>
         </div>
     </div>
