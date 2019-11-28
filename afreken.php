@@ -13,7 +13,7 @@ include("PHP/functions.php");
     </div>
     <div class="topnav">
         <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="56"></a>
-        <a href="account.php"><h3>Login</h3></a>
+        <a href="accaanmaken.php"><h3>Login</h3></a>
         <a href="contact.php"><h3>Contact</h3></a>
 
         <form class="nav-search" method="get" action="search.php">
@@ -36,7 +36,7 @@ include("PHP/functions.php");
     <div class="midcolumn">
         <div class="inlog" class="inlog">
             <h1>Account aanmaken</h1>
-            <form action="account.php" method="POST">
+            <form action="accaanmaken.php" method="POST">
                 Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
                 Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
                 Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
