@@ -6,6 +6,7 @@ include ("header.php");
 ?>
 
 <body>
+<<<<<<< HEAD
 <div class="row">
 
     <div class="leftcolumn">
@@ -28,6 +29,15 @@ include ("header.php");
             <a href="accaanmaken.php"><h4>Account aanmaken</h4></a>
         </div>
     </div>
+=======
+<div class="login">
+<h2>Inloggen</h2><br>
+    <form method="get" action="">
+    <input type="text" name="Naam"><br><br>
+    <input type="password" name="passwd"><br><br>
+    <input type="submit" name="verzenden"><br><br>
+</form>
+>>>>>>> b58a8101b45badcd471c11d6f19e2509f20858a3
 </div>
 </body>
 <footer class="footer">
