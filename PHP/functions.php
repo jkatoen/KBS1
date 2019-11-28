@@ -274,8 +274,6 @@ function DisplaySpecialItems($connection)
     $stmt->close();
 }
 
-
-
 function accountAanmaken($connection) {
         $voornaam = $_POST["voornaam"];
         $achternaam = $_POST["achternaam"];

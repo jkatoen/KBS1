@@ -6,7 +6,6 @@ include ("header.php");
 ?>
 
 <body>
-<<<<<<< HEAD
 <div class="row">
 
     <div class="leftcolumn">
