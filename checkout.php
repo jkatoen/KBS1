@@ -46,7 +46,7 @@ include("PHP/functions.php");
                 <div class="header">
                    <img src="IMG/iDeal.png" width="20%"
                 <br><br><br>
-                <input type="submit" value="Confirm" name="Checkout" class="button" required/>
+                <input type="submit" value="Pay with iDeal"  class="button" required/>
 
             </form>
 
