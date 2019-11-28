@@ -42,7 +42,18 @@ include("header.php");
     <div class="midcolumn">
         <div class="card" class="product-container">
             <h2><?php echo "Gezocht op: {$searchinput}"; ?></h2>
-            <p>Aantal gevonden producten: <?php echo displaySearchRows($connection, $searchinput);?></p>
+            <?php
+            if(displaySearchRows($connection,$searchinput) != 0){
+                print("<p>");
+                print("Aantal gevonden producten: ");
+                print(displaySearchRows($connection,$searchinput));
+                print("</p>");
+            }else {
+                print("<p>");
+                print("er zijn geen producten gevonden");
+                print("</p>");
+            }
+            ?>
 
             <!--Pagination and filter on amount per page-->
             <?php displayPagination($total_pages, $pageno); ?>
