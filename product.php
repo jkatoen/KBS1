@@ -78,59 +78,62 @@ include("header.php");
             }
         }
         ?>
-                <div class="card">
-                    <form method="post" action="cart.php?action=add&id=<?php echo $hiddenid; ?>">
-                            <h4 class="product-container"><?php echo $print_name; ?></h4>
+        <div class="card">
+            <form method="post" action="cart.php?action=add&id=<?php echo $hiddenid; ?>">
+                    <h4 class="product-container"><?php echo $print_name; ?></h4>
 
-                        <div class="productleft">
-                            <iframe width="600" height="337" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="product-right-info">
-                             <?php echo $print_price;
-                              echo $print_marketingcomments;
-                              echo $print_quantity;?>
-
-                            <input type="text" name="quantity" value="1" class="form-control" />
-
-                            <input type="hidden" name="hidden_name" value="<?php echo $hiddenname; ?>" />
-
-                            <input type="hidden" name="hidden_price" value="<?php echo $hiddenprice; ?>" />
-
-                            <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />
-                        </div>
-                    </form>
+                <div class="productleft">
+                    <iframe width="600" height="337" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <h2 style="text-align:left">Afbeeldingen</h2>
-                <div class="container">
-                    <div class="mySlides">
-                        <div class="numbertext">1 / 4</div>
-                        <img src="IMG/voorkant.jpg" style="width:40%">
-                    </div>
-                    <div class="mySlides">
-                        <div class="numbertext">2 / 4</div>
-                        <img src="IMG/achterkant.jpg" style="width:40%">
-                    </div>
-                    <div class="mySlides">
-                        <div class="numbertext">3 / 4</div>
-                        <img src="IMG/Dichtbij.jpg" style="width:40%">
-                    </div>
-                    <a class="prev" onclick="plusSlides(-1)">❮</a>
-                    <a class="next" onclick="plusSlides(1)">❯</a>
-                    <div class="caption-container">
-                        <p id="caption"></p>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <img class="demo cursor" src="IMG/voorkant.jpg" style="width:50%" onclick="currentSlide(1)" alt="Voorkant">
-                        </div>
-                        <div class="column">
-                            <img class="demo cursor" src="IMG/achterkant.jpg" style="width:50%" onclick="currentSlide(2)" alt="Achterkant">
-                        </div>
-                        <div class="column">
-                            <img class="demo cursor" src="IMG/Dichtbij.jpg" style="width:50%" onclick="currentSlide(3)" alt="Borstzakje">
-                        </div>
-            </div>
+                <div class="product-right-info">
+                     <?php echo $print_price;
+                      echo $print_marketingcomments;
+                      echo $print_quantity;?>
 
+                    <input type="text" name="quantity" value="1" class="form-control" />
+
+                    <input type="hidden" name="hidden_name" value="<?php echo $hiddenname; ?>" />
+
+                    <input type="hidden" name="hidden_price" value="<?php echo $hiddenprice; ?>" />
+
+                    <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Add to Cart" />
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <?php
+            $imageSQL = "SELECT StockItemID, StockImagePath
+                       FROM stockitems
+                       JOIN stockimage USING (StockItemID)
+                       WHERE StockItemID = {$_GET['id']}";
+            $stmt = mysqli_prepare($connection, $imageSQL);
+            mysqli_stmt_execute($stmt);
+            $imageResult = mysqli_stmt_get_result($stmt);
+
+            foreach ($imageResult as $image) {
+                print "<div class='mySlides'>
+                    <img src='".$image['StockImagePath']."' style='width:40%'>
+                </div>";
+            }
+            ?>
+
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <a class="next" onclick="plusSlides(1)">❯</a>
+            <div class="caption-container">
+                <p id="caption"></p>
+            </div>
+            <div class="row">
+                <?php
+                    foreach ($imageResult as $image) {
+                    print "<div class='column'>
+                        <img src='".$image['StockImagePath']."' onclick='currentSlide(1)'>
+                    </div>";
+                }
+                ?>
+                <div class="column">
+                    <iframe src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
     </div>
 </div>
