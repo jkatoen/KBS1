@@ -5,7 +5,13 @@ include("PHP/functions.php");
 
 $uri = getURI(); // Get uri of page
 
-include ("header.php");
+if ($_POST['ingelogd'] == true) {
+    include ("header2.php");
+}
+else {
+    include ("header.php");
+}
+
 ?>
 
 <body>
