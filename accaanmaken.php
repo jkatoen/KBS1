@@ -19,11 +19,11 @@ include ("header.php");
     <div class="midcolumn">
         <div class="inlog" class="inlog">
             <h1>Account aanmaken</h1>
-<<<<<<< HEAD:accaanmaken.php
+
             <form action="accaanmaken.php" method="POST">
-=======
+
             <form action="index.php" method="POST">
->>>>>>> b58a8101b45badcd471c11d6f19e2509f20858a3:account.php
+
                 Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
                 Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
                 Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>

@@ -280,9 +280,21 @@ function accountAanmaken($connection) {
         $address = $_POST["adres"];
         $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
         $mail = $_POST["emailadres"];
-
-        if($stmt = $connection->prepare("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
-                                      VALUES(?,?,?,?,?)")){
+        $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres
+                        VALUES (?,?,?,?,?)");
+        $sqlinsert2 = ("BEGIN
+            IF NOT EXISTS (SELECT * FROM gebruikers
+                    WHERE FirstName = ?
+                    AND LastName = ?
+                    AND Address = ?
+                    AND Password = ?
+                    AND Emailadres= ?)
+                BEGIN
+                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+                    VALUES(?,?,?,?,?)
+                END
+            END");
+        if($stmt = $connection->prepare ($sqlinsert2)){
             $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
 
             $stmt->execute();
