@@ -347,3 +347,25 @@ function displaySearchRows($connection, $searchinput)
     $stmt->close();
     return $amountRows;
 }
+
+function productSQL($connection) {
+    $productSQL = "SELECT StockGroupId, StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, QuantityOnHand
+        FROM stockitems
+        JOIN stockitemstockgroups USING (StockItemId)
+        JOIN stockitemholdings USING (StockItemId)
+        WHERE StockItemId = {$_GET['id']}
+        LIMIT 1;"; // Limit 1 omdat er meerdere categorieën bij een product kan zijn
+
+    $productStmt = mysqli_prepare($connection, $productSQL);
+    mysqli_stmt_execute($productStmt);
+    return mysqli_stmt_get_result($productStmt);
+}
+function imageSQL($connection) {
+    $imageSQL = "SELECT StockItemID, StockImagePath
+                       FROM stockitems
+                       JOIN stockimage USING (StockItemID)
+                       WHERE StockItemID = {$_GET['id']}";
+    $stmt = mysqli_prepare($connection, $imageSQL);
+    mysqli_stmt_execute($stmt);
+    return mysqli_stmt_get_result($stmt);
+}
