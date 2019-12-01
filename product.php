@@ -43,8 +43,11 @@ $productResult = productSQL($connection);
             </div>
 
             <a class="prev" onclick="plusSlides(-1)">❮</a>
-            <?php foreach ($imageResult as $image) {
-                print "<div class='column'><img class='productImage' src='".$image['StockImagePath']."' onclick='currentSlide(1)'></div>";
+            <?php
+            $i = 0;
+            foreach ($imageResult as $image) {
+                print "<div class='column'><img class='productImage cursor' src='".$image['StockImagePath']."' onclick='currentSlide({$i})'></div>";
+                $i++;
             }  ?>
             <a class="next" onclick="plusSlides(1)">❯</a>
             <?php } // END ELSE STATEMENT ?>
