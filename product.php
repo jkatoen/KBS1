@@ -3,7 +3,8 @@ session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
 include("header.php");
-
+// Getting product information
+$productResult = productSQL($connection);
 ?>
 <script>
     var slideIndex = 1;
@@ -26,6 +27,12 @@ include("header.php");
             <div class="productDisplayImage">
                 <?php
                 $imageResult = imageSQL($connection);
+                if ($imageResult->num_rows===0) { // ALS ER GEEN IMAGES BIJ PRODUCT IS TOON DAN DEFAULT CATEGORY IMAGE
+                    foreach ($productResult as $result) {
+                        $categoryId = $result['StockGroupId'];
+                    }
+                    echo "<img src='IMG/category{$categoryId}.png'/></div>";
+                } else { // BEGIN ELSE STATEMENT
                 $i = 0; // Eerste image tonen
                 foreach ($imageResult as $image) {
                     $display = ($i === 0) ? $display = "Block" : "None" ;
@@ -40,6 +47,7 @@ include("header.php");
                 print "<div class='column'><img class='productImage' src='".$image['StockImagePath']."' onclick='currentSlide(1)'></div>";
             }  ?>
             <a class="next" onclick="plusSlides(1)">❯</a>
+            <?php } // END ELSE STATEMENT ?>
 
             <div class="container">
                 <iframe class="productVideo" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -48,8 +56,7 @@ include("header.php");
         </div>
 
         <div class="product-right-info">
-            <?php // Getting product information
-            $productResult = productSQL($connection);
+            <?php
             foreach ($productResult as $result) {
                 $productId = $result['StockItemId'];
                 $productName = $result['StockItemName'];
