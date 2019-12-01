@@ -56,7 +56,7 @@ $productResult = productSQL($connection);
         </div>
 
         <div class="product-right-info">
-            <?php
+            <?php // GETTING PRODUCT INFO AND DISPLAY IT
             foreach ($productResult as $result) {
                 $productId = $result['StockItemId'];
                 $productName = $result['StockItemName'];
