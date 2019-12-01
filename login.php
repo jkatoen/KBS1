@@ -19,9 +19,9 @@ include ("header.php");
     <div class="midcolumn">
         <div class="inlog">
             <h1>Inloggen</h1><br>
-            <form method="POST" action="verwerk.php">
-                Emailadres<br><input type="email" name="email" value=""><br><br>
-                Wachtwoord<br><input type="password" name="passwd" value=""><br><br>
+            <form method="post" action="authenticate.php">
+                Emailadres<br><input type="email" name="email"><br><br>
+                Wachtwoord<br><input type="password" name="passwd"><br><br>
                 <input type="submit" name="verzenden" class="button"><br><br>
             </form>
             <h3>Nog geen account? Maak dan nu een account aan.</h3>
