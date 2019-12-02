@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include ("PHP/connectdb.php");
@@ -14,51 +13,51 @@ $connect = mysqli_connect("localhost", "root", "", "wideworldimporters");
 
 if(isset($_POST["add_to_cart"]))
 {
-	if(isset($_SESSION["shopping_cart"]))
-	{
-		$item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-		if(!in_array($_GET["id"], $item_array_id))
-		{
-			$count = count($_SESSION["shopping_cart"]);
-			$item_array = array(
-				'item_id'			=>	$_GET["id"],
-				'item_name'			=>	$_POST["hidden_name"],
-				'item_price'		=>	$_POST["hidden_price"],
-				'item_quantity'		=>	$_POST["quantity"]
-			);
-			$_SESSION["shopping_cart"][$count] = $item_array;
-		}
-		else
-		{
-			echo '<script>alert("Item Already Added")</script>';
-		}
-	}
-	else
-	{
+    if(isset($_SESSION["shopping_cart"]))
+    {
+        $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
+        if(!in_array($_GET["id"], $item_array_id))
+        {
+            $count = count($_SESSION["shopping_cart"]);
+            $item_array = array(
+                'item_id'			=>	$_GET["id"],
+                'item_name'			=>	$_POST["hidden_name"],
+                'item_price'		=>	$_POST["hidden_price"],
+                'item_quantity'		=>	$_POST["quantity"]
+            );
+            $_SESSION["shopping_cart"][$count] = $item_array;
+        }
+        else
+        {
+            echo '<script>alert("Item Already Added")</script>';
+        }
+    }
+    else
+    {
         $item_array = array(
             'item_id'			=>	$_GET["id"],
             'item_name'			=>	$_POST["hidden_name"],
             'item_price'		=>	$_POST["hidden_price"],
             'item_quantity'		=>	$_POST["quantity"]
         );
-		$_SESSION["shopping_cart"][0] = $item_array;
-	}
+        $_SESSION["shopping_cart"][0] = $item_array;
+    }
 }
 
 if(isset($_GET["action"]))
 {
-	if($_GET["action"] == "delete")
-	{
-		foreach($_SESSION["shopping_cart"] as $keys => $values)
-		{
-			if($values["item_id"] == $_GET["id"])
-			{
-				unset($_SESSION["shopping_cart"][$keys]);
-				echo '<script>alert("Item Removed")</script>';
-				echo '<script>window.location="cart.php"</script>';
-			}
-		}
-	}
+    if($_GET["action"] == "delete")
+    {
+        foreach($_SESSION["shopping_cart"] as $keys => $values)
+        {
+            if($values["item_id"] == $_GET["id"])
+            {
+                unset($_SESSION["shopping_cart"][$keys]);
+                echo '<script>alert("Item Removed")</script>';
+                echo '<script>window.location="cart.php"</script>';
+            }
+        }
+    }
 }
 
 ?>
@@ -78,7 +77,7 @@ if(isset($_GET["action"]))
 </div>
 
 <br />
-<div class="container">
+<div class="">
     <div style="clear:both"></div>
     <br />
     <h3>Order Details</h3>
@@ -92,22 +91,55 @@ if(isset($_GET["action"]))
                 <th width="5%">Action</th>
             </tr>
             <?php
+
             if(!empty($_SESSION["shopping_cart"]))
             {
+                $counter = 0;
                 $total = 0;
                 foreach($_SESSION["shopping_cart"] as $keys => $values)
+
                 {
+
+
                     ?>
                     <tr>
-                        <td><?php echo $values["item_name"]; ?></td>
-                        <td><?php echo $values["item_quantity"]; ?></td>
+                        <td><?php echo $values["item_name"] ; ?></td>
+
+                        <td><?php
+                            //if(!$_GET["id"] || empty($_GET["id"])) {
+                            if ($_GET["id"] == $_SESSION['shopping_cart'][$counter]['item_id']) {
+                                if (isset($_POST["plus"])) {
+                                    $_SESSION['shopping_cart'][$counter]['item_quantity']++;
+                                    echo $_SESSION['shopping_cart'][$counter]['item_quantity'];
+                                } elseif (isset($_POST["min"])) {
+                                    $_SESSION['shopping_cart'][$counter]['item_quantity']--;
+                                    echo $_SESSION['shopping_cart'][$counter]['item_quantity'];
+                                } else {
+                                    echo $_SESSION['shopping_cart'][$counter]['item_quantity'];
+                                }
+                            } else {
+                                echo $_SESSION['shopping_cart'][$counter]['item_quantity'];
+                            }
+                            //                            }else{
+                            //                                echo $_SESSION['shopping_cart'][$counter]['item_quantity'];
+                            //                            }
+                            ?>
+                            <form method="post" action="cart.php?id=<?php print ($_SESSION['shopping_cart'][$counter]['item_id']); ?>">
+                                <input type="submit" name="plus" value="+">
+                                <input type="submit" name="min" value="-">
+                            </form>
+                        </td>
+
+
                         <td>$ <?php echo $values["item_price"]; ?></td>
-                        <td>$ <?php echo number_format($values["item_quantity"] * $values["item_price"], 2);?></td>
-                        <td><a href="cart.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>
+                        <td>$ <?php echo number_format( $_SESSION['shopping_cart'][$counter]['item_quantity'] * $values["item_price"], 2);?></td>
+                        <td><a href="cart.php?action=delete&id=<?php echo $_SESSION['shopping_cart'][$counter]['item_id'] ?>"><span class="text-danger">Remove</span></a></td>
                     </tr>
                     <?php
-                    $total = $total + ($values["item_quantity"] * $values["item_price"]);
+                    $total = $total + ( $_SESSION['shopping_cart'][$counter]['item_quantity']* $values["item_price"]);
+                    $counter++;
                 }
+
                 ?>
                 <tr>
                     <td colspan="3" align="right">Total</td>
@@ -123,13 +155,13 @@ if(isset($_GET["action"]))
 
         <div class="Checkout" class="Checkout">
             <form action="checkout.php" method="POST">
-                    <input type="submit" value="Go to checkout" name="Checkout" class="button" required/>
+                <input type="submit" value="Go to checkout" name="Checkout" class="button" required/>
             </form>
 
 
 
+        </div>
     </div>
-</div>
 </div>
 <br />
 </body>
