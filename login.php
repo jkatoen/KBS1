@@ -20,9 +20,9 @@ include ("header.php");
         <div class="inlog">
             <h1>Inloggen</h1><br>
             <form method="post" action="authenticate.php">
-                Emailadres<br><input type="email" name="email"><br><br>
-                Wachtwoord<br><input type="password" name="passwd"><br><br>
-                <input type="submit" name="verzenden" class="button"><br><br>
+                Emailadres<br><input type="email" name="email" required><br><br>
+                Wachtwoord<br><input type="password" name="passwd" required><br><br>
+                <input type="submit" name="verzenden" class="button" required><br><br>
             </form>
             <h3>Nog geen account? Maak dan nu een account aan.</h3>
             <a href="accaanmaken.php"><h4>Account aanmaken</h4></a>

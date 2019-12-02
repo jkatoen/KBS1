@@ -12,7 +12,6 @@ function getURI() {
         return 'http://'.$_SERVER['HTTP_HOST'] . '/index.php';
     }
 }
-
 /**
  * Gets the full server link and returns it, this including things like 'categoryid=1'
  * Either HTTP or HTTPS
@@ -280,7 +279,7 @@ function accountAanmaken($connection) {
         $address = $_POST["adres"];
         $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
         $mail = $_POST["emailadres"];
-        $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres
+        $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
                         VALUES (?,?,?,?,?)");
         $sqlinsert2 = ("BEGIN
             IF NOT EXISTS (SELECT * FROM gebruikers
@@ -294,7 +293,7 @@ function accountAanmaken($connection) {
                     VALUES(?,?,?,?,?)
                 END
             END");
-        if($stmt = $connection->prepare ($sqlinsert2)){
+        if($stmt = $connection->prepare ($sqlinsert1)){
             $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
 
             $stmt->execute();
@@ -306,6 +305,9 @@ function accountAanmaken($connection) {
             $error = $connection->errno . ' ' . $connection->error;
           echo $error;
         }}
+
+function logIn($connection) {
+}
 
 function displayPagination($total_pages, $pageno) {
     if ($total_pages >= 1) {
