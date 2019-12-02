@@ -1,8 +1,10 @@
+
 <?php
 session_start();
 include ("PHP/connectdb.php");
 include ("PHP/functions.php");
 include ("header.php");
+
 ?>
 
 <body>
@@ -69,6 +71,12 @@ if(isset($_GET["action"]))
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+
+</div>
+</form>
+</div>
+
 <br />
 <div class="container">
     <div style="clear:both"></div>
@@ -111,6 +119,15 @@ if(isset($_GET["action"]))
             ?>
 
         </table>
+
+
+        <div class="Checkout" class="Checkout">
+            <form action="checkout.php" method="POST">
+                    <input type="submit" value="Go to checkout" name="Checkout" class="button" required/>
+            </form>
+
+
+
     </div>
 </div>
 </div>

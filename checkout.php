@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include("PHP/connectdb.php");
@@ -34,6 +35,25 @@ include("PHP/functions.php");
         </div>
     </div>
     <div class="midcolumn">
+
+        <div class="Checkout" class="Checkout">
+            <h1>Checkout</h1>
+            <form action="https://www.ideal.nl/" method="POST">
+                Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
+                Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
+                Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
+                Emailadres <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br><br>
+
+                <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
+                <div class="header">
+                   <img src="IMG/iDeal.png" width="20%"
+                <br><br><br>
+                <input type="submit" value="Pay with iDeal"  class="button" required/>
+
+            </form>
+
+
+
         <div class="inlog" class="inlog">
             <h1>Account aanmaken</h1>
             <form action="accaanmaken.php" method="POST">
@@ -53,6 +73,7 @@ include("PHP/functions.php");
                     }
                 }
                 ?>
+
             </div>
         </div>
     </div>
