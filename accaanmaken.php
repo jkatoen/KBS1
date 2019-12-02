@@ -51,6 +51,3 @@ include ("header.php");
 
 </body>
 </html>
-=======
-include ("PHP/connectdb.php");
-</html>
