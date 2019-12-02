@@ -280,9 +280,21 @@ function accountAanmaken($connection) {
         $address = $_POST["adres"];
         $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
         $mail = $_POST["emailadres"];
-
-        if($stmt = $connection->prepare("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
-                                      VALUES(?,?,?,?,?)")){
+        $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres
+                        VALUES (?,?,?,?,?)");
+        $sqlinsert2 = ("BEGIN
+            IF NOT EXISTS (SELECT * FROM gebruikers
+                    WHERE FirstName = ?
+                    AND LastName = ?
+                    AND Address = ?
+                    AND Password = ?
+                    AND Emailadres= ?)
+                BEGIN
+                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+                    VALUES(?,?,?,?,?)
+                END
+            END");
+        if($stmt = $connection->prepare ($sqlinsert2)){
             $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
 
             $stmt->execute();
@@ -346,4 +358,26 @@ function displaySearchRows($connection, $searchinput)
     $amountRows = $stmt->num_rows;
     $stmt->close();
     return $amountRows;
+}
+
+function productSQL($connection) {
+    $productSQL = "SELECT StockGroupId, StockItemId, StockItemName, MarketingComments, UnitPrice, TaxRate, QuantityOnHand
+        FROM stockitems
+        JOIN stockitemstockgroups USING (StockItemId)
+        JOIN stockitemholdings USING (StockItemId)
+        WHERE StockItemId = {$_GET['id']}
+        LIMIT 1;"; // Limit 1 omdat er meerdere categorieën bij een product kan zijn
+
+    $productStmt = mysqli_prepare($connection, $productSQL);
+    mysqli_stmt_execute($productStmt);
+    return mysqli_stmt_get_result($productStmt);
+}
+function imageSQL($connection) {
+    $imageSQL = "SELECT StockItemID, StockImagePath
+                       FROM stockitems
+                       JOIN stockimage USING (StockItemID)
+                       WHERE StockItemID = {$_GET['id']}";
+    $stmt = mysqli_prepare($connection, $imageSQL);
+    mysqli_stmt_execute($stmt);
+    return mysqli_stmt_get_result($stmt);
 }

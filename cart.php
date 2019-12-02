@@ -72,9 +72,11 @@ if(isset($_GET["action"]))
 </head>
 <body>
 
+
 </div>
 </form>
 </div>
+
 <br />
 <div class="container">
     <div style="clear:both"></div>
@@ -118,10 +120,12 @@ if(isset($_GET["action"]))
 
         </table>
 
+
         <div class="Checkout" class="Checkout">
             <form action="checkout.php" method="POST">
                     <input type="submit" value="Go to checkout" name="Checkout" class="button" required/>
             </form>
+
 
 
     </div>
