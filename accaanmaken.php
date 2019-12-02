@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php
 session_start();
 include ("PHP/connectdb.php");
@@ -100,4 +100,4 @@ include ("header.php");
 
 </body>
 </html>
->>>>>>> caeb4a0764329a317dcd6ed0b4917427ea9b2e22
+
