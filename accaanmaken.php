@@ -37,6 +37,7 @@ include ("header.php");
                     if (isset($_POST['register'])) {
                         if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["ww"]) && isset($_POST["emailadres"])) {
                             accountAanmaken($connection);
+//                            checkIfExsists($connection);
                         }
                     }
                     ?>

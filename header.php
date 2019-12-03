@@ -19,9 +19,9 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
     </div>
     <div class="topnav">
         <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
+        <a href="contact.php"><h3>Contact</h3></a>
         <?php
         if (isset($_SESSION["ingelogd"])) {
-            print_r("Welkom ".$_SESSION["naam"]);
             ?>
             <a href="logout.php"><h3>Log uit</h3></a>
             <?php
@@ -33,7 +33,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
         <?php
         }
         ?>
-        <a href="contact.php"><h3>Contact</h3></a>
         <form class="nav-search" method="get" action="search.php">
             <input class="text" type="text" name="searchinput">
             <input type="submit" name="submitinput" value="Search">

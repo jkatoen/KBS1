@@ -283,18 +283,6 @@ function accountAanmaken($connection) {
     $mail = $_POST["emailadres"];
     $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
                         VALUES (?,?,?,?,?)");
-//        $sqlinsert2 = ("BEGIN
-//            IF NOT EXISTS (SELECT * FROM gebruikers
-//                    WHERE FirstName = ?
-//                    AND LastName = ?
-//                    AND Address = ?
-//                    AND Password = ?
-//                    AND Emailadres= ?)
-//                BEGIN
-//                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
-//                    VALUES(?,?,?,?,?)
-//                END
-//            END");
     if ($stmt = $connection->prepare($sqlinsert1)) {
         $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
         $stmt->execute();
@@ -307,6 +295,22 @@ function accountAanmaken($connection) {
             echo $error;
         }
 }
+
+//function CheckIfExsists($connection) {
+//
+//    $sqlinsert2 = ("BEGIN IF NOT EXISTS (SELECT * FROM gebruiker
+//                    WHERE FirstName = ?
+//                    AND LastName = ?
+//                    AND Address = ?
+//                    AND Password = ?
+//                    AND Emailadres= ?)
+//                BEGIN
+//                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+//                    VALUES(?,?,?,?,?)
+//                END
+//            END");
+//}
+
 
 function logIn($connection) {
 }

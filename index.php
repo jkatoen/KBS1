@@ -20,7 +20,19 @@ include ("header.php");
     </div>
     <div class="midcolumn">
         <div class="card">
+            <?php
+            if (isset($_SESSION["ingelogd"])) {
+            ?>
+            <h3>Welkom: <?php print($_SESSION["naam"]);?></h3>
+            <h2>This are your Special Deals</h2>
+            <?php
+            }
+            else {
+            ?>
             <h2>Special Deals</h2>
+            <?php
+            }
+            ?>
             <div class="product-container">
                 <?php
                 DisplaySpecialItems($connection);
