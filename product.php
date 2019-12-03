@@ -22,8 +22,12 @@ $productResult = productSQL($connection);
     </div>
 
     <div class="midcolumn">
+
         <div class="card">
+
         <div class="product-left-info">
+
+
             <!--Display product image and/or video -->
             <div class="productDisplayImage">
                 <?php
@@ -43,6 +47,7 @@ $productResult = productSQL($connection);
                 ?>
             </div>
 
+
             <a class="prev" onclick="plusSlides(-1)">❮</a>
             <?php
             $i = 0;
@@ -57,7 +62,6 @@ $productResult = productSQL($connection);
         </div>
 
         <div class="product-right-info">
-
             <?php // GETTING PRODUCT INFO AND DISPLAY IT
             foreach ($productResult as $result) {
                 $productId = $result['StockItemId'];
@@ -69,10 +73,9 @@ $productResult = productSQL($connection);
             ?>
             <div class="product-description">
                 <h1> <?php echo  $productName ?> </h1>
+                <h2> <?php echo "$" . $productPrice ?> </h2>
                 <p> <?php echo $productComment ?> </p>
-                <p> <?php echo $productPrice ?> </p>
                 <p> <?php echo $productQuantity ?></p>
-
         </div>
             <!-- Adding product to cart -->
             <form method="post" action="cart.php?action=add&id=<?php echo $productId; ?>">
@@ -82,10 +85,14 @@ $productResult = productSQL($connection);
                 <input type="submit" name="add_to_cart" class="cart-btn" value="Add to Cart" />
             </form>
             <!-- End adding product to cart -->
+
         </div>
+        </div>
+
     </div>
 </div>
-
 </body>
-
+<footer class="footer">
+    <h3>© Copyrights 2019 - World Wide Importers</h3>
+</footer>
 </html>

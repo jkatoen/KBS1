@@ -220,12 +220,8 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
                 print("</div></a>");
             }
 
-            //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-            print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
-            print("</div></a>");
-        }
         $stmt->close();
-    } elseif($intconvert ==0) {
+    }elseif($intconvert ==0) {
         $search = "%$searchinput%";
         $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
@@ -249,10 +245,6 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
                 print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
                 print("</div></a>");
             }
-            //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-            print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
-            print("</div></a>");
-        }
         $stmt->close();
     }
 }

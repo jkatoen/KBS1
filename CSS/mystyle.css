@@ -11,9 +11,9 @@ body {
     padding: 15px;
     display: flex;
 }
-img {
-    vertical-align: middle;
-}
+    img {
+        vertical-align: middle;
+    }
 /* Position the image container (needed to position the left and right arrows) */
 .container {
     float: left;
@@ -243,7 +243,6 @@ img {
 
 /* Footer */
 .footer {
-    float: bottom;
     padding: 5px;
     text-align: center;
     background: #ddd;
@@ -348,6 +347,12 @@ input:required {
     color: #43484D;
     letter-spacing: -2px;
 }
+.product-description h2 {
+    font-weight: 200;
+    font-size: 48px;
+    color: #358ED7;
+    letter-spacing: 0px;
+}
 .product-description p {
     font-size: 16px;
     font-weight: 300;
@@ -368,7 +373,7 @@ input:required {
 
 .cart-btn {
     display: inline-block;
-    background-color: #7DC855;
+    background-color: #358ED7;
     border-radius: 6px;
     font-size: 16px;
     color: #FFFFFF;
@@ -377,5 +382,5 @@ input:required {
     transition: all .5s;
 }
 .cart-btn:hover {
-    background-color: #64af3d;
+    background-color: darkblue;
 }

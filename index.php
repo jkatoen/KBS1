@@ -30,7 +30,6 @@ include ("header.php");
         </div>
     </div>
 </div>
-</div>
 
 </body>
 <footer class="footer">
