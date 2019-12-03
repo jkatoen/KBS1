@@ -172,7 +172,9 @@ function displayCategoryProducts($connection, $category, $offset, $no_of_records
         if (!empty($Photo)) {
             echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
         } else {
-            echo "<img style='height: 100px; width:100px;' src='IMG/category{$StockGroupID}.png'/>";
+            print("<div class=\"fakeimg\" >");
+            echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
+            print("</div>");
         }
         //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
         print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
@@ -198,50 +200,51 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
                                             JOIN stockitems USING (StockItemID)
                                             JOIN stockgroups USING (StockGroupID) 
                                             WHERE StockItemID = ? LIMIT 1 offset 1");
-        $stmt->bind_param("s", $search);
-        $stmt->execute();
-        $stmt->store_result();
-        //if ($stmt->num_rows === 0) exit('No rows'); IF NO RESULT SHOW SOMETHING ELSE
-        $stmt->bind_result($StockItemID, $StockItemName, $UnitPrice, $TaxRate, $StockGroupID, $Photo);
-        while ($stmt->fetch()) {
-            print("<a class='logolink' href='product.php?id=$StockItemID'><div class='product-item'> ");
-            if (!empty($Photo)) {
-                echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
-            } else {
-                print("<div class=\"fakeimg\" style=\"height:200px;\">");
-                echo "<img style='height: 100%; width:100%;' src='IMG/category{$StockGroupID}.png'/>";
-                print("</div>");
+            $stmt->bind_param("s", $search);
+            $stmt->execute();
+            $stmt->store_result();
+            //if ($stmt->num_rows === 0) exit('No rows'); IF NO RESULT SHOW SOMETHING ELSE
+            $stmt->bind_result($StockItemID, $StockItemName, $UnitPrice, $TaxRate, $StockGroupID, $Photo);
+            while ($stmt->fetch()) {
+                print("<a class='logolink' href='product.php?id=$StockItemID'><div class='product-item'> ");
+                if (!empty($Photo)) {
+                    echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
+                } else {
+                    print("<div class=\"fakeimg\" >");
+                    echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
+                    print("</div>");
+                }
+
+                //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
+                print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+                print("</div></a>");
             }
 
-            //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-            print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
-            print("</div></a>");
-        }
         $stmt->close();
-    } elseif($intconvert ==0) {
+    }elseif($intconvert ==0) {
         $search = "%$searchinput%";
         $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
                                             JOIN stockgroups USING (StockGroupID) 
                                             WHERE searchdetails LIKE ? group by stockitemid LIMIT ?,?");
-        $stmt->bind_param("sii", $search, $offset, $no_of_records_per_page);
-        $stmt->execute();
-        $stmt->store_result();
-        //if ($stmt->num_rows === 0) exit('No rows'); IF NO RESULT SHOW SOMETHING ELSE
-        $stmt->bind_result($StockItemID, $StockItemName, $UnitPrice, $TaxRate, $StockGroupID, $Photo);
-        while ($stmt->fetch()) {
-            print("<a class='logolink' href='product.php?id=$StockItemID'><div class='product-item'> ");
-            if (!empty($Photo)) {
-                echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
-            } else {
-                print("<div class=\"fakeimg\" style=\"height:200px;\">");
-                echo "<img style='height: 100%; width:100%;' src='IMG/category{$StockGroupID}.png'/>";
-                print("</div>");
+            $stmt->bind_param("sii", $search, $offset, $no_of_records_per_page);
+            $stmt->execute();
+            $stmt->store_result();
+            //if ($stmt->num_rows === 0) exit('No rows'); IF NO RESULT SHOW SOMETHING ELSE
+            $stmt->bind_result($StockItemID, $StockItemName, $UnitPrice, $TaxRate, $StockGroupID, $Photo);
+            while ($stmt->fetch()) {
+                print("<a class='logolink' href='product.php?id=$StockItemID'><div class='product-item'> ");
+                if (!empty($Photo)) {
+                    echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
+                } else {
+                    print("<div class=\"fakeimg\" >");
+                    echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
+                    print("</div>");
+                }
+                //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
+                print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+                print("</div></a>");
             }
-            //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-            print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
-            print("</div></a>");
-        }
         $stmt->close();
     }
 }
@@ -261,8 +264,8 @@ function DisplaySpecialItems($connection) {
     while ($stmt->fetch()) {
         print("<a class='logolink' href='product.php?id=$StockItemId'>");
         print("<div class='product-item'>");
-        print("<div class=\"fakeimg\" style=\"height:200px;\">");
-        echo "<img style='height: 100%; width:100%;' src='IMG/category{$StockGroupID}.png'/>";
+        print("<div class=\"fakeimg\" >");
+        echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
         print("</div>");
         print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
         //print("<div class='grid-item-content'>");
