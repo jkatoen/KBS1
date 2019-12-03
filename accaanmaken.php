@@ -24,8 +24,7 @@ include ("header.php");
             <form action="accaanmaken.php" method="POST">
 
             <form action="index.php" method="POST">
-
-                Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
+                Voornaam <br><input type="text" name="naam" class="textinbox" value="" required/><br><br>
                 Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
                 Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
                 Wachtwoord <br><input type="password" name="ww" class="textinbox" value="" required/><br><br>

@@ -19,6 +19,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
         <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
         <?php
         if (isset($_SESSION['ingelogd'])) {
+            print($_SESSION["naam"]);
             ?>
             <a href="logout.php"><h3>Log uit</h3></a>
             <?php
