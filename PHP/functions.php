@@ -298,18 +298,13 @@ function accountAanmaken($connection) {
         printf("Registreren gelukt!", $stmt->affected_rows);
         $stmt->close();
         $connection->close();
-        if ($stmt = $connection->prepare($sqlinsert1)) {
-            $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
-            $stmt->execute();
-            printf("Registreren gelukt!", $stmt->affected_rows);
-            $stmt->close();
-            $connection->close();
-        } else {
+        }
+        else {
             $error = $connection->errno . ' ' . $connection->error;
             echo $error;
         }
-    }
 }
+
 function logIn($connection) {
 }
 
