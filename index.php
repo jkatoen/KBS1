@@ -32,7 +32,5 @@ include ("header.php");
 </div>
 
 </body>
-<footer class="footer">
-    <h3>© Copyrights 2019 - World Wide Importers</h3>
-</footer>
+
 </html>
