@@ -9,13 +9,13 @@ if(isset($_POST["email"] ) && isset($_POST["password"])) {
 
     // Get the password from associated to email adress to compare with input password
     $email = $_POST["email"];
-    $pass = $_POST["passwordd"];
+    $pass = $_POST["password"];
     $checkSQL = $connection->prepare("SELECT Emailadres, Password FROM gebruikers WHERE Emailadres = ?");
     $checkSQL->bind_param("s", $email);
     $checkSQL->execute();
     $result = mysqli_stmt_get_result($checkSQL);
     foreach ($result as $r) {
-        $resultPassword = $r['Password'];
+        $resultPassword = $r['password'];
     }
     $checkSQL->close();
     // Compare passwords

@@ -19,7 +19,7 @@ include("header.php");
     <div class="midcolumn">
         <div class="inlog">
             <h1>Inloggen</h1><br>
-            <form action="authenticate.php" method="post">
+            <form action="authenticate.php" method="POST">
                 Emailadres<br><input type="email" name="email" placeholder="Enter your email adres"><br><br>
                 Wachtwoord<br><input type="password" name="password" placeholder="Enter your password"><br><br>
                 <input type="submit" name="submit" class="button"><br><br>
