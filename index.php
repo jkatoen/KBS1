@@ -2,8 +2,8 @@
 session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
-
 $uri = getURI(); // Get uri of page
+
 include ("header.php");
 
 ?>
@@ -23,7 +23,7 @@ include ("header.php");
             <?php
             if (isset($_SESSION["ingelogd"])) {
             ?>
-            <h3>Welkom: <?php print($_SESSION["naam"]);?></h3>
+            <h3>Welkom: <?php print($_SESSION["firstname"]);?></h3>
             <h2>This are your Special Deals</h2>
             <?php
             }
@@ -43,5 +43,4 @@ include ("header.php");
 </div>
 
 </body>
-
 </html>

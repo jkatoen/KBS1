@@ -9,13 +9,15 @@ if(isset($_POST["email"] ) && isset($_POST["passwd"])) {
     // Get the password from associated to email adress to compare with input password
     $email = $_POST["email"];
     $pass = $_POST["passwd"];
-    $checkSQL = $connection->prepare("SELECT Emailadres, Password, FirstName FROM gebruikers WHERE Emailadres = ?");
+    $checkSQL = $connection->prepare("SELECT Emailadres, Password, FirstName, LastName, Address FROM gebruikers WHERE Emailadres = ?");
     $checkSQL->bind_param("s", $email);
     $checkSQL->execute();
     $result = mysqli_stmt_get_result($checkSQL);
     foreach ($result as $r) {
         $resultPassword = $r['Password'];
-    $resultUsername = $r['FirstName'];
+    $resultFirstname = $r['FirstName'];
+    $resultLastName = $r['LastName'];
+    $resultAddress = $r['Address'];
     }
     $checkSQL->close();
     // Compare passwords
@@ -23,7 +25,9 @@ if(isset($_POST["email"] ) && isset($_POST["passwd"])) {
         // Log in and return to home page
         $_SESSION["ingelogd"] = true;
         $_SESSION["email"] = $_POST["email"];
-        $_SESSION["naam"] = $resultUsername;
+        $_SESSION["firstname"] = $resultFirstname;
+        $_SESSION["lastname"] = $resultLastName;
+        $_SESSION["address"] = $resultAddress;
         header('location: index.php');
         exit();
     } else {

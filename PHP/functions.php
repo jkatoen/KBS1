@@ -296,20 +296,23 @@ function accountAanmaken($connection) {
         }
 }
 
-//function CheckIfExsists($connection) {
-//
-//    $sqlinsert2 = ("BEGIN IF NOT EXISTS (SELECT * FROM gebruiker
-//                    WHERE FirstName = ?
-//                    AND LastName = ?
-//                    AND Address = ?
-//                    AND Password = ?
-//                    AND Emailadres= ?)
-//                BEGIN
-//                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
-//                    VALUES(?,?,?,?,?)
-//                END
-//            END");
-//}
+function CheckIfExsists($connection) {
+    $voornaam = $_POST["voornaam"];
+    $address = $_POST["adres"];
+    $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
+    $mail = $_POST["emailadres"];
+    $sqlcheck = ("BEGIN IF NOT EXISTS (SELECT * FROM gebruiker
+                    WHERE FirstName = ?
+                    AND LastName = ?
+                    AND Address = ?
+                    AND Password = ?
+                    AND Emailadres= ?)
+                BEGIN
+                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+                    VALUES(?,?,?,?,?)
+                END
+            END");
+}
 
 
 function logIn($connection) {

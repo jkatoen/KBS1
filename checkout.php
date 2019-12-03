@@ -3,26 +3,11 @@
 session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
+include ("header.php");
 ?>
 
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
-    <div class="header">
-        <a href="index.php"><img src="IMG/wwi-logo.png"></a>
-    </div>
-    <div class="topnav">
-        <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="56"></a>
-        <a href="accaanmaken.php"><h3>Login</h3></a>
-        <a href="contact.php"><h3>Contact</h3></a>
-
-        <form class="nav-search" method="get" action="search.php">
-            <input class="text" type="text" name="searchinput">
-            <input type="submit" name="submitinput" value="Search">
-        </form>
-    </div>
-</head>
 <body>
 <div class="row">
 
@@ -38,19 +23,40 @@ include("PHP/functions.php");
 
         <div class="Checkout" class="Checkout">
             <h1>Checkout</h1>
-            <form action="https://www.ideal.nl/" method="POST">
-                Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
-                Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
-                Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
-                Emailadres <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br><br>
+            <?php
+            if (!isset($_SESSION["ingelogd"])) {
+            ?>
+                <form action="https://www.ideal.nl/" method="POST">
+                    Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
+                    Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
+                    Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
+                    Emailadres <br><input type="email" name="emailadres" class="textinbox" value=""
+                                          required/><br><br><br>
 
-                <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
-                <div class="header">
-                   <img src="IMG/iDeal.png" width="20%"
-                <br><br><br>
-                <input type="submit" value="Pay with iDeal"  class="button" required/>
-
-            </form>
+                    <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
+                    <div class="header">
+                        <img src="IMG/iDeal.png" width="20%"
+                        <br><br><br>
+                        <input type="submit" value="Pay with iDeal" class="button" required/>
+                </form>
+            <?php
+            }
+            else {
+            ?>
+                Voornaam: <br><?php print($_SESSION["firstname"])?><br><br>
+                Achternaam: <br><?php print($_SESSION["lastname"])?><br><br>
+                Adres: <br><?php print($_SESSION["address"])?><br><br>
+                Emailadres: <br><?php print($_SESSION["email"])?><br><br><br>
+                <form action="https://www.ideal.nl" method="POST">
+                    <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
+                    <div class="header">
+                        <img src="IMG/iDeal.png" width="20%"
+                        <br><br><br>
+                        <input type="submit" value="Pay with iDeal" class="button" required/>
+                </form>
+            <?php
+            }
+            ?>
 
 
 
