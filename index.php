@@ -6,18 +6,6 @@ include("PHP/functions.php");
 $uri = getURI(); // Get uri of page
 include ("header.php");
 
-//$username = $_POST["naam"];
-//$checkuname = $connection -> prepare("SELECT FirstName FROM Gebruikers WHERE FirtName = ?");
-//$checkuname->bind_param('s', $username);
-//$checkuname->execute();
-//$result = mysqli_stmt_get_result($checkuname);
-//foreach ($result as $r) {
-//    $resultUsername = $r['FirstName'];
-//}
-//$_SESSION = $username;
-//$checkuname->close();
-
-
 ?>
 
 <body>
