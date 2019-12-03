@@ -4,16 +4,13 @@ include ("PHP/connectdb.php");
 include ("PHP/functions.php");
 include ("header.php");
 
-//$connect = mysqli_connect("localhost", "root", "", "wideworldimporters");
 foreach ($_SESSION["shopping_cart"] as $keys => $values) {
     if (isset($_GET["id"])) {
         if ($_GET["id"] == $_SESSION['shopping_cart'][$keys]['item_id']) {
             if (isset($_POST["plus"])) {
                 $_SESSION['shopping_cart'][$keys]['item_quantity']++;
-                //echo $_SESSION['shopping_cart'][$keys]['item_quantity'];
             } elseif (isset($_POST["min"])) {
                 $_SESSION['shopping_cart'][$keys]['item_quantity']--;
-
             }
         }
     }
@@ -36,7 +33,7 @@ if (isset($_POST["add_to_cart"])) {
                 'item_price' => $_POST["hidden_price"],
                 'item_quantity' => $_POST["quantity"]
             );
-            $_SESSION["shopping_cart"][$count] = $item_array;
+            array_push($_SESSION["shopping_cart"], $item_array);
         } else {
             echo '<script>alert("Item Already Added")</script>';
         }
