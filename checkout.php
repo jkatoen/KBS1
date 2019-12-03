@@ -20,9 +20,8 @@ include ("header.php");
         </div>
     </div>
     <div class="midcolumn">
-
-        <div class="Checkout" class="Checkout">
-            <h1>Checkout</h1>
+            <div class="Checkout" class="Checkout">
+                <h1>Checkout</h1>
             <?php
             if (!isset($_SESSION["ingelogd"])) {
             ?>

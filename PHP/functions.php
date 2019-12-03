@@ -280,6 +280,7 @@ function accountAanmaken($connection) {
     $achternaam = $_POST["achternaam"];
     $address = $_POST["adres"];
     $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
+    $ww2 = password_hash(($_POST["ww2"]), PASSWORD_DEFAULT);
     $mail = $_POST["emailadres"];
     $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
                         VALUES (?,?,?,?,?)");
@@ -292,28 +293,10 @@ function accountAanmaken($connection) {
         }
         else {
             $error = $connection->errno . ' ' . $connection->error;
+            printf("Registreren mislukt!", $stmt->affected_rows);
             echo $error;
         }
 }
-
-function CheckIfExsists($connection) {
-    $voornaam = $_POST["voornaam"];
-    $address = $_POST["adres"];
-    $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
-    $mail = $_POST["emailadres"];
-    $sqlcheck = ("BEGIN IF NOT EXISTS (SELECT * FROM gebruiker
-                    WHERE FirstName = ?
-                    AND LastName = ?
-                    AND Address = ?
-                    AND Password = ?
-                    AND Emailadres= ?)
-                BEGIN
-                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
-                    VALUES(?,?,?,?,?)
-                END
-            END");
-}
-
 
 function logIn($connection) {
 }
