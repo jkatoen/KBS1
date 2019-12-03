@@ -17,7 +17,7 @@ include("PHP/functions.php");
         <a href="index.php"><img src="IMG/wwi-logo.png"></a>
     </div>
     < class="topnav">
-        <a href="Betaling/cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
+        <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
 <!--        --><?php
 //        if () {
 //        ?>

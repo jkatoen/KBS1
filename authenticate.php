@@ -1,7 +1,7 @@
 <?php
 session_start();
-include("../PHP/functions.php");
-include("../PHP/connectdb.php");
+include("PHP/functions.php");
+include("PHP/connectdb.php");
 
 if(isset($_POST["email"] ) && isset($_POST["passwd"])) {
     // Check if email and password match,

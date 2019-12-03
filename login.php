@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("../PHP/connectdb.php");
-include("../PHP/functions.php");
-include("../header.php");
+include("PHP/connectdb.php");
+include("PHP/functions.php");
+include("header.php");
 
 if ( ! empty( $_POST ) ) {
     if ( isset( $_POST['username'] ) && isset( $_POST['password'] ) ) {

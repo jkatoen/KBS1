@@ -72,7 +72,7 @@ $productResult = productSQL($connection);
             {$productQuantity}</p>";
             // End getting product information ?>
             <!-- Adding product to cart -->
-            <form method="post" action="Betaling/cart.php?action=add&id=<?php echo $productId; ?>">
+            <form method="post" action="cart.php?action=add&id=<?php echo $productId; ?>">
                 <input type="number" name="quantity" value="1" class="form-control" />
                 <input type="hidden" name="hidden_name" value="<?php echo $productName; ?>" />
                 <input type="hidden" name="hidden_price" value="<?php echo $productPrice; ?>" />
