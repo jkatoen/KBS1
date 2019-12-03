@@ -254,23 +254,23 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
 function DisplaySpecialItems($connection)
 {
     //$stmt = $connection->prepare("SELECT StockItemName, UnitPrice, StockItemId  FROM stockitems limit $offset, $no_of_records_per_page");
-    $sql = "select StockItemName, UnitPrice, StockItemId, Photo , StockGroupId ,TaxRate from stockitems join stockitemstockgroups  using (stockitemid) join stockgroups using(stockgroupid) where stockgroupid in(select stockgroupid from specialdeals)";
-    $statement = mysqli_prepare($connection,$sql);
-    mysqli_stmt_execute($statement);
-    $result = mysqli_stmt_get_result($statement);
-
-    foreach ($result as $item) {
-        print("<a class='logolink' href='product.php?id=" . $item["StockItemID"] ."'>");
+    $stmt = $connection->prepare("select StockItemName, UnitPrice, StockItemId, Photo , StockGroupId ,TaxRate from stockitems join StockItemStockGroups  using (stockitemid) join stockgroups using(stockgroupid) where stockgroupid in(select stockgroupid from specialdeals)");
+    $stmt->execute();
+    $stmt->store_result();
+    //if ($stmt->num_rows === 0) exit('No rows');
+    $stmt->bind_result($StockItemName, $UnitPrice, $StockItemId, $Photo, $StockGroupID, $TaxRate);
+    while ($stmt->fetch()) {
+        print("<a class='logolink' href='product.php?id=$StockItemId'>");
         print("<div class='product-item'>");
         print("<div class=\"fakeimg\" style=\"height:200px;\">");
-        echo "<img style='height: 100%; width:100%;' src='IMG/category" . $item["StockGroupId"] .".png'/>";
+        echo "<img style='height: 100%; width:100%;' src='IMG/category{$StockGroupID}.png'/>";
         print("</div>");
         print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
         //print("<div class='grid-item-content'>");
         print("</div>");
         print("</a>");
     }
-    mysqli_close($connection);
+    $stmt->close();
 }
 
 function accountAanmaken($connection) {
@@ -279,26 +279,27 @@ function accountAanmaken($connection) {
         $address = $_POST["adres"];
         $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
         $mail = $_POST["emailadres"];
-        $sqlinsert1 = "INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
-                        VALUES (?,?,?,?,?)";
-//        $sqlinsert2 = ("BEGIN
-//            IF NOT EXISTS (SELECT * FROM gebruikers
-//                    WHERE FirstName = ?
-//                    AND LastName = ?
-//                    AND Address = ?
-//                    AND Password = ?
-//                    AND Emailadres= ?)
-//                BEGIN
-//                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
-//                    VALUES(?,?,?,?,?)
-//                END
-//            END");
-        if($statement = mysqli_prepare($connection, $sqlinsert1)){
-            mysqli_stmt_bind_param($statement, 'sssss', $voornaam, $achternaam, $address, $ww, $mail);
-            mysqli_stmt_execute($statement);
+        $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+                        VALUES (?,?,?,?,?)");
+        $sqlinsert2 = ("BEGIN
+            IF NOT EXISTS (SELECT * FROM gebruikers
+                    WHERE FirstName = ?
+                    AND LastName = ?
+                    AND Address = ?
+                    AND Password = ?
+                    AND Emailadres= ?)
+                BEGIN
+                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+                    VALUES(?,?,?,?,?)
+                END
+            END");
+        if($stmt = $connection->prepare ($sqlinsert1)){
+            $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
 
-            printf("Registreren gelukt!", mysqli_affected_rows($statement));
-            mysqli_close($connection);
+            $stmt->execute();
+
+            printf("Registreren gelukt!", $stmt->affected_rows);
+            $stmt->close();
             $connection->close();
     }   else{
             $error = $connection->errno . ' ' . $connection->error;
@@ -342,24 +343,22 @@ function displaySearchRows($connection, $searchinput)
     $intconvert = (int)$searchinput;
     if ($intconvert != 0) {
         $search = "$searchinput";
-        $query = "SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
                                             JOIN stockgroups USING (StockGroupID) 
-                                            WHERE StockItemID = ? LIMIT 1 offset 1";
+                                            WHERE StockItemID = ? LIMIT 1 offset 1");
     } elseif ($intconvert == 0) {
         $search = "%$searchinput%";
-        $query = "SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
                                             JOIN stockitems USING (StockItemID)
                                             JOIN stockgroups USING (StockGroupID) 
-                                            WHERE searchdetails LIKE ? group by stockitemid";
+                                            WHERE searchdetails LIKE ? group by stockitemid");
     }
-
-    $statement = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($statement, 's', $search);
-    mysqli_stmt_execute($statement);
-    $Result = mysqli_stmt_get_result($statement);
- //   $Result = mysqli_fetch_all($Result,MYSQLI_ASSOC);
-    $amountRows = mysqli_num_rows($Result);
+    $stmt->bind_param("s", $search);
+    $stmt->execute();
+    $stmt->store_result();
+    $amountRows = $stmt->num_rows;
+    $stmt->close();
     return $amountRows;
 }
 

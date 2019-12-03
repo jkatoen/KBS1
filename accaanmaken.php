@@ -1,9 +1,9 @@
 
 <?php
 session_start();
-include("PHP/connectdb.php");
-include("PHP/functions.php");
-include("header.php");
+include ("PHP/connectdb.php");
+include ("PHP/functions.php");
+include ("header.php");
 ?>
 
 <body>
@@ -23,7 +23,7 @@ include("header.php");
 
             <form action="accaanmaken.php" method="POST">
 
-            <form action="../index.php" method="POST">
+            <form action="index.php" method="POST">
 
                 Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
                 Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
