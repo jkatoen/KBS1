@@ -23,23 +23,24 @@ include ("header.php");
 
             <form action="accaanmaken.php" method="POST">
 
-            <form action="index.php" method="POST">
-                Voornaam <br><input type="text" name="naam" class="textinbox" value="" required/><br><br>
-                Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
-                Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
-                Wachtwoord <br><input type="password" name="ww" class="textinbox" value="" required/><br><br>
-                Emailadres <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br><br>
-                <input type="submit" value="Account aanmaken" name="register" class="button" required/>
-            </form>
-            <div class="product-container">
-                <?php
-                if (isset($_POST['register'])) {
-                    if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["ww"]) && isset($_POST["emailadres"])) {
-                        accountAanmaken($connection);
+                <form action="index.php" method="POST">
+
+                    Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
+                    Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
+                    Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
+                    Emailadres <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br><br>
+                    Wachtwoord <br><input type="password" name="ww" class="textinbox" value="" required/><br><br>
+                    <input type="submit" value="Account aanmaken" name="register" class="button" required/>
+                </form>
+                <div class="product-container">
+                    <?php
+                    if (isset($_POST['register'])) {
+                        if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["ww"]) && isset($_POST["emailadres"])) {
+                            accountAanmaken($connection);
+                        }
                     }
-                }
-                ?>
-            </div>
+                    ?>
+                </div>
         </div>
     </div>
 </div>
@@ -47,6 +48,10 @@ include ("header.php");
 <div class="footer">
     <h2>Footer</h2>
 </div>
+
 </body>
+
+</html>
+
 </html>
 

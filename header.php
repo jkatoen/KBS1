@@ -1,15 +1,12 @@
 <?php
+include ("PHP/connectdb.php");
 // Als pagina niet search.php is hoeft er geen sessie met search zijn
 if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
     if (isset($_SESSION['searchinput'])) {
         unset($_SESSION['searchinput']);
     }
 }
-
-$statement = ""
-mysqli_
-
-print_r($_SESSION);
+//print_r($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -23,8 +20,8 @@ print_r($_SESSION);
     <div class="topnav">
         <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
         <?php
-        if (isset($_SESSION['ingelogd'])) {
-            print($_SESSION["naam"]);
+        if (isset($_SESSION["ingelogd"])) {
+            echo "Welcome ".$_SESSION["name"]." !";
             ?>
             <a href="logout.php"><h3>Log uit</h3></a>
             <?php
