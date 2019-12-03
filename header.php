@@ -5,7 +5,10 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
         unset($_SESSION['searchinput']);
     }
 }
-session_start();
+
+$statement = ""
+mysqli_
+
 print_r($_SESSION);
 ?>
 
@@ -21,6 +24,7 @@ print_r($_SESSION);
         <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
         <?php
         if (isset($_SESSION['ingelogd'])) {
+            print($_SESSION["naam"]);
             ?>
             <a href="logout.php"><h3>Log uit</h3></a>
             <?php
