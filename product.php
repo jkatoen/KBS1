@@ -51,7 +51,6 @@ $productResult = productSQL($connection);
             }  ?>
             <a class="next" onclick="plusSlides(1)">❯</a>
             <?php } // END ELSE STATEMENT ?>
-
             <div class="container">
                 <iframe class="productVideo" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
