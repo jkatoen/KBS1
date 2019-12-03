@@ -10,6 +10,19 @@ include ("header.php");
 <h1>Mandje</h1>
 <?php
 //$connect = mysqli_connect("localhost", "root", "", "wideworldimporters");
+foreach($_SESSION["shopping_cart"] as $keys => $values) {
+    if (isset($_GET["id"])) {
+        if ($_GET["id"] == $_SESSION['shopping_cart'][$keys]['item_id']) {
+            if (isset($_POST["plus"])) {
+                $_SESSION['shopping_cart'][$keys]['item_quantity']++;
+                //echo $_SESSION['shopping_cart'][$keys]['item_quantity'];
+            } elseif (isset($_POST["min"])) {
+                $_SESSION['shopping_cart'][$keys]['item_quantity']--;
+
+            } 
+        }
+    }
+}
 
 foreach($_SESSION["shopping_cart"] as $keys => $values) {
     if ($values["item_quantity"] <= 0) {
@@ -43,14 +56,10 @@ if(isset($_POST["add_to_cart"])){
     }
 }
 
-if(isset($_GET["action"]))
-{
-    if($_GET["action"] == "delete")
-    {
-        foreach($_SESSION["shopping_cart"] as $keys => $values)
-        {
-            if($values["item_id"] == $_GET["id"])
-            {
+if(isset($_GET["action"])) {
+    if($_GET["action"] == "delete")     {
+        foreach($_SESSION["shopping_cart"] as $keys => $values) {
+            if($values["item_id"] == $_GET["id"]) {
                 unset($_SESSION["shopping_cart"][$keys]);
                 echo '<script>alert("Item Removed")</script>';
                 echo '<script>window.location="cart.php"</script>';
@@ -58,7 +67,6 @@ if(isset($_GET["action"]))
         }
     }
 }
-print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html>
@@ -100,25 +108,7 @@ print_r($_SESSION);
                     <tr>
                         <td><?php echo $values["item_name"] ; ?></td>
 
-                        <td><?php
-                            if (isset($_GET["id"])) {
-                                if ($_GET["id"] == $_SESSION['shopping_cart'][$keys]['item_id']) {
-                                    if (isset($_POST["plus"])) {
-                                        $_SESSION['shopping_cart'][$keys]['item_quantity']++;
-                                        echo $_SESSION['shopping_cart'][$keys]['item_quantity'];
-                                    } elseif (isset($_POST["min"])) {
-                                        $_SESSION['shopping_cart'][$keys]['item_quantity']--;
-                                        echo $_SESSION['shopping_cart'][$keys]['item_quantity'];
-                                    } else {
-                                        echo $_SESSION['shopping_cart'][$keys]['item_quantity'];
-                                    }
-                                } else {
-                                    echo $_SESSION['shopping_cart'][$keys]['item_quantity'];
-                                }
-                            } else {
-                                echo $_SESSION['shopping_cart'][$keys]['item_quantity'];
-                            }
-                            ?>
+                        <td><?php echo $_SESSION['shopping_cart'][$keys]['item_quantity'];  ?>
                             <form method="post" action="cart.php?id=<?php print ($_SESSION['shopping_cart'][$keys]['item_id']); ?>">
                                 <input type="submit" name="plus" value="+">
                                 <input type="submit" name="min" value="-">
