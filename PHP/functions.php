@@ -312,26 +312,28 @@ function logIn($connection) {
 }
 
 function displayPagination($total_pages, $pageno) {
+    // css
+    echo "<div class='page-border'>";
     if ($total_pages >= 1) {
         // First page button
         $disabled = ($pageno <= 1) ? "disabled" : "";
-        print "<a href='?pageno=1'><button {$disabled}>First</button></a>";
+        print "<a href='?pageno=1'><button class='page-btn' {$disabled}>First</button></a>";
         // Previous page button
         $disabled = ($pageno <= 1) ? "disabled" : "";
-        print "<a href=?pageno=".($pageno-1)."><button {$disabled}>Prev</button></a>";
+        print "<a href=?pageno=".($pageno-1)."><button class='page-btn' {$disabled}>Prev</button></a>";
         // Next page button
         $disabled = ($pageno >= $total_pages) ? "disabled" : "";
-        print "<a href=?pageno=".($pageno+1)."><button {$disabled}>Next</button></a>";
+        print "<a href=?pageno=".($pageno+1)."><button class='page-btn' {$disabled}>Next</button></a>";
         // Last page button
-        print "<a href=?pageno={$total_pages}><button {$disabled}>Last</button></a>";
+        print "<a href=?pageno={$total_pages}><button class='page-btn' {$disabled}>Last</button></a>";
     }
     if ($total_pages > 1 || $_SESSION['rpp'] != 25) {
         print '
-            <form action="" method="post">
-                <a href="{getFullURI();}"><input type="submit" value="25" name="rpp"></a>
-                <a href="{getFullURI();}"><input type="submit" value="50" name="rpp"></a>
-                <a href="{getFullURI();}"><input type="submit" value="100" name="rpp"></a>
-            </form>';
+            <form style="float: right; margin-left: 20px" action="" method="post">
+                <a  href="{getFullURI();}"><input class=\'page-btn\' type="submit" value="25" name="rpp"></a>
+                <a  href="{getFullURI();}"><input class=\'page-btn\' type="submit" value="50" name="rpp"></a>
+                <a  href="{getFullURI();}"><input class=\'page-btn\' type="submit" value="100" name="rpp"></a>
+            </form> </div>';
     }
 }
 

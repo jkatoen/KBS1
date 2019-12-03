@@ -47,8 +47,5 @@ include ("header.php");
         </div>
     </div>
 </div>
-<footer class="footer">
-    <h3>© Copyrights 2019 - World Wide Importers</h3>
-</footer>
 </body>
 </html>

@@ -229,6 +229,7 @@ body {
     padding: 20px;
 }
 .card {
+    text-align: center;
     background-color: white;
     padding: 20px;
     width: 100%;
@@ -328,6 +329,25 @@ input:required {
     float: left;
 }
 
+/* pagination */
+.page-border {
+    display: inline-block;
+}
+.page-btn {
+    font-weight: 100;
+    display: inline-block;
+    background-color: white;
+    color: #358ED7;
+    font-size: 40px;
+    border: 1.5px solid gray;
+    border-radius: 6px;
+    text-decoration: none;
+
+
+}
+.page-btn:hover {
+    background-color: lightgray;
+}
 /* productpagina */
 .product-description {
     border-bottom: 1px solid #E1E8EE;
