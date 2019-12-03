@@ -1,8 +1,8 @@
 <?php
 session_start();
-include ("PHP/connectdb.php");
-include ("PHP/functions.php");
-include ("header.php");
+include("../PHP/connectdb.php");
+include("../PHP/functions.php");
+include("../header.php");
 ?>
 
 <body>
@@ -19,10 +19,10 @@ include ("header.php");
     <div class="midcolumn">
         <div class="inlog">
             <h1>Inloggen</h1><br>
-            <form method="post" action="authenticate.php">
-                Emailadres<br><input type="email" name="email" required><br><br>
-                Wachtwoord<br><input type="password" name="passwd" required><br><br>
-                <input type="submit" name="verzenden" class="button" required><br><br>
+            <form action="" method="post">
+                Emailadres<br><input type="email" name="email" placeholder="Enter your email adres"><br><br>
+                Wachtwoord<br><input type="password" name="password" placeholder="Enter your password"><br><br>
+                <input type="submit" name="submit" class="button"><br><br>
             </form>
             <h3>Nog geen account? Maak dan nu een account aan.</h3>
             <a href="accaanmaken.php"><h4>Account aanmaken</h4></a>
