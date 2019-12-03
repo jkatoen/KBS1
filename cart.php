@@ -4,21 +4,25 @@ include ("PHP/connectdb.php");
 include ("PHP/functions.php");
 include ("header.php");
 
-foreach ($_SESSION["shopping_cart"] as $keys => $values) {
-    if (isset($_GET["id"])) {
-        if ($_GET["id"] == $_SESSION['shopping_cart'][$keys]['item_id']) {
-            if (isset($_POST["plus"])) {
-                $_SESSION['shopping_cart'][$keys]['item_quantity']++;
-            } elseif (isset($_POST["min"])) {
-                $_SESSION['shopping_cart'][$keys]['item_quantity']--;
+if (isset($_SESSION["shopping_cart"])) {
+    foreach ($_SESSION["shopping_cart"] as $keys => $values) {
+        if (isset($_GET["id"])) {
+            if ($_GET["id"] == $_SESSION['shopping_cart'][$keys]['item_id']) {
+                if (isset($_POST["plus"])) {
+                    $_SESSION['shopping_cart'][$keys]['item_quantity']++;
+                } elseif (isset($_POST["min"])) {
+                    $_SESSION['shopping_cart'][$keys]['item_quantity']--;
+                }
             }
         }
     }
 }
 
-foreach ($_SESSION["shopping_cart"] as $keys => $values) {
-    if ($values["item_quantity"] <= 0) {
-        unset($_SESSION["shopping_cart"][$keys]);
+if (isset($_SESSION["shopping_cart"])) {
+    foreach ($_SESSION["shopping_cart"] as $keys => $values) {
+        if ($values["item_quantity"] <= 0) {
+            unset($_SESSION["shopping_cart"][$keys]);
+        }
     }
 }
 
