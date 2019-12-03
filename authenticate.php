@@ -3,19 +3,19 @@ session_start();
 include("PHP/functions.php");
 include("PHP/connectdb.php");
 
-if(isset($_POST["email"] ) && isset($_POST["password"])) {
+if(isset($_POST["email"] ) && isset($_POST["passwd"])) {
     // Check if email and password match,
     // if they match, log in.
 
     // Get the password from associated to email adress to compare with input password
     $email = $_POST["email"];
-    $pass = $_POST["password"];
+    $pass = $_POST["passwd"];
     $checkSQL = $connection->prepare("SELECT Emailadres, Password FROM gebruikers WHERE Emailadres = ?");
     $checkSQL->bind_param("s", $email);
     $checkSQL->execute();
     $result = mysqli_stmt_get_result($checkSQL);
     foreach ($result as $r) {
-        $resultPassword = $r['password'];
+        $resultPassword = $r['Password'];
     }
     $checkSQL->close();
     // Compare passwords
