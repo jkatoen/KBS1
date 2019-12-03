@@ -17,7 +17,7 @@ else {
 <body>
 <div class="row">
     <div class="leftcolumn">
-        <div class="card">
+        <div class="card-left">
             <h2>Category</h2>
             <div class="category-container">
                 <?php displayLeftCategories($connection); ?>
@@ -38,4 +38,7 @@ else {
 </div>
 
 </body>
+<footer class="footer">
+    <h3>© Copyrights 2019 - World Wide Importers</h3>
+</footer>
 </html>

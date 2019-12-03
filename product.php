@@ -12,8 +12,8 @@ $productResult = productSQL($connection);
 </script>
 <body>
 <div class="row">
-    <div class="leftcolumn card">
-        <div class="card">
+    <div class="leftcolumn ">
+        <div class="card-left">
             <h2>Category</h2>
             <div class="category-container">
                 <?php displayLeftCategories($connection); ?>
@@ -21,7 +21,8 @@ $productResult = productSQL($connection);
         </div>
     </div>
 
-    <div class="midcolumn card">
+    <div class="midcolumn">
+        <div class="card">
         <div class="product-left-info">
             <!--Display product image and/or video -->
             <div class="productDisplayImage">
@@ -51,13 +52,12 @@ $productResult = productSQL($connection);
             }  ?>
             <a class="next" onclick="plusSlides(1)">❯</a>
             <?php } // END ELSE STATEMENT ?>
-            <div class="container">
-                <iframe class="productVideo" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+               <!-- <iframe class="productVideo" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             <!--End display product image and/or video -->
         </div>
 
         <div class="product-right-info">
+
             <?php // GETTING PRODUCT INFO AND DISPLAY IT
             foreach ($productResult as $result) {
                 $productId = $result['StockItemId'];
@@ -66,26 +66,26 @@ $productResult = productSQL($connection);
                 $productComment = $result['MarketingComments'];
                 $productQuantity = ($result['QuantityOnHand'] > 1000) ? "Ruim op voorraad" : "Er zijn {$result['QuantityOnHand']} producten op voorraad" ;
             }
-            print "<h2>{$productName}</h2>
-            <br>{$productComment}</br>
-            Prijs: € {$productPrice}</br>
-            {$productQuantity}</p>";
-            // End getting product information ?>
+            ?>
+            <div class="product-description">
+                <h1> <?php echo  $productName ?> </h1>
+                <p> <?php echo $productComment ?> </p>
+                <p> <?php echo $productPrice ?> </p>
+                <p> <?php echo $productQuantity ?></p>
+
+        </div>
             <!-- Adding product to cart -->
             <form method="post" action="cart.php?action=add&id=<?php echo $productId; ?>">
                 <input type="number" name="quantity" value="1" class="form-control" />
                 <input type="hidden" name="hidden_name" value="<?php echo $productName; ?>" />
                 <input type="hidden" name="hidden_price" value="<?php echo $productPrice; ?>" />
-                <input type="submit" name="add_to_cart" class="btn btn-success" value="Add to Cart" />
+                <input type="submit" name="add_to_cart" class="cart-btn" value="Add to Cart" />
             </form>
             <!-- End adding product to cart -->
         </div>
     </div>
-
-
 </div>
+
 </body>
-<footer class="footer">
-    <h3>© Copyrights 2019 - World Wide Importers</h3>
-</footer>
+
 </html>

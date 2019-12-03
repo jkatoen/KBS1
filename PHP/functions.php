@@ -171,7 +171,9 @@ function displayCategoryProducts($connection, $category, $offset, $no_of_records
         if (!empty($Photo)) {
             echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
         } else {
-            echo "<img style='height: 100px; width:100px;' src='IMG/category{$StockGroupID}.png'/>";
+            print("<div class=\"fakeimg\" >");
+            echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
+            print("</div>");
         }
         //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
         print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
@@ -208,8 +210,8 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
                 if (!empty($Photo)) {
                     echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
                 } else {
-                    print("<div class=\"fakeimg\" style=\"height:200px;\">");
-                    echo "<img style='height: 100%; width:100%;' src='IMG/category{$StockGroupID}.png'/>";
+                    print("<div class=\"fakeimg\" >");
+                    echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
                     print("</div>");
                 }
 
@@ -234,8 +236,8 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
                 if (!empty($Photo)) {
                     echo "<img style='height: 200px;' src='data:image/jpeg;base64,".base64_encode( $Photo )."'/>";
                 } else {
-                    print("<div class=\"fakeimg\" style=\"height:200px;\">");
-                    echo "<img style='height: 100%; width:100%;' src='IMG/category{$StockGroupID}.png'/>";
+                    print("<div class=\"fakeimg\" >");
+                    echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
                     print("</div>");
                 }
                 //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
@@ -262,8 +264,8 @@ function DisplaySpecialItems($connection)
     while ($stmt->fetch()) {
         print("<a class='logolink' href='product.php?id=$StockItemId'>");
         print("<div class='product-item'>");
-        print("<div class=\"fakeimg\" style=\"height:200px;\">");
-        echo "<img style='height: 100%; width:100%;' src='IMG/category{$StockGroupID}.png'/>";
+        print("<div class=\"fakeimg\" >");
+        echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
         print("</div>");
         print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
         //print("<div class='grid-item-content'>");
