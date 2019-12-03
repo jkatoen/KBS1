@@ -192,7 +192,6 @@ function displayCategoryProducts($connection, $category, $offset, $no_of_records
  */
 function displaySearchProducts($connection, $searchinput, $offset, $no_of_records_per_page) {
     $intconvert = (int)$searchinput;
-
     if($intconvert != 0) {
         $search = "$searchinput";
         $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, TaxRate, StockGroupID, Photo FROM stockitemstockgroups 
@@ -252,8 +251,7 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
  * Bas Hendriks
  * @param $connection
  */
-function DisplaySpecialItems($connection)
-{
+function DisplaySpecialItems($connection) {
     //$stmt = $connection->prepare("SELECT StockItemName, UnitPrice, StockItemId  FROM stockitems limit $offset, $no_of_records_per_page");
     $stmt = $connection->prepare("select StockItemName, UnitPrice, StockItemId, Photo , StockGroupId ,TaxRate from stockitems join StockItemStockGroups  using (stockitemid) join stockgroups using(stockgroupid) where stockgroupid in(select stockgroupid from specialdeals)");
     $stmt->execute();
@@ -282,31 +280,36 @@ function accountAanmaken($connection) {
     $mail = $_POST["emailadres"];
     $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
                         VALUES (?,?,?,?,?)");
-    $sqlinsert2 = ("BEGIN
-            IF NOT EXISTS (SELECT * FROM gebruikers
-                    WHERE FirstName = ?
-                    AND LastName = ?
-                    AND Address = ?
-                    AND Password = ?
-                    AND Emailadres= ?)
-                BEGIN
-                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
-                    VALUES(?,?,?,?,?)
-                END
-            END");
-    if($stmt = $connection->prepare ($sqlinsert1)){
+//        $sqlinsert2 = ("BEGIN
+//            IF NOT EXISTS (SELECT * FROM gebruikers
+//                    WHERE FirstName = ?
+//                    AND LastName = ?
+//                    AND Address = ?
+//                    AND Password = ?
+//                    AND Emailadres= ?)
+//                BEGIN
+//                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+//                    VALUES(?,?,?,?,?)
+//                END
+//            END");
+    if ($stmt = $connection->prepare($sqlinsert1)) {
         $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
-
         $stmt->execute();
-
         printf("Registreren gelukt!", $stmt->affected_rows);
         $stmt->close();
         $connection->close();
-    }   else{
-        $error = $connection->errno . ' ' . $connection->error;
-        echo $error;
-    }}
-
+        if ($stmt = $connection->prepare($sqlinsert1)) {
+            $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
+            $stmt->execute();
+            printf("Registreren gelukt!", $stmt->affected_rows);
+            $stmt->close();
+            $connection->close();
+        } else {
+            $error = $connection->errno . ' ' . $connection->error;
+            echo $error;
+        }
+    }
+}
 function logIn($connection) {
 }
 
@@ -370,11 +373,11 @@ function productSQL($connection) {
         JOIN stockitemholdings USING (StockItemId)
         WHERE StockItemId = {$_GET['id']}
         LIMIT 1;"; // Limit 1 omdat er meerdere categorieën bij een product kan zijn
-
     $productStmt = mysqli_prepare($connection, $productSQL);
     mysqli_stmt_execute($productStmt);
     return mysqli_stmt_get_result($productStmt);
 }
+
 function imageSQL($connection) {
     $imageSQL = "SELECT StockItemID, StockImagePath
                        FROM stockitems
@@ -384,3 +387,5 @@ function imageSQL($connection) {
     mysqli_stmt_execute($stmt);
     return mysqli_stmt_get_result($stmt);
 }
+
+?>
