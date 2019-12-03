@@ -5,7 +5,7 @@ include("PHP/functions.php");
 
 $uri = getURI(); // Get uri of page
 
-if (isset($_SESSION['ingelogd'])) {
+if ($_POST['ingelogd'] == true) {
     include ("header2.php");
 }
 else {

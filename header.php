@@ -6,7 +6,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
     }
 }
 
-
 ?>
 
 <!DOCTYPE html>
