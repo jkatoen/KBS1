@@ -138,7 +138,8 @@ function displayCategoryName($connection, $category) {
     $stmt->store_result();
     // Page not found moet nog toegevoegd worden!
     if ($stmt->num_rows === 0) {
-        exit('404 Page Not Found');
+        header('location:index.php');
+        exit;
     }
     $stmt->bind_result($StockGroupName);
     $stmt->fetch();
@@ -163,7 +164,8 @@ function displayCategoryProducts($connection, $category, $offset, $no_of_records
     $stmt->store_result();
     // Page not found moet nog toegevoegd worden!
     if ($stmt->num_rows === 0) {
-        exit('404 Page Not Found');
+        header('location:index.php');
+        exit;
     }
     $stmt->bind_result($StockItemName, $UnitPrice, $TaxRate, $StockItemID, $StockGroupID, $Photo);
 
