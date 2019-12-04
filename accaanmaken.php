@@ -36,9 +36,14 @@ include ("header.php");
                 <div class="product-container">
                     <?php
                     if (isset($_POST['register'])) {
-                        if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["ww"]) == isset($_POST["ww2"]) && isset($_POST["emailadres"])) {
-                            accountAanmaken($connection);
+                        if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["ww"]) && isset($_POST["ww2"]) && isset($_POST["emailadres"])) {
+                            if ($_POST["ww"] == $_POST["ww2"]) {
+                                accountAanmaken($connection);
+                            }
+                        else {
+                            echo "Registreren mislukt!";
                         }
+                      }
                     }
                     ?>
                 </div>
