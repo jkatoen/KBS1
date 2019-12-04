@@ -374,4 +374,12 @@ function imageSQL($connection) {
     return mysqli_stmt_get_result($stmt);
 }
 
+function checkIfAlreadyExists($inputEmail, $connection) {
+    $stmt = $connection->prepare("SELECT Emailadres FROM gebruikers WHERE Emailadres = ?");
+    $stmt->bind_param("s", $inputEmail);
+    $stmt->execute();
+    $stmt->store_result();
+    return ($stmt->num_rows === 0) ? FALSE : TRUE;
+}
+
 ?>

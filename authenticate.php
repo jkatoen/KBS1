@@ -2,6 +2,7 @@
 session_start();
 include("PHP/functions.php");
 include("PHP/connectdb.php");
+
 if(isset($_POST["email"] ) && isset($_POST["passwd"])) {
     // Check if email and password match,
     // if they match, log in.
@@ -15,9 +16,9 @@ if(isset($_POST["email"] ) && isset($_POST["passwd"])) {
     $result = mysqli_stmt_get_result($checkSQL);
     foreach ($result as $r) {
         $resultPassword = $r['Password'];
-    $resultFirstname = $r['FirstName'];
-    $resultLastName = $r['LastName'];
-    $resultAddress = $r['Address'];
+        $resultFirstname = $r['FirstName'];
+        $resultLastName = $r['LastName'];
+        $resultAddress = $r['Address'];
     }
     $checkSQL->close();
     // Compare passwords
