@@ -338,15 +338,25 @@ input:required {
     display: inline-block;
     background-color: white;
     color: #358ED7;
-    font-size: 40px;
-    border: 1.5px solid gray;
+    font-size: 25px;
+    border: 1.5px solid #616872 ;
+    padding: 8px;
     border-radius: 6px;
     text-decoration: none;
+/*
+    box-sizing: border-box;
+    background-color: #e2e6e6;
+    padding: 8px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: #616872;
+    border-radius: 4px;
 
-
+*/
 }
 .page-btn:hover {
-    background-color: lightgray;
+    background-color: #d4dada;
 }
 /* productpagina */
 .product-description {
