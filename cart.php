@@ -57,7 +57,7 @@ if (isset($_GET["action"])) {
         foreach ($_SESSION["shopping_cart"] as $keys => $values) {
             if ($values["item_id"] == $_GET["id"]) {
                 unset($_SESSION["shopping_cart"][$keys]);
-                echo '<script>alert("Item Removed")</script>';
+                //echo '<script>alert("Item Removed")</script>';
                 echo '<script>window.location="cart.php"</script>';
             }
         }
@@ -138,7 +138,7 @@ if (isset($_GET["action"])) {
 
         <div class="Checkout" class="Checkout">
             <form action="checkout.php" method="POST">
-                <input type="submit" value="Go to checkout" name="Checkout" class="button" required/>
+                <input type="submit" value="Volgende" name="Checkout" class="button" required/>
             </form>
         </div>
     </div>
