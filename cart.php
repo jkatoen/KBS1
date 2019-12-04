@@ -1,5 +1,6 @@
 <?php
 session_start();
+//session_destroy();
 include ("PHP/connectdb.php");
 include ("PHP/functions.php");
 include ("header.php");
@@ -105,7 +106,6 @@ if(isset($_GET["action"]))
                         <td><?php echo $values["item_name"] ; ?></td>
 
                         <td><?php
-                            //if(!$_GET["id"] || empty($_GET["id"])) {
                             if ($_GET["id"] == $_SESSION['shopping_cart'][$counter]['item_id']) {
                                 if (isset($_POST["plus"])) {
                                     $_SESSION['shopping_cart'][$counter]['item_quantity']++;
@@ -119,9 +119,6 @@ if(isset($_GET["action"]))
                             } else {
                                 echo $_SESSION['shopping_cart'][$counter]['item_quantity'];
                             }
-                            //                            }else{
-                            //                                echo $_SESSION['shopping_cart'][$counter]['item_quantity'];
-                            //                            }
                             ?>
                             <form method="post" action="cart.php?id=<?php print ($_SESSION['shopping_cart'][$counter]['item_id']); ?>">
                                 <input type="submit" name="plus" value="+">
