@@ -283,7 +283,7 @@ function accountAanmaken($connection) {
     $address = $_POST["adres"];
     $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
     $mail = $_POST["emailadres"];
-    $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
+    $sqlinsert1 = ("INSERT INTO user (FirstName, LastName, Address, Password, Emailadres)
                         VALUES (?,?,?,?,?)");
     if ($stmt = $connection->prepare($sqlinsert1)) {
         $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
@@ -382,7 +382,7 @@ function imageSQL($connection) {
 }
 
 function checkIfAlreadyExists($inputEmail, $connection) {
-    $stmt = $connection->prepare("SELECT Emailadres FROM gebruikers WHERE Emailadres = ?");
+    $stmt = $connection->prepare("SELECT Emailadres FROM user WHERE Emailadres = ?");
     $stmt->bind_param("s", $inputEmail);
     $stmt->execute();
     $stmt->store_result();
