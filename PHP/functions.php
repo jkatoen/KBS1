@@ -288,10 +288,17 @@ function accountAanmaken($connection) {
     if ($stmt = $connection->prepare($sqlinsert1)) {
         $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
         $stmt->execute();
-        printf("Registreren gelukt!", $stmt->affected_rows);
+        //printf("Registreren gelukt!", $stmt->affected_rows);
         $stmt->close();
         $connection->close();
-        }
+        $_SESSION["ingelogd"] = true;
+        $_SESSION["email"] = $mail;
+        $_SESSION["firstname"] = $voornaam;
+        $_SESSION["lastname"] = $achternaam;
+        $_SESSION["address"] = $address;
+        header('location: index.php');
+        exit();
+    }
 }
 
 function logIn($connection) {
