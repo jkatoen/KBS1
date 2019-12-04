@@ -138,7 +138,8 @@ function displayCategoryName($connection, $category) {
     $stmt->store_result();
     // Page not found moet nog toegevoegd worden!
     if ($stmt->num_rows === 0) {
-        exit('404 Page Not Found');
+        header('location:index.php');
+        exit;
     }
     $stmt->bind_result($StockGroupName);
     $stmt->fetch();
@@ -163,7 +164,8 @@ function displayCategoryProducts($connection, $category, $offset, $no_of_records
     $stmt->store_result();
     // Page not found moet nog toegevoegd worden!
     if ($stmt->num_rows === 0) {
-        exit('404 Page Not Found');
+        header('location:index.php');
+        exit;
     }
     $stmt->bind_result($StockItemName, $UnitPrice, $TaxRate, $StockItemID, $StockGroupID, $Photo);
 
@@ -283,29 +285,20 @@ function accountAanmaken($connection) {
     $mail = $_POST["emailadres"];
     $sqlinsert1 = ("INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
                         VALUES (?,?,?,?,?)");
-//        $sqlinsert2 = ("BEGIN
-//            IF NOT EXISTS (SELECT * FROM gebruikers
-//                    WHERE FirstName = ?
-//                    AND LastName = ?
-//                    AND Address = ?
-//                    AND Password = ?
-//                    AND Emailadres= ?)
-//                BEGIN
-//                    INSERT INTO gebruikers (FirstName, LastName, Address, Password, Emailadres)
-//                    VALUES(?,?,?,?,?)
-//                END
-//            END");
     if ($stmt = $connection->prepare($sqlinsert1)) {
         $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
         $stmt->execute();
-        printf("Registreren gelukt!", $stmt->affected_rows);
+        //printf("Registreren gelukt!", $stmt->affected_rows);
         $stmt->close();
         $connection->close();
-        }
-        else {
-            $error = $connection->errno . ' ' . $connection->error;
-            echo $error;
-        }
+        $_SESSION["ingelogd"] = true;
+        $_SESSION["email"] = $mail;
+        $_SESSION["firstname"] = $voornaam;
+        $_SESSION["lastname"] = $achternaam;
+        $_SESSION["address"] = $address;
+        header('location: index.php');
+        exit();
+    }
 }
 
 function logIn($connection) {
@@ -386,6 +379,14 @@ function imageSQL($connection) {
     $stmt = mysqli_prepare($connection, $imageSQL);
     mysqli_stmt_execute($stmt);
     return mysqli_stmt_get_result($stmt);
+}
+
+function checkIfAlreadyExists($inputEmail, $connection) {
+    $stmt = $connection->prepare("SELECT Emailadres FROM gebruikers WHERE Emailadres = ?");
+    $stmt->bind_param("s", $inputEmail);
+    $stmt->execute();
+    $stmt->store_result();
+    return ($stmt->num_rows === 0) ? FALSE : TRUE;
 }
 
 ?>

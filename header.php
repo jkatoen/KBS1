@@ -1,10 +1,12 @@
 <?php
+include ("PHP/connectdb.php");
 // Als pagina niet search.php is hoeft er geen sessie met search zijn
 if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
     if (isset($_SESSION['searchinput'])) {
         unset($_SESSION['searchinput']);
     }
 }
+//print_r($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -17,9 +19,9 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
     </div>
     <div class="topnav">
         <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
+        <a href="contact.php"><h3>Contact</h3></a>
         <?php
-        if (isset($_SESSION['ingelogd'])) {
-            print($_SESSION["naam"]);
+        if (isset($_SESSION["ingelogd"])) {
             ?>
             <a href="logout.php"><h3>Log uit</h3></a>
             <?php
@@ -31,7 +33,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
         <?php
         }
         ?>
-        <a href="contact.php"><h3>Contact</h3></a>
         <form class="nav-search" method="get" action="search.php">
             <input class="text" type="text" name="searchinput">
             <input type="submit" name="submitinput" value="Search">

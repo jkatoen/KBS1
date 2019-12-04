@@ -3,58 +3,47 @@
 session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
+include ("header.php");
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
-    <div class="header">
-        <a href="index.php"><img src="IMG/wwi-logo.png"></a>
-    </div>
-    <div class="topnav">
-        <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="56"></a>
-        <a href="accaanmaken.php"><h3>Login</h3></a>
-        <a href="contact.php"><h3>Contact</h3></a>
-
-        <form class="nav-search" method="get" action="search.php">
-            <input class="text" type="text" name="searchinput">
-            <input type="submit" name="submitinput" value="Search">
-        </form>
-    </div>
-</head>
 <body>
 <div class="row">
 
-    <div class="leftcolumn">
-        <div class="card">
-            <h2>Category</h2>
-            <div class="category-container">
-                <?php displayLeftCategories($connection); ?>
-            </div>
-        </div>
-    </div>
     <div class="midcolumn">
-
-        <div class="Checkout" class="Checkout">
-            <h1>Checkout</h1>
-            <form action="https://www.ideal.nl/" method="POST">
-                Voornaam <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
-                Achternaam <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
-                Adres <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
-                Emailadres <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br><br>
-
-                <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
-                <div class="header">
-                   <img src="IMG/iDeal.png" width="20%"
-                <br><br><br>
-                <input type="submit" value="Pay with iDeal"  class="button" required/>
-
-            </form>
-
-
-
-
+            <div class="Checkout" class="Checkout">
+                <h1>Checkout</h1>
+                <form action="invoice.php" method="POST">
+                <?php if (!isset($_SESSION["ingelogd"])) { ?>
+                <p>NAW-gegevens, <a href="login.php">log in</a> of voer in leveradres</p>
+                <table>
+                    <tr><td>Voornaam:   </td><td><input type="text" name="voornaam"/>   </td></tr>
+                    <tr><td>Achternaam: </td><td><input type="text" name="achternaam"/> </td></tr>
+                    <tr><td>Adres:      </td><td><input type="text" name="adres"/>      </td></tr>
+                    <tr><td>Emailadres: </td><td><input type="email" name="emailadres"/> </td></tr>
+                </table>
+                <?php }
+                else { ?>
+                <table>
+                    <tr><td>Voornaam:   </td><td><input type="text" name="voornaam" value="<?php print($_SESSION["firstname"])?>"/>     </td></tr>
+                    <tr><td>Achternaam: </td><td><input type="text" name="achternaam" value="<?php print($_SESSION["lastname"])?>"/>    </td></tr>
+                    <tr><td>Adres:      </td><td><input type="text" name="adres" value="<?php print($_SESSION["address"])?>"/>          </td></tr>
+                    <tr><td>Emailadres: </td><td><input type="email" name="emailadres" value="<?php print($_SESSION["email"])?>"/>      </td></tr>
+                </table>
+                <?php
+                }
+                ?>
+                <p>Lijst van producten in winkelwagen en prijs</p>
+                <?php
+                if (isset($_SESSION["shopping_cart"])) {
+                    echo "<table><th>Product</th><th>Aantal</th><th>Prijs</th>";
+                    foreach ($_SESSION["shopping_cart"] as $item) {
+                        echo "<tr><td>".$item["item_name"]."</td><td>".$item["item_quantity"]."</td><td>".number_format($item["item_price"]*$item["item_quantity"],2)."</td></tr>";
+                    }
+                    echo "</table>";
+                }
+                ?>
+                <button class="button">Volgende</button>
+                </form>
             </div>
         </div>
     </div>

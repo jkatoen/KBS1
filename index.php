@@ -2,10 +2,9 @@
 session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
-
 $uri = getURI(); // Get uri of page
-include ("header.php");
 
+include ("header.php");
 
 ?>
 
@@ -21,7 +20,19 @@ include ("header.php");
     </div>
     <div class="midcolumn">
         <div class="card">
+            <?php
+            if (isset($_SESSION["ingelogd"])) {
+            ?>
+            <h3>Welkom: <?php print($_SESSION["firstname"]);?></h3>
             <h2>Special Deals</h2>
+            <?php
+            }
+            else {
+            ?>
+            <h2>Special Deals</h2>
+            <?php
+            }
+            ?>
             <div class="product-container">
                 <?php
                 DisplaySpecialItems($connection);
@@ -32,5 +43,4 @@ include ("header.php");
 </div>
 
 </body>
-
 </html>

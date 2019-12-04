@@ -3,6 +3,12 @@ session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
 include("header.php");
+
+// If you go to product.php without giving an id, redirect to index.php
+if (!isset($_GET['id'])) {
+    header('location:index.php');
+    exit;
+}
 // Getting product information
 $productResult = productSQL($connection);
 ?>
