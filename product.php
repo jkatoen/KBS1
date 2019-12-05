@@ -21,11 +21,18 @@ include("header.php");
 </script>
 <body>
 <?php
-if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "true"){
+if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
   ?>
     <div class="alert">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-             <strong>Let op!</strong> Product is al aan winkelwagen teogevoegd.
+             Product bevindt zich al in de winkelwagen!.
+    </div>
+    <?php
+}elseif(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "1") {
+    ?>
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+         Product is succesvol aan winkelwagen toegevoegd!.
     </div>
     <?php
 }

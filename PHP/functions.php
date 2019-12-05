@@ -447,9 +447,9 @@ function addToCart() {
                     'item_quantity' => $_POST["quantity"]
                 );
                 array_push($_SESSION["shopping_cart"], $item_array);
-                echo '<script>window.location="product.php?id='. $_GET["id"].'</script>';
+                echo '<script>window.location="product.php?id='. $_GET["id"].'&alert=1"</script>';
             } else {
-                echo '<script>window.location="product.php?id='. $_GET["id"].'&alert=true"</script>';
+                echo '<script>window.location="product.php?id='. $_GET["id"].'&alert=2"</script>';
 
             }
         } else {

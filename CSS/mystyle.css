@@ -100,7 +100,7 @@ body {
     text-decoration: none;
 }
 .category-container{
-    background-color: #ddd;
+    background-color: rgb(0,174,239);
 }
 .category-container :hover {
     background-color: lightblue;
@@ -126,7 +126,7 @@ body {
     background-color: lightblue;
 }
 .product-item{
-    background-color: #ddd;
+    background-color: rgb(0,174,239);
     border: 1px solid black;
     text-align: center;
     margin: 5px;
@@ -155,7 +155,7 @@ body {
 /* Style the top navigation bar */
 .topnav {
     overflow: hidden;
-    background-color: darkgrey;
+    background-color: rgb(0,174,239);
 }
 
 /* Style the topnav links */
@@ -272,7 +272,7 @@ body {
     border:0;
     width: 30%;
     height:35px;
-    background-color: green;
+    background-color: rgb(0,174,239);
     color:white;
     font-weight:bold;
 }
@@ -423,7 +423,7 @@ input:required {
     float: right;
     width: 30%;
     height:35px;
-    background-color: green;
+    background-color: rgb(0,174,239);
     color:white;
     font-weight:bold;
 }
