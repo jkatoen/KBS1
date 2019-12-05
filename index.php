@@ -2,9 +2,9 @@
 session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
-$uri = getURI(); // Get uri of page
-
+addToCart();
 include ("header.php");
+$uri = getURI(); // Get uri of page
 
 ?>
 

@@ -4,65 +4,9 @@ include ("PHP/connectdb.php");
 include ("PHP/functions.php");
 include ("header.php");
 
-if (isset($_SESSION["shopping_cart"])) {
-    foreach ($_SESSION["shopping_cart"] as $keys => $values) {
-        if (isset($_GET["id"])) {
-            if ($_GET["id"] == $_SESSION['shopping_cart'][$keys]['item_id']) {
-                if (isset($_POST["plus"])) {
-                    $_SESSION['shopping_cart'][$keys]['item_quantity']++;
-                } elseif (isset($_POST["min"])) {
-                    $_SESSION['shopping_cart'][$keys]['item_quantity']--;
-                }
-            }
-        }
-    }
-}
-
-if (isset($_SESSION["shopping_cart"])) {
-    foreach ($_SESSION["shopping_cart"] as $keys => $values) {
-        if ($values["item_quantity"] <= 0) {
-            unset($_SESSION["shopping_cart"][$keys]);
-        }
-    }
-}
-
-if (isset($_POST["add_to_cart"])) {
-    if (isset($_SESSION["shopping_cart"])) {
-        $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-        if (!in_array($_GET["id"], $item_array_id)) {
-            $count = count($_SESSION["shopping_cart"]);
-            $item_array = array(
-                'item_id' => $_GET["id"],
-                'item_name' => $_POST["hidden_name"],
-                'item_price' => $_POST["hidden_price"],
-                'item_quantity' => $_POST["quantity"]
-            );
-            array_push($_SESSION["shopping_cart"], $item_array);
-        } else {
-            echo '<script>alert("Item Already Added")</script>';
-        }
-    } else {
-        $item_array = array(
-            'item_id' => $_GET["id"],
-            'item_name' => $_POST["hidden_name"],
-            'item_price' => $_POST["hidden_price"],
-            'item_quantity' => $_POST["quantity"]
-        );
-        $_SESSION["shopping_cart"][0] = $item_array;
-    }
-}
-
-if (isset($_GET["action"])) {
-    if ($_GET["action"] == "delete") {
-        foreach ($_SESSION["shopping_cart"] as $keys => $values) {
-            if ($values["item_id"] == $_GET["id"]) {
-                unset($_SESSION["shopping_cart"][$keys]);
-                //echo '<script>alert("Item Removed")</script>';
-                echo '<script>window.location="cart.php"</script>';
-            }
-        }
-    }
-}
+changeQuantity();
+removeIfQuantityBelow();
+removeFromCart();
 ?>
 
 <body>
