@@ -136,9 +136,9 @@ if (isset($_GET["action"])) {
             ?>
         </table>
 
-        <div class="Checkout" class="Checkout">
+        <div class="Checkout">
             <form action="checkout.php" method="POST">
-                <input type="submit" value="Volgende" name="Checkout" class="button" required/>
+                <input type="submit" value="Volgende" name="Checkout" class="checkout" required/>
             </form>
         </div>
     </div>
