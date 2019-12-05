@@ -264,13 +264,24 @@ function DisplaySpecialItems($connection) {
     //if ($stmt->num_rows === 0) exit('No rows');
     $stmt->bind_result($StockItemName, $UnitPrice, $StockItemId, $Photo, $StockGroupID, $TaxRate);
     while ($stmt->fetch()) {
+        $prijs = number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2);
         print("<a class='logolink' href='product.php?id=$StockItemId'>");
         print("<div class='product-item'>");
         print("<div class=\"fakeimg\" >");
         echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
         print("</div>");
-        print("</br>".$StockItemName." $".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
-        //print("<div class='grid-item-content'>");
+        print("</br>".$StockItemName." $".  $prijs);
+        ?>
+        <!-- Adding product to cart -->
+        <form method="post" action="">
+            <input type="hidden" name="quantity" value="1" class="form-control" />
+            <input type="hidden" name="hidden_id" value="<?php echo $StockItemId; ?>" />
+            <input type="hidden" name="hidden_name" value="<?php echo htmlspecialchars($StockItemName); ?>" />
+            <input type="hidden" name="hidden_price" value="<?php echo $prijs; ?>" />
+            <input type="submit" name="add_to_cart" class="cart-btn" value="Add to Cart" />
+        </form>
+        <!-- End adding product to cart -->
+        <?php
         print("</div>");
         print("</a>");
     }
@@ -389,4 +400,72 @@ function checkIfAlreadyExists($inputEmail, $connection) {
     return ($stmt->num_rows === 0) ? FALSE : TRUE;
 }
 
+function changeQuantity() {
+    if (isset($_SESSION["shopping_cart"])) {
+        foreach ($_SESSION["shopping_cart"] as $keys => $values) {
+            if (isset($_GET["id"])) {
+                if ($_GET["id"] == $_SESSION['shopping_cart'][$keys]['item_id']) {
+                    if (isset($_POST["plus"])) {
+                        $_SESSION['shopping_cart'][$keys]['item_quantity']++;
+                    } elseif (isset($_POST["min"])) {
+                        $_SESSION['shopping_cart'][$keys]['item_quantity']--;
+                    }
+                }
+            }
+        }
+    }
+}
+
+function removeIfQuantityBelow() {
+    if (isset($_SESSION["shopping_cart"])) {
+        foreach ($_SESSION["shopping_cart"] as $keys => $values) {
+            if ($values["item_quantity"] <= 0) {
+                unset($_SESSION["shopping_cart"][$keys]);
+            }
+        }
+    }
+}
+
+function addToCart() {
+    if (isset($_POST["add_to_cart"]) && isset($_GET['id'])) {
+        if (isset($_SESSION["shopping_cart"])) {
+            $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
+            if (!in_array($_GET["id"], $item_array_id)) {
+                $count = count($_SESSION["shopping_cart"]);
+                $item_array = array(
+                    'item_id' => $_GET["id"],
+                    'item_name' => $_POST["hidden_name"],
+                    'item_price' => $_POST["hidden_price"],
+                    'item_quantity' => $_POST["quantity"]
+                );
+                array_push($_SESSION["shopping_cart"], $item_array);
+                echo '<script>alert("Item Added")</script>';
+            } else {
+                echo '<script>alert("Item Already Added")</script>';
+            }
+        } else {
+            $item_array = array(
+                'item_id' => $_GET["id"],
+                'item_name' => $_POST["hidden_name"],
+                'item_price' => $_POST["hidden_price"],
+                'item_quantity' => $_POST["quantity"]
+            );
+            $_SESSION["shopping_cart"][0] = $item_array;
+        }
+    }
+}
+
+function removeFromCart() {
+    if (isset($_GET["action"])) {
+        if ($_GET["action"] == "delete") {
+            foreach ($_SESSION["shopping_cart"] as $keys => $values) {
+                if ($values["item_id"] == $_GET["id"]) {
+                    unset($_SESSION["shopping_cart"][$keys]);
+                    //echo '<script>alert("Item Removed")</script>';
+                    echo '<script>window.location="cart.php"</script>';
+                }
+            }
+        }
+    }
+}
 ?>
