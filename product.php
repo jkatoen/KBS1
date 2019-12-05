@@ -20,6 +20,16 @@ include("header.php");
     showSlides(slideIndex);
 </script>
 <body>
+<?php
+if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "true"){
+  ?>
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+             <strong>Let op!</strong> Product is al aan winkelwagen teogevoegd.
+    </div>
+    <?php
+}
+?>
 <div class="row">
     <div class="leftcolumn ">
         <div class="card-left">

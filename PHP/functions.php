@@ -447,9 +447,10 @@ function addToCart() {
                     'item_quantity' => $_POST["quantity"]
                 );
                 array_push($_SESSION["shopping_cart"], $item_array);
-                echo '<script>alert("Item Added")</script>';
+                echo '<script>window.location="product.php?id='. $_GET["id"].'</script>';
             } else {
-                echo '<script>alert("Item Already Added")</script>';
+                echo '<script>window.location="product.php?id='. $_GET["id"].'&alert=true"</script>';
+
             }
         } else {
             $item_array = array(
@@ -469,7 +470,6 @@ function removeFromCart() {
             foreach ($_SESSION["shopping_cart"] as $keys => $values) {
                 if ($values["item_id"] == $_GET["id"]) {
                     unset($_SESSION["shopping_cart"][$keys]);
-                    //echo '<script>alert("Item Removed")</script>';
                     echo '<script>window.location="cart.php"</script>';
                 }
             }

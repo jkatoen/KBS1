@@ -173,7 +173,7 @@ body {
 
 /* Change color on hover */
 .topnav a:hover {
-    color: dodgerblue;
+    color: rgb(0,174,239);
 }
 
 .nav-search {
@@ -337,7 +337,7 @@ input:required {
     font-weight: 100;
     display: inline-block;
     background-color: white;
-    color: #358ED7;
+    color: rgb(0,174,239);
     font-size: 25px;
     border: 1.5px solid #616872 ;
     padding: 8px;
@@ -366,7 +366,7 @@ input:required {
 
 .product-description span {
     font-size: 12px;
-    color: #358ED7;
+    color: rgb(0,174,239);
     letter-spacing: 1px;
     text-transform: uppercase;
     text-decoration: none;
@@ -380,7 +380,7 @@ input:required {
 .product-description h2 {
     font-weight: 200;
     font-size: 48px;
-    color: #358ED7;
+    color: rgb(0,174,239);
     letter-spacing: 0px;
 }
 .product-description p {
@@ -403,7 +403,7 @@ input:required {
 
 .cart-btn {
     display: inline-block;
-    background-color: #358ED7;
+    background-color: rgb(0,174,239);
     border-radius: 6px;
     font-size: 16px;
     color: #FFFFFF;
@@ -430,7 +430,7 @@ input:required {
 
 .cart-btn-small {
     display: inline-block;
-    background-color: #358ED7;
+    background-color: rgb(0,174,239);
     border-radius: 6px;
     font-size: 10px;
     color: #FFFFFF;
@@ -441,4 +441,26 @@ input:required {
 
 .cart-btn-small:hover {
     background-color: darkblue;
+}
+/* al aan winkelwagen toegevoegd */
+.alert {
+    text-align: center;
+    padding: 20px;
+    background-color: rgb(0,174,239);
+    color: white;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
 }
