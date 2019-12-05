@@ -78,15 +78,15 @@ $productResult = productSQL($connection);
             }
             ?>
             <div class="product-description">
-                <h1> <?php echo  $productName ?> </h1>
-                <h2> <?php echo "$" . $productPrice ?> </h2>
-                <p> <?php echo $productComment ?> </p>
-                <p> <?php echo $productQuantity ?></p>
+                <h1> <?php echo  $productName; ?> </h1>
+                <h2> <?php echo "$" . $productPrice; ?> </h2>
+                <p> <?php echo $productComment; ?> </p>
+                <p> <?php echo $productQuantity; ?></p>
         </div>
             <!-- Adding product to cart -->
             <form method="post" action="cart.php?action=add&id=<?php echo $productId; ?>">
                 <input type="number" name="quantity" value="1" class="form-control" />
-                <input type="hidden" name="hidden_name" value="<?php echo $productName; ?>" />
+                <input type="hidden" name="hidden_name" value="<?php echo htmlspecialchars($productName); ?>" />
                 <input type="hidden" name="hidden_price" value="<?php echo $productPrice; ?>" />
                 <input type="submit" name="add_to_cart" class="cart-btn" value="Add to Cart" />
             </form>
