@@ -2,21 +2,41 @@
 session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
-include("header.php");
-
 // If you go to product.php without giving an id, redirect to index.php
 if (!isset($_GET['id'])) {
     header('location:index.php');
     exit;
 }
+if (isset($_POST['add_to_cart'])) {
+    addToCart();
+}
 // Getting product information
 $productResult = productSQL($connection);
+include("header.php");
+
 ?>
 <script>
     var slideIndex = 1;
     showSlides(slideIndex);
 </script>
 <body>
+<?php
+if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
+  ?>
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+             Product bevindt zich al in de winkelwagen!.
+    </div>
+    <?php
+}elseif(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "1") {
+    ?>
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+         Product is succesvol aan winkelwagen toegevoegd!.
+    </div>
+    <?php
+}
+?>
 <div class="row">
     <div class="leftcolumn ">
         <div class="card-left">
@@ -28,12 +48,8 @@ $productResult = productSQL($connection);
     </div>
 
     <div class="midcolumn">
-
         <div class="card">
-
         <div class="product-left-info">
-
-
             <!--Display product image and/or video -->
             <div class="productDisplayImage">
                 <?php
@@ -52,8 +68,6 @@ $productResult = productSQL($connection);
                 }
                 ?>
             </div>
-
-
             <a class="prev" onclick="plusSlides(-1)">❮</a>
             <?php
             $i = 0;
@@ -78,15 +92,16 @@ $productResult = productSQL($connection);
             }
             ?>
             <div class="product-description">
-                <h1> <?php echo  $productName ?> </h1>
-                <h2> <?php echo "$" . $productPrice ?> </h2>
-                <p> <?php echo $productComment ?> </p>
-                <p> <?php echo $productQuantity ?></p>
-        </div>
+                <h1> <?php echo  $productName; ?> </h1>
+                <h2> <?php echo "$" . $productPrice; ?> </h2>
+                <p> <?php echo $productComment; ?> </p>
+                <p> <?php echo $productQuantity; ?></p>
+            </div>
             <!-- Adding product to cart -->
-            <form method="post" action="cart.php?action=add&id=<?php echo $productId; ?>">
+            <form method="post" action="">
                 <input type="number" name="quantity" value="1" class="form-control" />
-                <input type="hidden" name="hidden_name" value="<?php echo $productName; ?>" />
+                <input type="hidden" name="hidden_id" value="<?php echo $productId; ?>" />
+                <input type="hidden" name="hidden_name" value="<?php echo htmlspecialchars($productName); ?>" />
                 <input type="hidden" name="hidden_price" value="<?php echo $productPrice; ?>" />
                 <input type="submit" name="add_to_cart" class="cart-btn" value="Add to Cart" />
             </form>

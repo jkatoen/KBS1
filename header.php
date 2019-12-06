@@ -6,7 +6,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
         unset($_SESSION['searchinput']);
     }
 }
-//print_r($_SESSION);
 ?>
 
 <!DOCTYPE html>
