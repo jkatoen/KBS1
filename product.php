@@ -70,7 +70,7 @@ $productResult = productSQL($connection);
         <div class="product-right-info">
             <?php // GETTING PRODUCT INFO AND DISPLAY IT
             foreach ($productResult as $result) {
-                $productId = $result['StockItemId'];
+                $productId =($result['StockItemId']);
                 $productName = $result['StockItemName'];
                 $productPrice = number_format(round(($result['UnitPrice'] + (($result['TaxRate'] / 100) * $result['UnitPrice'])), 2), 2); // Misschien nog anders in de sql query berekenen?
                 $productComment = $result['MarketingComments'];
