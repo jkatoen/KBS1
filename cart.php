@@ -15,17 +15,9 @@ removeFromCart();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Webslesson Demo | Simple PHP Mysql Shopping Cart</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-
-
-</div>
-</form>
-</div>
 
 <br />
 <div class="">
@@ -33,7 +25,7 @@ removeFromCart();
     <br />
     <h3>Order Details</h3>
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="width: 100%">
             <tr>
                 <th width="40%">Item Name</th>
                 <th width="10%">Quantity</th>
@@ -50,7 +42,7 @@ removeFromCart();
                 foreach($_SESSION["shopping_cart"] as $keys => $values) {
                     ?>
                     <tr>
-                        <td><?php echo $values["item_name"] ; ?></td>
+                        <td "><?php echo $values["item_name"] ; ?></td>
 
                         <td><?php echo $_SESSION['shopping_cart'][$keys]['item_quantity'];  ?>
                             <form method="post" action="cart.php?id=<?php print ($_SESSION['shopping_cart'][$keys]['item_id']); ?>">
@@ -62,7 +54,7 @@ removeFromCart();
 
                         <td>$ <?php echo $values["item_price"]; ?></td>
                         <td>$ <?php echo number_format( $_SESSION['shopping_cart'][$keys]['item_quantity'] * $values["item_price"], 2);?></td>
-                        <td><a href="cart.php?action=delete&id=<?php echo $_SESSION['shopping_cart'][$keys]['item_id'] ?>"><span class="text-danger">Remove</span></a></td>
+                        <td><a href="cart.php?action=delete&id=<?php echo $_SESSION['shopping_cart'][$keys]['item_id'] ?>"><span style="color: red; text-decoration: none">Remove</span></a></td>
                     </tr>
                     <?php
                     $total = $total + ( $_SESSION['shopping_cart'][$keys]['item_quantity']* $values["item_price"]);

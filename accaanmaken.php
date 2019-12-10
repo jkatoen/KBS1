@@ -11,10 +11,6 @@ include ("header.php");
 
     <div class="leftcolumn">
         <div class="card">
-            <h2>Category</h2>
-            <div class="category-container">
-                <?php displayLeftCategories($connection); ?>
-            </div>
         </div>
     </div>
     <div class="midcolumn">
@@ -46,10 +42,6 @@ include ("header.php");
                 </div>
         </div>
     </div>
-</div>
-
-<div class="footer">
-    <h2>Footer</h2>
 </div>
 
 </body>
