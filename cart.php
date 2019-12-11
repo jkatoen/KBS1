@@ -9,16 +9,19 @@ removeIfQuantityBelow();
 removeFromCart();
 ?>
 
-<body>
-<h1>Mandje</h1>
 
 <!DOCTYPE html>
 <html>
 <head>
 
 </head>
-<body>
 
+            <?php
+
+            if(!empty($_SESSION["shopping_cart"]))
+            {
+                echo'
+<body>
 <br />
 <div class="">
     <div style="clear:both"></div>
@@ -33,10 +36,7 @@ removeFromCart();
                 <th width="15%">Total</th>
                 <th width="5%">Action</th>
             </tr>
-            <?php
-
-            if(!empty($_SESSION["shopping_cart"]))
-            {
+                ';
                 $counter = 0;
                 $total = 0;
                 foreach($_SESSION["shopping_cart"] as $keys => $values) {
@@ -67,23 +67,28 @@ removeFromCart();
                     <td align="right">$ <?php echo number_format($total, 2); ?></td>
                     <td></td>
                 </tr>
-                <?php
-            }
-            ?>
-        </table>
-        <?php
-        if (isset($_SESSION['shopping_cart']) && !empty($_SESSION['shopping_cart'])) {
-            ?>
-        <div class="Checkout">
-            <form action="checkout.php" method="POST">
-                <input type="submit" value="Volgende" name="Checkout" class="checkout" required/>
-            </form>
+            </table>
+            <div class="Checkout">
+              <form action="checkout.php" method="POST">
+                    <input type="submit" value="Volgende" name="Checkout" class="checkout" required/>
+             </form>
+            </div>
         </div>
-        <?php
-            }
-        ?>
     </div>
-</div>
 <br />
 </body>
 </html>
+<?php
+            }else{
+                echo'
+                <div class="alert" style="text-align: center;">
+                <alert><h1>Your cart seems a little empty</h1></alert>
+                <p>Do something about it!</p>
+                </div>
+                <div style="text-align: center">
+                <img style="width: 25%; height: 25%;" src="https://vintagebakings.com/content/images/empty-cart.gif">
+                </div>
+                ';
+
+            }
+            ?>

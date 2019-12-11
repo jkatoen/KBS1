@@ -98,10 +98,15 @@ body {
 .demo:hover {
     opacity: 1;
 }
-
+.header{
+    text-align: center;
+}
 .logolink {
     color: black;
     text-decoration: none;
+}
+.logolink :hover{
+    box-shadow: 5px 10px 8px lightgray;
 }
 .category-container{
     background-color: rgb(0,174,239);
@@ -124,9 +129,6 @@ body {
     grid-template-columns: auto auto auto auto ;
     padding: 5px;
     position: relative;
-}
-.product-item :hover{
-    background-color: lightblue;
 }
 
 .product-item{
@@ -160,6 +162,7 @@ body {
 
 /* Style the top navigation bar */
 .topnav {
+    box-shadow: 5px 10px 8px lightgray;
     overflow: hidden;
     background-color: rgb(0,174,239);
 }
@@ -167,14 +170,9 @@ body {
 /* Style the topnav links */
 .topnav a {
     float: right;
-    display: block;
     color: black;
-    text-align: center;
     padding: 0px 10px;
-    margin: 3px;
     text-decoration: none;
-    border: 2px solid black;
-    border-radius: 5px;
 }
 
 .logo{
@@ -222,7 +220,7 @@ body {
 
 /* Fake image */
 .fakeimg {
-
+    pointer-events: none;
 }
 
 .img{
@@ -454,6 +452,7 @@ input:required {
 }
 /* al aan winkelwagen toegevoegd */
 .alert {
+    box-shadow: 5px 10px 8px lightgray;
     text-align: center;
     padding: 20px;
     background-color: rgb(0,174,239);
