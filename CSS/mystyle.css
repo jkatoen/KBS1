@@ -98,15 +98,7 @@ body {
 .demo:hover {
     opacity: 1;
 }
-/* Header/Blog Title */
-.header {
-    padding: 10px;
-    text-align: center;
-    background: white;
-}
-.header h1 {
-    font-size: 50px;
-}
+
 .logolink {
     color: black;
     text-decoration: none;
@@ -183,6 +175,10 @@ body {
     text-decoration: none;
     border: 2px solid black;
     border-radius: 5px;
+}
+
+.logo{
+    width: 10px;
 }
 
 /* Change color on hover */

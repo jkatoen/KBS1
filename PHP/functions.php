@@ -476,4 +476,10 @@ function removeFromCart() {
         }
     }
 }
+
+function checkIfCartEmpty() {
+    if (empty($_SESSION['shopping_cart'])) {
+        header('location: index.php');
+    }
+}
 ?>
