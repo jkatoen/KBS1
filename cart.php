@@ -74,9 +74,6 @@ removeFromCart();
              </form>
             </div>
         </div>
-        <?php
-            }
-        ?>
     </div>
 <br />
 </body>

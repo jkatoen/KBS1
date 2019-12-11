@@ -13,7 +13,9 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
     <script src="JS/myscript.js"></script>
-
+    <div class="header">
+        <a href="index.php"><img src="IMG/wwi-logo.png"></a>
+    </div>
     <div class="topnav">
         <a href="cart.php"><img style="margin-top: 3px" src="IMG/winkelmand.png" width="55" height="49.5"></a>
         <a href="contact.php"><h4>Contact</h4></a>
@@ -34,7 +36,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
             <input class="text" type="text" name="searchinput">
             <input type="submit" name="submitinput" value="Search">
         </form>
-        <a href="index.php"><img src="IMG/wwi-logo.png"></a>
     </div>
 </head>
 </html>

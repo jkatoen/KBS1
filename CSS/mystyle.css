@@ -98,7 +98,9 @@ body {
 .demo:hover {
     opacity: 1;
 }
-
+.header{
+    text-align: center;
+}
 .logolink {
     color: black;
     text-decoration: none;
