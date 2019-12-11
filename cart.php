@@ -71,12 +71,17 @@ removeFromCart();
             }
             ?>
         </table>
-
+        <?php
+        if (isset($_SESSION['shopping_cart']) && !empty($_SESSION['shopping_cart'])) {
+            ?>
         <div class="Checkout">
             <form action="checkout.php" method="POST">
                 <input type="submit" value="Volgende" name="Checkout" class="checkout" required/>
             </form>
         </div>
+        <?php
+            }
+        ?>
     </div>
 </div>
 <br />
