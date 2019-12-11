@@ -15,9 +15,7 @@ removeFromCart();
 <head>
 
 </head>
-
             <?php
-
             if(!empty($_SESSION["shopping_cart"]))
             {
                 echo'
@@ -28,7 +26,7 @@ removeFromCart();
     <br />
     <h3>Order Details</h3>
     <div class="table-responsive">
-        <table class="table table-bordered" style="width: 100%">
+        <table class="table-bordered" style="width: 100%">
             <tr>
                 <th width="40%">Item Name</th>
                 <th width="10%">Quantity</th>
@@ -70,7 +68,8 @@ removeFromCart();
             </table>
             <div class="Checkout">
               <form action="checkout.php" method="POST">
-                    <input type="submit" value="Volgende" name="Checkout" class="checkout" required/>
+                  <input type="hidden" value="<?php echo ($total) ?>" name="total">
+                  <input type="submit" value="Volgende" name="Checkout" class="checkout" required/>
              </form>
             </div>
         </div>
