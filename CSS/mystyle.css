@@ -110,6 +110,7 @@ body {
 }
 .category-container{
     background-color: rgb(0,174,239);
+    box-shadow: 5px 10px 8px lightgray;
 }
 .category-container :hover {
     background-color: lightblue;
