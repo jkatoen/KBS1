@@ -17,18 +17,18 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
         <a href="index.php"><img src="IMG/wwi-logo.png"></a>
     </div>
     <div class="topnav">
-        <a href="cart.php"><img src="IMG/winkelmand.png" width="65" height="59.5"></a>
-        <a href="contact.php"><h3>Contact</h3></a>
+        <a href="cart.php"><img style="margin-top: 3px" src="IMG/winkelmand.png" width="55" height="49.5"></a>
+        <a href="contact.php"><h4>Contact</h4></a>
         <?php
         if (isset($_SESSION["ingelogd"])) {
             ?>
-            <a href="logout.php"><h3>Log uit</h3></a>
+            <a href="logout.php"><h4>Log uit</h4></a>
             <?php
         }
         else {
             ?>
-        <a href="login.php"><h3>Log in</h3></a>
-        <a href="accaanmaken.php"><h3>Account aanmaken</h3></a>
+        <a href="login.php"><h4>Log in</h4></a>
+        <a href="accaanmaken.php"><h4>Account aanmaken</h4></a>
         <?php
         }
         ?>
