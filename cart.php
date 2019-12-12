@@ -66,6 +66,8 @@ removeFromCart();
                     <td></td>
                 </tr>
             </table>
+           
+
             <div class="Checkout">
               <form action="checkout.php" method="POST">
                   <input type="hidden" value="<?php echo ($total) ?>" name="total">
@@ -88,6 +90,5 @@ removeFromCart();
                 <img style="width: 25%; height: 25%;" src="https://vintagebakings.com/content/images/empty-cart.gif">
                 </div>
                 ';
-
             }
             ?>

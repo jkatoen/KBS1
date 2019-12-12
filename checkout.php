@@ -37,6 +37,17 @@ checkIfCartEmpty();
                     ?>
                 </form>
                 </div>
+    <div class="Discount">
+        <form method="POST">
+            <input type="text" value="Voer hier je coupon in" name="discount" class="text">
+            <input type="submit" value="Voeg toe" name="ok" required/>
+        </form>
+    </div>
+    <?php
+    if(isset($_POST["discount"])){
+
+    }
+    ?>
     <div class="rightcolumn">
                     <p>List of items in your shopping basket</p>
                     <?php

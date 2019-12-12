@@ -276,7 +276,8 @@ function DisplaySpecialItems($connection) {
     //if ($stmt->num_rows === 0) exit('No rows');
     $stmt->bind_result($StockItemName, $UnitPrice, $StockItemId, $Photo, $StockGroupID, $TaxRate, $StockImagePath);
     while ($stmt->fetch()) {
-        $prijs = number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2);
+        $pricewithoutsale = number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2);
+        $saleprice = '€'. number_format(round((($UnitPrice*1.25)+(($TaxRate/100)*$UnitPrice)),2),2);
         print("<a class='logolink' href='product.php?id=$StockItemId'>");
         print("<div class='product-item'>");
         if (!empty($StockImagePath)) {
@@ -288,7 +289,8 @@ function DisplaySpecialItems($connection) {
             echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
             print("</div>");
         }
-        print("</br>".$StockItemName." €".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+
+        print("</br>".$StockItemName."   <span class='strikeout'>$saleprice</span>€<bold style= color:;> $pricewithoutsale</bold>");
         //print("<div class='grid-item-content'>");
         print("</div>");
         print("</a>");

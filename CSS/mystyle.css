@@ -480,3 +480,18 @@ input:required {
     height: 20px;
     width: 20px;
 }
+
+.strikeout {
+    line-height: 1em;
+    position: relative;
+    color:red;
+}
+.strikeout::after {
+    border-bottom: 0.2em solid red;
+    content: "";
+    left: 0;
+    margin-top: calc(0.125em / 2 * -1);
+    position: ABSOLUTE;
+    right: 0;
+    top: 50%;
+}
