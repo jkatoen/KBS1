@@ -29,8 +29,8 @@ $total = $_SESSION["total"];
                 url: "PHP/adddiscount.php",
                 data: {discount_code:discount_code},
                 cache: false,
-                success: function (result) {
-                    alert(result);
+                success: function (discount_code) {
+                    alert(discount_code);
                 }
             })
         })
@@ -66,7 +66,7 @@ $total = $_SESSION["total"];
         <div class="Discount">
             <form method="POST">
                 <p>Voeg hier je coupon toe!</p>
-                <input type="text" name="discount">
+                <input type="text" name="discount" class="input_discount">
                 <button class="addDiscount" value="<?php echo $discount_id; ?>">Toevoegen code</button>
             </form>
         </div>

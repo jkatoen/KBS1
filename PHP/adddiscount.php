@@ -4,6 +4,6 @@ session_start();
 include ("connectdb.php");
 include ("functions.php");
 
-if(isset($_POST['discount'])){
-    echo $_POST['discount'] ;
+if(isset($_POST['discount_code'])){
+    echo $_POST['discount_code'] ;
 }
