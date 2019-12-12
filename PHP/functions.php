@@ -502,7 +502,7 @@ function checkUserMadeReview($connection, $user_id, $item_id) {
 
 function getReviewScoreTotal($connection, $item_id) {
     $stmt = mysqli_prepare($connection, "SELECT Rating FROM review WHERE StockItemID = ?");
-    mysqli_stmt_bind_param($stmt, "i", $item_id,);
+    mysqli_stmt_bind_param($stmt, "i", $item_id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_store_result($stmt);
     mysqli_stmt_bind_result($stmt, $Rating);
@@ -529,7 +529,7 @@ function getReviewScoreTotal($connection, $item_id) {
 
 function displayReview($connection, $item_id) {
     $stmt = mysqli_prepare($connection, "SELECT AccountID, Rating, Review FROM review WHERE StockItemID = ?");
-    mysqli_stmt_bind_param($stmt, "i", $item_id,);
+    mysqli_stmt_bind_param($stmt, "i", $item_id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_store_result($stmt);
     if (mysqli_stmt_num_rows($stmt) != 0) {
