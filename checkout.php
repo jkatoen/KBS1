@@ -11,6 +11,32 @@ $total = $_SESSION["total"];
 <head>
     <h1 style="text-align: center">Checkout</h1>
 </head>
+<script>
+    /*$(document).ready(function(){
+        $(".checkDiscount").click(function(){
+            var discount = $(".input_discount").val();
+            alert(discount);
+        }
+    });
+    });*/
+
+    $(document).ready(function(){
+        $(".addDiscount").click(function(){
+            var discount_code = $(".input_discount").val();
+            // AJAX Code To Submit Form.
+            $.ajax({
+                type: "POST",
+                url: "PHP/adddiscount.php",
+                data: {discount_code:discount_code},
+                cache: false,
+                success: function (result) {
+                    alert(result);
+                }
+            })
+        }
+    });
+    })
+</script>
 <body>
 <div class="row">
 
@@ -41,21 +67,22 @@ $total = $_SESSION["total"];
         <div class="Discount">
             <form method="POST">
                 <p>Voeg hier je coupon toe!</p>
-                <input type="text" name="discount" class="text">
-                <input type="submit" value="Voeg toe" name="ok" required/>
+                <input type="text" name="discount">
+                <button class="addDiscount" value="<?php echo $discount_id; ?>">Toevoegen code</button>
             </form>
         </div>
         <?php
-        $stmt = mysqli_prepare($connection, "SELECT discountcode
-                                                     FROM discount");
+/*        $stmt = mysqli_prepare($connection, "SELECT discountcode FROM discount where code = ?");
         mysqli_stmt_bind_param($stmt, "s", $code);
         mysqli_stmt_execute($stmt);
         if(isset($_POST["discount"])){
-            if($_POST["discount"] == $code){
+            if($_POST["discount"] == $stmt){
                 $total = $total*0.80;
             }
         }
-        ?>
+        */
+?>
+
 
     <div class="rightcolumn">
                     <p>Items in je winkelmand</p>
