@@ -171,25 +171,6 @@ img {
 
 /* Create two unequal columns that floats next to each other */
 /* Left column */
-.leftcolumn {
-    float: left;
-    width: 25%;
-    padding-right: 20px;
-}
-
-.midcolumn {
-    position: relative;
-    width: 55%;
-    margin-top: 15px;
-    background-color: #FAF8F5;
-}
-
-/* Right column */
-.rightcolumn {
-    width: 25%;
-    background-color: #f1f1f1;
-    padding-left: 20px;
-}
 
 /* Add a card effect for articles */
 .card-left {
@@ -214,7 +195,6 @@ img {
     box-shadow: 5px 10px 8px lightgray;
 }
 .category-container{
-    background-color: #FAF8F5;
 }
 .category-container :hover {
     background-color: grey;
