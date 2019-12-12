@@ -12,16 +12,16 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="CSS/Styling.css">
     <script src="JS/myscript.js"></script>
+    <div class="wwi">
+        <a href="index.php"><img src="IMG/wwi-logo.png"></a>
+    </div>
     <div class="header">
         <div class="head-left">
-            <a href="index.php"><img src="IMG/wwi-logo.png" class="logo"></a>
-        </div>
-        <div class="head-mid">
             <form class="nav-search" method="get" action="search.php">
                 <input class="text" type="text" name="searchinput">
-                <input type="submit" name="submitinput" value="Search">
+                <input class="submit-search" type="submit" name="submitinput" value="Search">
             </form>
         </div>
         <div class="head-right">
