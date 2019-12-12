@@ -264,6 +264,24 @@ img {
     border: 0px;
 }
 
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+    float: left;
+    width: 23%;
+}
+
+.midcolumn {
+    float: left;
+    width: 60%;
+}
+
+/* Right column */
+.rightcolumn {
+    float: right;
+    width: 40%;
+}
+
 /* Fake image */
 .fakeimg {
     pointer-events: none;
@@ -448,9 +466,13 @@ input:required {
 .cart-btn:hover {
     background-color: darkblue;
 }
+.checkoutpage{
+    margin-left: 42%;
 
+}
 /* cart */
 .checkout{
+    margin-left: 30%;
     border-radius: 5px;
     border:0;
     float: right;
@@ -497,4 +519,9 @@ input:required {
 
 .closebtn:hover {
     color: black;
+}
+
+.review_star {
+    height: 20px;
+    width: 20px;
 }
