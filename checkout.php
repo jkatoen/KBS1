@@ -46,11 +46,16 @@ $total = $_SESSION["total"];
             </form>
         </div>
         <?php
+        $stmt = mysqli_prepare($connection, "SELECT discountcode
+                                                     FROM discount");
+        mysqli_stmt_bind_param($stmt, "s", $code);
+        mysqli_stmt_execute($stmt);
         if(isset($_POST["discount"])){
-
+            if($_POST["discount"] == $code){
+                $total = $total*0.80;
+            }
         }
         ?>
-        </div>
 
     <div class="rightcolumn">
                     <p>Items in je winkelmand</p>
