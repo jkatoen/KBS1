@@ -13,6 +13,7 @@ th, td {
     border: 0.5px solid lightgray;
 }
 
+
 body {
     font-family: 'roboto' ,sans-serif;
     padding: 0px;
@@ -33,6 +34,15 @@ body {
 /* Add a pointer when hovering over the thumbnail images */
 .cursor {
     cursor: pointer;
+}
+.vervoer{
+    background-color:  rgb(0,174,239);
+    height: 30px;
+    width: 70px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+
 }
 /* Next & previous buttons */
 .prev {
@@ -81,7 +91,7 @@ body {
     text-align: center;
     background-color: white;
     padding: 1px 2px;
-    color: black;
+    color: white;
     width: 100%;
 }
 /* Six columns side by side */
@@ -109,13 +119,15 @@ body {
     box-shadow: 5px 10px 8px lightgray;
 }
 .category-container{
-    background-color: rgb(0,174,239);
 }
 .category-container :hover {
     background-color: lightblue;
 }
 .category-item{
+    background-color: rgb(0,174,239);
     border: 1px solid black;
+    margin-bottom: 5px;
+    border-radius: 5px ;
     font-size: 20px;
     padding: 20px;
 }
@@ -231,8 +243,9 @@ body {
 
 .card-left {
     float: left;
-    background-color: white;
-    padding: 20px;
+    padding-right: 20px;
+    padding-bottom:100%;
+    border-right: 2px solid gray;
 }
 .card {
     text-align: center;
