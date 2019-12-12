@@ -475,3 +475,8 @@ input:required {
 .closebtn:hover {
     color: black;
 }
+
+.review_star {
+    height: 20px;
+    width: 20px;
+}
