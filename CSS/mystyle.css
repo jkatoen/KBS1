@@ -13,19 +13,14 @@ th, td {
     border: 0.5px solid lightgray;
 }
 
+
 body {
     font-family: 'roboto' ,sans-serif;
     padding: 0px;
     margin: 0px;
+    background-color: #5CDB85;
 }
-.row {
-    margin: 0 auto;
-    padding: 15px;
-    display: flex;
-}
-    img {
-        vertical-align: middle;
-    }
+
 /* Position the image container (needed to position the left and right arrows) */
 .container {
     float: left;
@@ -33,6 +28,15 @@ body {
 /* Add a pointer when hovering over the thumbnail images */
 .cursor {
     cursor: pointer;
+}
+.vervoer{
+    background-color:  rgb(0,174,239);
+    height: 30px;
+    width: 70px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+
 }
 /* Next & previous buttons */
 .prev {
@@ -81,7 +85,7 @@ body {
     text-align: center;
     background-color: white;
     padding: 1px 2px;
-    color: black;
+    color: white;
     width: 100%;
 }
 /* Six columns side by side */
@@ -98,9 +102,109 @@ body {
 .demo:hover {
     opacity: 1;
 }
-.header{
-    text-align: center;
+
+.logo{
+    margin-right: 70%;
 }
+
+/* Style the top navigation bar */
+.header {
+    display: flex;
+    overflow: hidden;
+    background-color: #5CDB85;
+    height: 10%
+}
+
+/* Style the header links */
+.header a {
+    text-align: center;
+    float: right;
+    color: black;
+    padding: 0px 10px;
+    padding-bottom: 3px;
+    text-decoration: none;
+}
+/* Change color on hover */
+.header a:hover {
+    color: #f5f5f5;
+}
+/* Positioning of the Nav Bar elements */
+.head-left{
+    width: 35%;
+    float: left;
+    padding-right: 25px;
+}
+.head-left a{
+    float: left
+}
+.head-mid{
+    float: none;
+    width: 55%;
+}
+.head-right{
+    width: 35%;
+    float: right;
+    padding-left: 25px;
+}
+
+.nav-search {
+    margin-top: 32px;
+    width: 1100px;
+    margin-left: 310px;
+}
+
+.row {
+    margin: 0 auto;
+    padding-top: 0px;
+    display: flex;
+}
+img {
+    vertical-align: middle;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    display: table;
+    clear: both;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+    float: left;
+    width: 25%;
+    padding-right: 20px;
+}
+
+.midcolumn {
+    position: relative;
+    width: 55%;
+    margin-top: 15px;
+    background-color: #FAF8F5;
+}
+
+/* Right column */
+.rightcolumn {
+    width: 25%;
+    background-color: #f1f1f1;
+    padding-left: 20px;
+}
+
+/* Add a card effect for articles */
+.card-left {
+    float: left;
+    background-color: #b0acac;
+    padding: 20px;
+    margin-top: 0px;
+    height: 100%;
+}
+.card {
+    text-align: center;
+    background-color: #FAF8F5;
+    padding: 20px;
+    width: 100%;
+}
+
 .logolink {
     color: black;
     text-decoration: none;
@@ -109,13 +213,16 @@ body {
     box-shadow: 5px 10px 8px lightgray;
 }
 .category-container{
-    background-color: rgb(0,174,239);
+    background-color: #FAF8F5;
 }
 .category-container :hover {
-    background-color: lightblue;
+    background-color: grey;
 }
 .category-item{
+    background-color: rgb(0,174,239);
     border: 1px solid black;
+    margin-bottom: 5px;
+    border-radius: 5px ;
     font-size: 20px;
     padding: 20px;
 }
@@ -132,7 +239,7 @@ body {
 }
 
 .product-item{
-    background-color: rgb(0,174,239);
+    background-color: #b0acac;
     border: 0.5px solid black;
     border-radius: 5px;
     text-align: center;
@@ -158,35 +265,6 @@ body {
 .product-left-info {
     margin-top: 60px;
     float: left;
-}
-
-/* Style the top navigation bar */
-.topnav {
-    box-shadow: 5px 10px 8px lightgray;
-    overflow: hidden;
-    background-color: rgb(0,174,239);
-}
-
-/* Style the topnav links */
-.topnav a {
-    float: right;
-    color: black;
-    padding: 0px 10px;
-    text-decoration: none;
-}
-
-.logo{
-    width: 10px;
-}
-
-/* Change color on hover */
-.topnav a:hover {
-    color: #f5f5f5;
-}
-
-.nav-search {
-    margin-top: 32px;
-    margin-left: 38%;
 }
 
 .form{
@@ -231,8 +309,9 @@ body {
 
 .card-left {
     float: left;
-    background-color: white;
-    padding: 20px;
+    padding-right: 20px;
+    padding-bottom:100%;
+    border-right: 2px solid gray;
 }
 .card {
     text-align: center;
@@ -479,4 +558,19 @@ input:required {
 .review_star {
     height: 20px;
     width: 20px;
+}
+
+.strikeout {
+    line-height: 1em;
+    position: relative;
+    color:red;
+}
+.strikeout::after {
+    border-bottom: 0.2em solid red;
+    content: "";
+    left: 0;
+    margin-top: calc(0.125em / 2 * -1);
+    position: ABSOLUTE;
+    right: 0;
+    top: 50%;
 }

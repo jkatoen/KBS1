@@ -101,20 +101,23 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                <!-- <iframe class="productVideo" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             <!--End display product image and/or video -->
         </div>
-
         <div class="product-right-info">
             <?php // GETTING PRODUCT INFO AND DISPLAY IT
             foreach ($productResult as $result) {
+                $UnitPrice = $result['UnitPrice'];
+                $TaxRate = $result['TaxRate'];
                 $productId =($result['StockItemId']);
                 $productName = $result['StockItemName'];
-                $productPrice = number_format(round(($result['UnitPrice'] + (($result['TaxRate'] / 100) * $result['UnitPrice'])), 2), 2); // Misschien nog anders in de sql query berekenen?
+                $productPrice = number_format(round((($UnitPrice)+(($TaxRate/100)*$UnitPrice)),2),2); // Misschien nog anders in de sql query berekenen?
                 $productComment = $result['MarketingComments'];
                 $productQuantity = ($result['QuantityOnHand'] > 1000) ? "Ruim op voorraad" : "Er zijn {$result['QuantityOnHand']} producten op voorraad" ;
             }
             ?>
+
+
             <div class="product-description">
                 <h1> <?php echo  $productName; ?> </h1>
-                <h2> <?php echo "$" . $productPrice; ?> </h2>
+                <h2> <?php echo "€" . $productPrice; ?> </h2>
                 <p> <?php echo $productComment; ?> </p>
                 <p> <?php echo $productQuantity; ?></p>
             </div>
