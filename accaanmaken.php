@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include ("PHP/connectdb.php");
@@ -18,12 +17,12 @@ include ("header.php");
             <h1>Account aanmaken</h1>
             <form action="accaanmaken.php" method="POST">
                 <form action="index.php" method="POST">
-                    First name: <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
-                    Last name: <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
-                    Address: <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
-                    Emailaddress: <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br>
-                    Password: <br><input type="password" name="ww" class="textinbox" value="" required/><br><br>
-                    Repeat password: <br><input type="password" name="ww2" class="textinbox" value="" required/><br><br><br>
+                    Voornaam: <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
+                    Achternaam: <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
+                    Adres: <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
+                    Email adres: <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br>
+                    Wachtwoord: <br><input type="password" name="ww" class="textinbox" value="" required/><br><br>
+                    Herhaal het wachtwoord: <br><input type="password" name="ww2" class="textinbox" value="" required/><br><br><br>
                     <input type="submit" value="Account aanmaken" name="register" class="button" required/>
                 </form>
                 <div class="product-container">

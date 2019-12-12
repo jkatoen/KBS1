@@ -26,6 +26,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
         </div>
         <div class="head-right">
             <a href="cart.php"><img style="margin-top: 3px" src="IMG/winkelmand.png" width="55" height="49.5"></a>
+            <a href="favorites.php"><h4>Favorieten</h4></a>
             <a href="contact.php"><h4>Contact</h4></a>
             <?php
             if (isset($_SESSION["ingelogd"])) {

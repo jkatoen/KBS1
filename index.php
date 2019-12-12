@@ -12,7 +12,7 @@ $uri = getURI(); // Get uri of page
 <div class="row">
     <div class="leftcolumn">
         <div class="card-left">
-            <h2>Category</h2>
+            <h2>Categorieën</h2>
             <div class="category-container">
                 <?php displayLeftCategories($connection); ?>
             </div>
@@ -24,12 +24,12 @@ $uri = getURI(); // Get uri of page
             if (isset($_SESSION["ingelogd"])) {
             ?>
             <h3>Welkom: <?php print($_SESSION["firstname"]);?></h3>
-            <h2>Special Deals</h2>
+            <h2>Speciale aanbiedingen</h2>
             <?php
             }
             else {
             ?>
-            <h2>Special Deals</h2>
+            <h2>Speciale aanbiedingen</h2>
             <?php
             }
             ?>

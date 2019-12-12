@@ -139,10 +139,11 @@ body {
 .category-item a {
     color: black;
     text-decoration: none;
+    width: 100%;
 }
 
 .category-item a:hover{
-    color: #9A0000;
+    color: #00AEEF;
 }
 
 .product-container{
