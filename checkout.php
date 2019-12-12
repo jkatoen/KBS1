@@ -30,7 +30,7 @@ $total = $_SESSION["total"];
                 data: {discount_code:discount_code},
                 cache: false,
                 success: function (discount_code) {
-                    alert(discount_code);
+                    alert(discount_code)
                 }
             })
         })
