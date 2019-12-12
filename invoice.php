@@ -1,7 +1,8 @@
 <?php
 session_start();
-checkIfCartEmpty();
+include ("PHP/functions.php");
 include ("header.php");
+checkIfCartEmpty();
 // Zijn de gegevens ingevuld?
 if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["emailadres"])) {
     $voornaam = $_POST["voornaam"];
