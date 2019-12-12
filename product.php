@@ -3,11 +3,12 @@ session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
 // If you go to product.php without giving an id, redirect to index.php
-if (!isset($_GET['id'])) {
-    header('location:index.php');
+if (!isset($_GET["id"])) {
+    header("location:index.php");
     exit;
 }
-if (isset($_POST['add_to_cart'])) {
+$item_id = $_GET["id"];
+if (isset($_POST["add_to_cart"])) {
     addToCart();
 }
 // Getting product information
@@ -16,8 +17,28 @@ include("header.php");
 
 ?>
 <script>
-    var slideIndex = 1;
-    showSlides(slideIndex);
+    $(document).ready(function(){
+        $(".addReview").click(function(){
+            if (!$.trim($(".user_review").val())) {
+                $(".displayResult").text("Review is leeg");
+            } else {
+                var review = $(".user_review").val();
+                var rating = $(".user_rating").serialize().split("=").pop();
+                var itemid = this.value;
+                // AJAX Code To Submit Form.
+                $.ajax({
+                    type: "POST",
+                    url: "PHP/addreview.php",
+                    data: {item_id:itemid, user_rating:rating, user_review:review},
+                    cache: false,
+                    success: function (result) {
+                        $(".displayResult").text(result);
+                    }
+                });
+            }
+        });
+    });
+
 </script>
 <body>
 <?php
@@ -127,7 +148,7 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 <input name="user_rating" class="user_rating" type="radio" value="4"/>4 sterretjes<br>
                 <input name="user_rating" class="user_rating" type="radio" value="5" checked/>5 sterretjes<br>
                 <textarea name="user_review" class="user_review"></textarea><br>
-                <button class="addReview">Toevoegen Review</button>
+                <button class="addReview" value="<?php echo $item_id; ?>">Toevoegen Review</button>
                 <?php
             } else {
                 ?><p>Je moet ingelogd zijn om een review te schrijven</p><?php
