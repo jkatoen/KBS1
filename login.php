@@ -9,7 +9,7 @@ include("header.php");
 <div class="row">
 
     <div class="leftcolumn">
-        <div class="card">
+        <div class="card-left">
             <h2>Category</h2>
             <div class="category-container">
                 <?php displayLeftCategories($connection); ?>
