@@ -62,11 +62,9 @@ $total = $_SESSION["total"];
                     ?>
                 </form>
         <div class="Discount">
-            <form method="POST">
                 <p>Voeg hier je coupon toe!</p>
                 <input type="text" name="discount" class="input_discount">
                 <button class="addDiscount" value="<?php echo $discount_id; ?>">Toevoegen code</button>
-            </form>
         </div>
 
 
