@@ -47,6 +47,7 @@ body {
     border-style: solid;
     border-width: 3px 0px 3px 0px;
     box-shadow: 0px 4px 15px grey;
+    padding-bottom: 10px;
 }
 
 /* Style the header links */
@@ -54,13 +55,12 @@ body {
     text-align: center;
     float: right;
     color: black;
-    padding: 0px 10px;
-    padding-bottom: 5px;
+    padding-left: 10px;
     text-decoration: none;
 }
 /* Change color on hover */
 .header a:hover {
-    color: #202020;
+    color: grey;
     border-bottom-width: 2px;
     border-bottom-style: solid;
 }
@@ -69,14 +69,14 @@ body {
     width: 65%;
 }
 .head-right{
-    width: 35%;
+    width: 45%;
     float: right;
 }
 
 .nav-search {
     margin-top: 32px;
-    margin-left: 520px;
-    width: 1000px;
+    margin-left: 510px;
+    width: 970px;
 }
 
 /* Positioning of the Nav Bar elements */
