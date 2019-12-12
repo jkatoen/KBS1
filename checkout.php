@@ -30,7 +30,6 @@ $total = $_SESSION["total"];
                 data: {discount_code:discount_code},
                 cache: false,
                 success: function (discount_code) {
-                    alert(discount_code)
                 }
             })
         })
@@ -38,7 +37,6 @@ $total = $_SESSION["total"];
 </script>
 <body>
 <div class="row">
-
     <div class="leftcolumn" style="margin-left: 5%">
     </div>
     <div class="midcolumn" style="width: 25%;">
@@ -70,17 +68,6 @@ $total = $_SESSION["total"];
                 <button class="addDiscount" value="<?php echo $discount_id; ?>">Toevoegen code</button>
             </form>
         </div>
-        <?php
-/*        $stmt = mysqli_prepare($connection, "SELECT discountcode FROM discount where code = ?");
-        mysqli_stmt_bind_param($stmt, "s", $code);
-        mysqli_stmt_execute($stmt);
-        if(isset($_POST["discount"])){
-            if($_POST["discount"] == $stmt){
-                $total = $total*0.80;
-            }
-        }
-        */
-?>
 
 
     <div class="rightcolumn">
@@ -113,11 +100,11 @@ $total = $_SESSION["total"];
                         }
                     }
                     ?>
-        <form action="checkout.php?vervoer=<?php echo $_GET["vervoer"] ?>" method="get">
+
             <p>Kies uw levertype</p>
             <input class="vervoer" type="submit" name="vervoer" value="bezorgen">
             <input class="vervoer" type="submit" name="vervoer" value="afhalen">
-        </form>
+
         <br>
         <a style="text-decoration-line: none; color: white" href="payment.php">
         <button class="button">Verder naar betaling</button>
