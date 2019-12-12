@@ -45,11 +45,18 @@ checkIfCartEmpty();
                         foreach ($_SESSION["shopping_cart"] as $item) {
                             echo "<tr><td>".$item["item_name"]."</td><td>".$item["item_quantity"]."</td><td>" . "€".number_format($item["item_price"]*$item["item_quantity"],2)."</td></tr>";
                         }
-                        echo "<tr><td>Shipping fee</td><td>1</td><td>€6.95</td></tr>";
-                        echo "<tr><td>Total</td><td></td><td>" . "€". number_format(($_POST["total"]+6.95),2) ."</td></tr>";
+                        if($_GET["vervoer"] == "bezorgen"){
+                            echo "<tr><td>Shipping fee</td><td>1</td><td>€6.95</td></tr>";
+                            echo "<tr><td>Total</td><td></td><td>" . "€". number_format(($_POST["total"]+6.95),2) ."</td></tr>";
+                        }
                         echo "</table>";
                     }
                     ?>
+        <form action="checkout.php?vervoer=<?php echo $_GET["vervoer"] ?>" method="get">
+            <input type="submit" name="vervoer" value="bezorgen">
+            <input type="submit" name="vervoer" value="afhalen">
+
+        </form>
         <button class="button">Proceed to payment options</button>
     </div>
 
