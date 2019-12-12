@@ -484,4 +484,65 @@ function checkIfCartEmpty() {
         header('location: index.php');
     }
 }
+
+function checkUserMadeReview($connection, $user_id, $item_id) {
+    // if the user_id already made a review for the item_id return true
+    $stmt = mysqli_prepare($connection, "SELECT * FROM review WHERE StockItemID = ? AND AccountID = ?");
+    mysqli_stmt_bind_param($stmt, "ii", $item_id, $user_id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+    if(mysqli_stmt_num_rows($stmt) > 0) {
+        mysqli_stmt_close($stmt);
+        return TRUE;
+    } else {
+        mysqli_stmt_close($stmt);
+        return FALSE;
+    }
+}
+
+function getReviewScoreTotal($connection, $item_id) {
+    $stmt = mysqli_prepare($connection, "SELECT Rating FROM review WHERE StockItemID = ?");
+    mysqli_stmt_bind_param($stmt, "i", $item_id,);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+    mysqli_stmt_bind_result($stmt, $Rating);
+    $amountReviews = mysqli_stmt_num_rows($stmt);
+
+    if ($amountReviews === 0) {
+        echo "No rating has been made yet!";
+    } else {
+        $totalRating = 0;
+        while (mysqli_stmt_fetch($stmt)) {
+            $totalRating += $Rating;
+        }
+        $totalScore = $totalRating / $amountReviews;
+        $avgScore = ($totalScore *2) / 2;
+        $wholeStar = floor($avgScore);
+        for ($i = 0; $i < $wholeStar; $i++) {
+            echo "<img class='review_star' src='IMG/fullstar.png'>";
+        }
+        if ($wholeStar < $avgScore) {
+            echo "<img class='review_star' src='IMG/halfstar.png'>";
+        }
+    }
+}
+
+function displayReview($connection, $item_id) {
+    $stmt = mysqli_prepare($connection, "SELECT AccountID, Rating, Review FROM review WHERE StockItemID = ?");
+    mysqli_stmt_bind_param($stmt, "i", $item_id,);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+    if (mysqli_stmt_num_rows($stmt) != 0) {
+        mysqli_stmt_bind_result($stmt, $AccountID, $Rating, $Review);
+        echo "<table class='display_reviews'><th>Rating</th><th>Door</th>";
+        while (mysqli_stmt_fetch($stmt)) {
+            echo "<tr><td>";
+            for ($i = 0; $i < $Rating; $i++) {
+                echo "<img class='review_star' src='IMG/fullstar.png'>";
+            }
+            echo "<tr><td>{$Review}</td></td><td>{$AccountID}</td></tr></tr>";
+        }
+        echo "</table>";
+    }
+}
 ?>
