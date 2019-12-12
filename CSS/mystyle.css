@@ -17,7 +17,7 @@ body {
     font-family: 'roboto' ,sans-serif;
     padding: 0px;
     margin: 0px;
-    background-color: #FAF8F5;
+    background-color: #5CDB85;
 }
 
 /* Position the image container (needed to position the left and right arrows) */
@@ -100,9 +100,8 @@ body {
 /* Style the top navigation bar */
 .header {
     display: flex;
-    box-shadow: 0px 10px 8px lightgray;
     overflow: hidden;
-    background-color: #00ACF5;
+    background-color: #5CDB85;
     height: 10%
 }
 
