@@ -12,6 +12,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="CSS/mystyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="JS/myscript.js"></script>
     <div class="header">
         <div class="head-left">

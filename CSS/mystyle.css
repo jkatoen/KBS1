@@ -18,7 +18,7 @@ body {
     font-family: 'roboto' ,sans-serif;
     padding: 0px;
     margin: 0px;
-    background-color: #FAF8F5;
+    background-color: #5CDB85;
 }
 
 /* Position the image container (needed to position the left and right arrows) */
@@ -110,9 +110,8 @@ body {
 /* Style the top navigation bar */
 .header {
     display: flex;
-    box-shadow: 0px 10px 8px lightgray;
     overflow: hidden;
-    background-color: #00ACF5;
+    background-color: #5CDB85;
     height: 10%
 }
 
@@ -539,4 +538,19 @@ input:required {
 .review_star {
     height: 20px;
     width: 20px;
+}
+
+.strikeout {
+    line-height: 1em;
+    position: relative;
+    color:red;
+}
+.strikeout::after {
+    border-bottom: 0.2em solid red;
+    content: "";
+    left: 0;
+    margin-top: calc(0.125em / 2 * -1);
+    position: ABSOLUTE;
+    right: 0;
+    top: 50%;
 }

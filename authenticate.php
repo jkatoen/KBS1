@@ -15,6 +15,7 @@ if(isset($_POST["email"] ) && isset($_POST["passwd"])) {
     $checkSQL->execute();
     $result = mysqli_stmt_get_result($checkSQL);
     foreach ($result as $r) {
+        $resultId = $r['accountID'];
         $resultPassword = $r['Password'];
         $resultFirstname = $r['FirstName'];
         $resultLastName = $r['LastName'];
@@ -25,6 +26,7 @@ if(isset($_POST["email"] ) && isset($_POST["passwd"])) {
     if(password_verify($pass, $resultPassword)) {
         // Log in and return to home page
         $_SESSION["ingelogd"] = true;
+        $_SESSION["accountID"] = $resultId;
         $_SESSION["email"] = $_POST["email"];
         $_SESSION["firstname"] = $resultFirstname;
         $_SESSION["lastname"] = $resultLastName;
