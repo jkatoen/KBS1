@@ -106,10 +106,35 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 <input type="submit" name="add_to_cart" class="cart-btn" value="Add to Cart" />
             </form>
             <!-- End adding product to cart -->
-
+            <h3>Rating</h3>
+            <?php
+            $avgScore = round(4.33333 * 2) / 2;
+            $wholeStar = floor($avgScore);
+            for ($i = 0; $i < $wholeStar; $i++) {
+                echo "<img class='review_star' src='IMG/fullstar.png'>";
+            }
+            if ($wholeStar < $avgScore) {
+                echo "<img class='review_star' src='IMG/halfstar.png'>";
+            }
+            ?>
+            <p class="displayResult"></p>
+            <?php
+            if (isset($_SESSION["ingelogd"])) {
+                ?>
+                <input name="user_rating" class="user_rating" type="radio" value="1"/>1 sterretjes<br>
+                <input name="user_rating" class="user_rating" type="radio" value="2"/>2 sterretjes<br>
+                <input name="user_rating" class="user_rating" type="radio" value="3"/>3 sterretjes<br>
+                <input name="user_rating" class="user_rating" type="radio" value="4"/>4 sterretjes<br>
+                <input name="user_rating" class="user_rating" type="radio" value="5" checked/>5 sterretjes<br>
+                <textarea name="user_review" class="user_review"></textarea><br>
+                <button class="addReview">Toevoegen Review</button>
+                <?php
+            } else {
+                ?><p>Je moet ingelogd zijn om een review te schrijven</p><?php
+            }
+            ?>
         </div>
         </div>
-
     </div>
 </div>
 </body>
