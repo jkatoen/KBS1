@@ -33,9 +33,8 @@ $total = $_SESSION["total"];
                     alert(result);
                 }
             })
-        }
+        })
     });
-    })
 </script>
 <body>
 <div class="row">
