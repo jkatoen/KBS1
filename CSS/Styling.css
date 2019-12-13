@@ -16,9 +16,8 @@ body {
     border-radius: 3px;
 }
 .submit-search {
-    border: 2px;
-    border-style: solid;
-    border-radius: 3px;
+    background-color: black;
+    color: white;
 }
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
@@ -75,7 +74,7 @@ body {
 
 .nav-search {
     margin-top: 32px;
-    margin-left: 510px;
+    margin-left: 760px;
     width: 970px;
 }
 
@@ -95,9 +94,8 @@ body {
 .wwi {
     background-color: #1A1A1A;
 }
-
 .wwi a {
-    padding-left: 690px;
+    padding-left: 900px;
 }
 
 /* Six columns side by side */
