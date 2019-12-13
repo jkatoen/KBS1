@@ -518,29 +518,38 @@ function getReviewScoreTotal($connection, $item_id) {
         $totalScore = $totalRating / $amountReviews;
         $avgScore = ($totalScore *2) / 2;
         $wholeStar = floor($avgScore);
+        $amountColoredStars = 0;
         for ($i = 0; $i < $wholeStar; $i++) {
             echo "<img class='review_star' src='IMG/fullstar.png'>";
+            $amountColoredStars++;
         }
         if ($wholeStar < $avgScore) {
             echo "<img class='review_star' src='IMG/halfstar.png'>";
+            $amountColoredStars++;
+        }
+        if ($amountColoredStars != 5) {
+            $x = 5 - $amountColoredStars;
+            for ($z = 0; $z < $x; $z++) {
+                echo "<img class='review_star' src='IMG/emptystar.png'>";
+            }
         }
     }
 }
 
 function displayReview($connection, $item_id) {
-    $stmt = mysqli_prepare($connection, "SELECT AccountID, Rating, Review FROM review WHERE StockItemID = ?");
+    $stmt = mysqli_prepare($connection, "SELECT Rating, Review, FirstName, LastName FROM review JOIN user USING (AccountID) WHERE StockItemID = ?");
     mysqli_stmt_bind_param($stmt, "i", $item_id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_store_result($stmt);
     if (mysqli_stmt_num_rows($stmt) != 0) {
-        mysqli_stmt_bind_result($stmt, $AccountID, $Rating, $Review);
+        mysqli_stmt_bind_result($stmt, $Rating, $Review, $FirstName, $LastName);
         echo "<table class='display_reviews'><th>Rating</th><th>Door</th>";
         while (mysqli_stmt_fetch($stmt)) {
             echo "<tr><td>";
             for ($i = 0; $i < $Rating; $i++) {
                 echo "<img class='review_star' src='IMG/fullstar.png'>";
             }
-            echo "<tr><td>{$Review}</td></td><td>{$AccountID}</td></tr></tr>";
+            echo "<tr><td>{$Review}</td></td><td>{$FirstName} {$LastName}</td></tr></tr>";
         }
         echo "</table>";
     }
