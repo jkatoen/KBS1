@@ -25,7 +25,6 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
 // End pagination
 
 include("header.php");
-
 ?>
 
 <body>
@@ -67,4 +66,6 @@ include("header.php");
     </div>
 </div>
 </body>
-</html>
+<?php
+include ("footer.php");
+?>
