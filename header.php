@@ -21,7 +21,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
         <div class="head-left">
             <form class="nav-search" method="get" action="search.php">
                 <input class="text" type="text" name="searchinput">
-                <input class="submit-search" type="submit" name="submitinput" value="Search">
+                <input class="submit-search" type="submit" name="submitinput" value="Zoeken">
             </form>
         </div>
         <div class="head-right">
