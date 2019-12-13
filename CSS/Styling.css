@@ -1,0 +1,184 @@
+body {
+    font-family: 'roboto' ,sans-serif;
+    padding: 0px;
+    margin: 0px;
+    background-color: white;
+}
+
+.form{
+    text-align: center;
+}
+.text {
+    width: 40%;
+    background-color: white;
+    border: 2px;
+    border-style: solid;
+    border-radius: 3px;
+}
+.submit-search {
+    border: 2px;
+    border-style: solid;
+    border-radius: 3px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
+}
+
+/* Style the top navigation bar */
+.header {
+    display: flex;
+    overflow: hidden;
+    background-color: #F5F5F5;
+    margin-bottom: 15px;
+    height: 10%;
+    border-style: solid;
+    border-width: 3px 0px 3px 0px;
+    box-shadow: 0px 4px 15px grey;
+    padding-bottom: 10px;
+}
+
+/* Style the header links */
+.header a {
+    text-align: center;
+    float: right;
+    color: black;
+    padding-left: 10px;
+    text-decoration: none;
+}
+/* Change color on hover */
+.header a:hover {
+    color: grey;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+/* Positioning of the Nav Bar elements */
+.head-left{
+    width: 65%;
+}
+.head-right{
+    width: 45%;
+    float: right;
+}
+
+.nav-search {
+    margin-top: 32px;
+    margin-left: 510px;
+    width: 970px;
+}
+
+/* Positioning of the Nav Bar elements */
+.leftcolumn {
+    float: left;
+    width: 25%;
+    padding-right: 20px;
+}
+
+.midcolumn {
+    position: relative;
+    width: 100%;
+    opacity: 100%;
+}
+
+.wwi {
+    background-color: #1A1A1A;
+}
+
+.wwi a {
+    padding-left: 690px;
+}
+
+/* Six columns side by side */
+.column {
+    float: left;
+    width: 100%;
+}
+
+/* Add a card effect for articles and products */
+.card-left {
+    float: left;
+    opacity: 100%;
+    padding: 20px;
+    margin-top: 0px;
+    height: 100%;
+    border-right-style: solid;
+    border-right-width: 3px;
+}
+
+.card {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.category-item{
+    margin-bottom: 5px;
+    font-size: 20px;
+    padding-bottom: 6px;
+}
+
+.category-item:hover {
+    border-bottom-color: #757575;
+    border-bottom-style: solid;
+    padding-bottom: 6px;
+    border-bottom-width: 2px;
+}
+
+.category-item a {
+    color: black;
+    text-decoration: none;
+    width: 100%;
+}
+
+.category-item a:hover{
+    color: #00AEEF;
+}
+
+.product-container{
+    display: grid ;
+    grid-template-columns: auto auto auto auto ;
+    padding: 5px;
+    position: relative;
+}
+
+.product-item{
+    background-color: #F5F5F5;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    text-align: center;
+    margin: 5px;
+    padding: 10px;
+    height: 290px;
+    width: 250px;
+}
+
+.product-item:hover {
+    background-color: #757575;
+}
+
+.row {
+    margin: 0 auto;
+    padding-top: 0px;
+    display: flex;
+}
+img {
+    vertical-align: middle;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    display: table;
+    clear: both;
+}

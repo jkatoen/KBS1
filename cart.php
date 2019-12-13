@@ -57,6 +57,7 @@ removeFromCart();
                     <?php
                     $total = $total + ( $_SESSION['shopping_cart'][$keys]['item_quantity']* $values["item_price"]);
                     $counter++;
+                    $_SESSION["total"] = $total;
                 }
 
                 ?>
@@ -66,8 +67,10 @@ removeFromCart();
                     <td></td>
                 </tr>
             </table>
+           
+
             <div class="Checkout">
-              <form action="checkout.php" method="POST">
+              <form action="checkout.php?vervoer=bezorgen" method="POST">
                   <input type="hidden" value="<?php echo ($total) ?>" name="total">
                   <input type="submit" value="Volgende" name="Checkout" class="checkout" required/>
              </form>
@@ -88,6 +91,5 @@ removeFromCart();
                 <img style="width: 25%; height: 25%;" src="https://vintagebakings.com/content/images/empty-cart.gif">
                 </div>
                 ';
-
             }
             ?>

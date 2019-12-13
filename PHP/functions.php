@@ -276,7 +276,8 @@ function DisplaySpecialItems($connection) {
     //if ($stmt->num_rows === 0) exit('No rows');
     $stmt->bind_result($StockItemName, $UnitPrice, $StockItemId, $Photo, $StockGroupID, $TaxRate, $StockImagePath);
     while ($stmt->fetch()) {
-        $prijs = number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2);
+        $pricewithoutsale = number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2);
+        $saleprice = '€'. number_format(round((($UnitPrice*1.25)+(($TaxRate/100)*$UnitPrice)),2),2);
         print("<a class='logolink' href='product.php?id=$StockItemId'>");
         print("<div class='product-item'>");
         if (!empty($StockImagePath)) {
@@ -288,7 +289,8 @@ function DisplaySpecialItems($connection) {
             echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
             print("</div>");
         }
-        print("</br>".$StockItemName." €".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+
+        print("</br>".$StockItemName."   <span class='strikeout'>$saleprice</span>€<bold style= color:;> $pricewithoutsale</bold>");
         //print("<div class='grid-item-content'>");
         print("</div>");
         print("</a>");
@@ -480,6 +482,76 @@ function removeFromCart() {
 function checkIfCartEmpty() {
     if (empty($_SESSION['shopping_cart'])) {
         header('location: index.php');
+    }
+}
+
+function checkUserMadeReview($connection, $user_id, $item_id) {
+    // if the user_id already made a review for the item_id return true
+    $stmt = mysqli_prepare($connection, "SELECT * FROM review WHERE StockItemID = ? AND AccountID = ?");
+    mysqli_stmt_bind_param($stmt, "ii", $item_id, $user_id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+    if(mysqli_stmt_num_rows($stmt) > 0) {
+        mysqli_stmt_close($stmt);
+        return TRUE;
+    } else {
+        mysqli_stmt_close($stmt);
+        return FALSE;
+    }
+}
+
+function getReviewScoreTotal($connection, $item_id) {
+    $stmt = mysqli_prepare($connection, "SELECT Rating FROM review WHERE StockItemID = ?");
+    mysqli_stmt_bind_param($stmt, "i", $item_id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+    mysqli_stmt_bind_result($stmt, $Rating);
+    $amountReviews = mysqli_stmt_num_rows($stmt);
+
+    if ($amountReviews === 0) {
+        echo "No rating has been made yet!";
+    } else {
+        $totalRating = 0;
+        while (mysqli_stmt_fetch($stmt)) {
+            $totalRating += $Rating;
+        }
+        $totalScore = $totalRating / $amountReviews;
+        $avgScore = ($totalScore *2) / 2;
+        $wholeStar = floor($avgScore);
+        $amountColoredStars = 0;
+        for ($i = 0; $i < $wholeStar; $i++) {
+            echo "<img class='review_star' src='IMG/fullstar.png'>";
+            $amountColoredStars++;
+        }
+        if ($wholeStar < $avgScore) {
+            echo "<img class='review_star' src='IMG/halfstar.png'>";
+            $amountColoredStars++;
+        }
+        if ($amountColoredStars != 5) {
+            $x = 5 - $amountColoredStars;
+            for ($z = 0; $z < $x; $z++) {
+                echo "<img class='review_star' src='IMG/emptystar.png'>";
+            }
+        }
+    }
+}
+
+function displayReview($connection, $item_id) {
+    $stmt = mysqli_prepare($connection, "SELECT Rating, Review, FirstName, LastName FROM review JOIN user USING (AccountID) WHERE StockItemID = ?");
+    mysqli_stmt_bind_param($stmt, "i", $item_id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+    if (mysqli_stmt_num_rows($stmt) != 0) {
+        mysqli_stmt_bind_result($stmt, $Rating, $Review, $FirstName, $LastName);
+        echo "<table class='display_reviews'><th>Rating</th><th>Door</th>";
+        while (mysqli_stmt_fetch($stmt)) {
+            echo "<tr><td>";
+            for ($i = 0; $i < $Rating; $i++) {
+                echo "<img class='review_star' src='IMG/fullstar.png'>";
+            }
+            echo "<tr><td>{$Review}</td></td><td>{$FirstName} {$LastName}</td></tr></tr>";
+        }
+        echo "</table>";
     }
 }
 ?>

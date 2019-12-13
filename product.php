@@ -3,11 +3,12 @@ session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
 // If you go to product.php without giving an id, redirect to index.php
-if (!isset($_GET['id'])) {
-    header('location:index.php');
+if (!isset($_GET["id"])) {
+    header("location:index.php");
     exit;
 }
-if (isset($_POST['add_to_cart'])) {
+$item_id = $_GET["id"];
+if (isset($_POST["add_to_cart"])) {
     addToCart();
 }
 // Getting product information
@@ -16,8 +17,28 @@ include("header.php");
 
 ?>
 <script>
-    var slideIndex = 1;
-    showSlides(slideIndex);
+    $(document).ready(function(){
+        $(".addReview").click(function(){
+            if (!$.trim($(".user_review").val())) {
+                $(".displayResult").text("Review is leeg");
+            } else {
+                var review = $(".user_review").val();
+                var rating = $(".user_rating").serialize().split("=").pop();
+                var itemid = this.value;
+                // AJAX Code To Submit Form.
+                $.ajax({
+                    type: "POST",
+                    url: "PHP/addreview.php",
+                    data: {item_id:itemid, user_rating:rating, user_review:review},
+                    cache: false,
+                    success: function (result) {
+                        location.reload();
+                    }
+                });
+            }
+        });
+    });
+
 </script>
 <body>
 <?php
@@ -40,7 +61,7 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
 <div class="row">
     <div class="leftcolumn ">
         <div class="card-left">
-            <h2>Category</h2>
+            <h2>Categorieën</h2>
             <div class="category-container">
                 <?php displayLeftCategories($connection); ?>
             </div>
@@ -80,20 +101,23 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                <!-- <iframe class="productVideo" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             <!--End display product image and/or video -->
         </div>
-
         <div class="product-right-info">
             <?php // GETTING PRODUCT INFO AND DISPLAY IT
             foreach ($productResult as $result) {
+                $UnitPrice = $result['UnitPrice'];
+                $TaxRate = $result['TaxRate'];
                 $productId =($result['StockItemId']);
                 $productName = $result['StockItemName'];
-                $productPrice = number_format(round(($result['UnitPrice'] + (($result['TaxRate'] / 100) * $result['UnitPrice'])), 2), 2); // Misschien nog anders in de sql query berekenen?
+                $productPrice = number_format(round((($UnitPrice)+(($TaxRate/100)*$UnitPrice)),2),2); // Misschien nog anders in de sql query berekenen?
                 $productComment = $result['MarketingComments'];
                 $productQuantity = ($result['QuantityOnHand'] > 1000) ? "Ruim op voorraad" : "Er zijn {$result['QuantityOnHand']} producten op voorraad" ;
             }
             ?>
+
+
             <div class="product-description">
                 <h1> <?php echo  $productName; ?> </h1>
-                <h2> <?php echo "$" . $productPrice; ?> </h2>
+                <h2> <?php echo "€" . $productPrice; ?> </h2>
                 <p> <?php echo $productComment; ?> </p>
                 <p> <?php echo $productQuantity; ?></p>
             </div>
@@ -108,27 +132,35 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
             <!-- End adding product to cart -->
             <h3>Rating</h3>
             <?php
-            $avgScore = round(4.33333 * 2) / 2;
-            $wholeStar = floor($avgScore);
-            for ($i = 0; $i < $wholeStar; $i++) {
-                echo "<img class='review_star' src='IMG/fullstar.png'>";
-            }
-            if ($wholeStar < $avgScore) {
-                echo "<img class='review_star' src='IMG/halfstar.png'>";
-            }
+            getReviewScoreTotal($connection, $item_id);
+            displayReview($connection, $item_id);
             ?>
             <p class="displayResult"></p>
             <?php
             if (isset($_SESSION["ingelogd"])) {
-                ?>
-                <input name="user_rating" class="user_rating" type="radio" value="1"/>1 sterretjes<br>
-                <input name="user_rating" class="user_rating" type="radio" value="2"/>2 sterretjes<br>
-                <input name="user_rating" class="user_rating" type="radio" value="3"/>3 sterretjes<br>
-                <input name="user_rating" class="user_rating" type="radio" value="4"/>4 sterretjes<br>
-                <input name="user_rating" class="user_rating" type="radio" value="5" checked/>5 sterretjes<br>
-                <textarea name="user_review" class="user_review"></textarea><br>
-                <button class="addReview">Toevoegen Review</button>
-                <?php
+                // Als user al een review heeft gemaakt kan hij het niet nog een keer doen
+                // TRUE als user al een review heeft gemaakt bij dit product
+                if (!checkUserMadeReview($connection, $_SESSION["accountID"], $item_id)) {
+                    for ($i = 1; $i < 6; $i++) {
+                        echo "<input name='user_rating' class='user_rating' type='radio' value='{$i}'/>";
+                        // volle sterren
+                        for ($y = 0; $y < $i; $y++) {
+                            echo "<img class='review_star' src='IMG/fullstar.png'>";
+                        }
+                        // daarna lege sterren
+                        for ($x = 5; $x > $i; $x--) {
+                            echo "<img class='review_star' src='IMG/emptystar.png'>";
+                        }
+                        echo "<br>";
+                    }
+                    ?>
+                    <p>Schrijf een review:</p>
+                    <textarea name="user_review" placeholder="Degene die styling doet zal dit toch even moeten aanpassen" class="user_review"></textarea><br>
+                    <button class="addReview" value="<?php echo $item_id; ?>">Toevoegen Review</button>
+                    <?php
+                } else {
+                    ?><p>Je hebt al een review gemaakt!</p><?php
+                }
             } else {
                 ?><p>Je moet ingelogd zijn om een review te schrijven</p><?php
             }
