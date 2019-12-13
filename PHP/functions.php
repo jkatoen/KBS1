@@ -290,7 +290,7 @@ function DisplaySpecialItems($connection) {
             print("</div>");
         }
 
-        print("</br>".$StockItemName."   <span class='strikeout'>$saleprice</span>€<bold style= color:;> $pricewithoutsale</bold>");
+        print("</br>".$StockItemName." €<bold style= color:;> $pricewithoutsale</bold>");
         //print("<div class='grid-item-content'>");
         print("</div>");
         print("</a>");

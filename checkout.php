@@ -75,7 +75,7 @@ $total = $_SESSION["total"];
                             $bezorgen = true;
                             echo "<tr><td>Verzendkosten</td><td>1</td><td>€6.95</td></tr>";
                             if($discount_code){
-                                echo "<tr><td>Totaal</td><td></td><td>" . "€" . $total*$discount_percentage . "</td></tr>";
+                                echo "<tr><td>Totaal</td><td></td><td>" . "€" . $total . "</td></tr>";
                             }
                             elseif($total > 50.00) {
                                 echo "<tr><td>Totaal</td><td></td><td>" . "€" . number_format(($total + 6.95), 2) . "</td></tr>";
