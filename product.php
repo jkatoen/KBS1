@@ -14,7 +14,6 @@ if (isset($_POST["add_to_cart"])) {
 // Getting product information
 $productResult = productSQL($connection);
 include("header.php");
-
 ?>
 <script>
     $(document).ready(function(){
@@ -170,4 +169,6 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
     </div>
 </div>
 </body>
-</html>
+<?php
+include ("footer.php");
+?>

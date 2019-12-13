@@ -92,4 +92,5 @@ removeFromCart();
                 </div>
                 ';
             }
+include ("footer.php");
             ?>

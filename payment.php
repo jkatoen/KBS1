@@ -2,7 +2,6 @@
 include("PHP/connectdb.php");
 include("PHP/functions.php");
 include ("header.php");
-
 ?>
 <head>
 <body>
@@ -24,12 +23,8 @@ include ("header.php");
         </table>
     </form>
     </div>
-</div>
-<div class="rightcolumn">
-
-</div>
-
-
-
 </body>
-</head>
+<?php
+include ("footer.php");
+?>
+

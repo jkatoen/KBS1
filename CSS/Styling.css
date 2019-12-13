@@ -182,3 +182,10 @@ img {
     display: table;
     clear: both;
 }
+
+.footer {
+    float: left;
+    background-color: #1A1A1A;
+    width: 100%;
+    bottom: 0px;
+}
