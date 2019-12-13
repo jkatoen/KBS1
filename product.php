@@ -141,13 +141,21 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 // Als user al een review heeft gemaakt kan hij het niet nog een keer doen
                 // TRUE als user al een review heeft gemaakt bij dit product
                 if (!checkUserMadeReview($connection, $_SESSION["accountID"], $item_id)) {
+                    for ($i = 1; $i < 6; $i++) {
+                        echo "<input name='user_rating' class='user_rating' type='radio' value='{$i}'/>";
+                        // volle sterren
+                        for ($y = 0; $y < $i; $y++) {
+                            echo "<img class='review_star' src='IMG/fullstar.png'>";
+                        }
+                        // daarna lege sterren
+                        for ($x = 5; $x > $i; $x--) {
+                            echo "<img class='review_star' src='IMG/emptystar.png'>";
+                        }
+                        echo "<br>";
+                    }
                     ?>
-                    <input name="user_rating" class="user_rating" type="radio" value="1"/>1 sterretjes<br>
-                    <input name="user_rating" class="user_rating" type="radio" value="2"/>2 sterretjes<br>
-                    <input name="user_rating" class="user_rating" type="radio" value="3"/>3 sterretjes<br>
-                    <input name="user_rating" class="user_rating" type="radio" value="4"/>4 sterretjes<br>
-                    <input name="user_rating" class="user_rating" type="radio" value="5" checked/>5 sterretjes<br>
-                    <textarea name="user_review" class="user_review"></textarea><br>
+                    <p>Schrijf een review:</p>
+                    <textarea name="user_review" placeholder="Degene die styling doet zal dit toch even moeten aanpassen" class="user_review"></textarea><br>
                     <button class="addReview" value="<?php echo $item_id; ?>">Toevoegen Review</button>
                     <?php
                 } else {

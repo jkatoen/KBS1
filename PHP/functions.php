@@ -518,11 +518,20 @@ function getReviewScoreTotal($connection, $item_id) {
         $totalScore = $totalRating / $amountReviews;
         $avgScore = ($totalScore *2) / 2;
         $wholeStar = floor($avgScore);
+        $amountColoredStars = 0;
         for ($i = 0; $i < $wholeStar; $i++) {
             echo "<img class='review_star' src='IMG/fullstar.png'>";
+            $amountColoredStars++;
         }
         if ($wholeStar < $avgScore) {
             echo "<img class='review_star' src='IMG/halfstar.png'>";
+            $amountColoredStars++;
+        }
+        if ($amountColoredStars != 5) {
+            $x = 5 - $amountColoredStars;
+            for ($z = 0; $z < $x; $z++) {
+                echo "<img class='review_star' src='IMG/emptystar.png'>";
+            }
         }
     }
 }
