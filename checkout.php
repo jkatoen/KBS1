@@ -4,6 +4,7 @@ session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
 include ("header.php");
+
 checkIfCartEmpty();
 
 $total = $_SESSION["total"];
@@ -107,4 +108,6 @@ $total = $_SESSION["total"];
 
 </div>
 </body>
-</html>
+<?php
+include ("footer.php");
+?>
