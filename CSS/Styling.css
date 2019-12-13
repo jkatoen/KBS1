@@ -152,7 +152,7 @@ body {
 }
 
 .product-item{
-    background-color: #F5F5F5;
+    background-color: white;
     border: 0.5px solid black;
     border-radius: 5px;
     text-align: center;
@@ -163,7 +163,9 @@ body {
 }
 
 .product-item:hover {
-    background-color: #757575;
+
+    transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+
 }
 
 .row {
