@@ -12,14 +12,6 @@ $total = $_SESSION["total"];
     <h1 style="text-align: center">Checkout</h1>
 </head>
 <script>
-    /*$(document).ready(function(){
-        $(".checkDiscount").click(function(){
-            var discount = $(".input_discount").val();
-            alert(discount);
-        }
-    });
-    });*/
-
     $(document).ready(function(){
         $(".addDiscount").click(function(){
             var discount_code = $(".input_discount").val();
@@ -81,7 +73,10 @@ $total = $_SESSION["total"];
                         if(isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "bezorgen"){
                             $bezorgen = true;
                             echo "<tr><td>Verzendkosten</td><td>1</td><td>€6.95</td></tr>";
-                            if($total > 50.00) {
+                            if($discount_code){
+                                echo "<tr><td>Totaal</td><td></td><td>" . "€" . $total*$discount_percentage . "</td></tr>";
+                            }
+                            elseif($total > 50.00) {
                                 echo "<tr><td>Totaal</td><td></td><td>" . "€" . number_format(($total + 6.95), 2) . "</td></tr>";
                             }else{
                                 echo "<tr><td>Totaal</td><td></td><td>" . "Gratis!" . "</td></tr>";
