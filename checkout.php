@@ -72,13 +72,6 @@ $shippingCostsFreeLimit = 50;
                     }
                     ?>
                 </form>
-        <div class="Discount">
-            <p>Voeg hier je coupon toe!</p>
-            <input type="text" name="discount" class="input_discount">
-            <button class="addDiscount">Toevoegen code</button>
-            <p class="discountResult"></p>
-        </div>
-
 
     <div class="rightcolumn">
                     <p>Items in je winkelmand</p>
@@ -93,8 +86,10 @@ $shippingCostsFreeLimit = 50;
                         if (isset($discountpercentage)) {
                             echo "<tr><td>Korting</td><td>$discountpercentage</td><td></td></tr>";
                         } else {
-                            echo "<tr class='hidden_discount_tr' style='visibility:hidden; display:none;'><td>Korting</td><td class='hidden_discount_td'></td><td></td></tr>";
+                            echo "<tr class='hidden_discount_tr' style='visibility:hidden; display:none;'<td></td><td class='hidden_discount_td'></td><td></td></tr>";
                         }
+
+                        if (isset())
                         // End Discount
                         // Shipping costs?
                         if (isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "bezorgen"){
@@ -129,7 +124,12 @@ $shippingCostsFreeLimit = 50;
             <input class="vervoer" type="submit" name="vervoer" value="bezorgen">
             <input class="vervoer" type="submit" name="vervoer" value="afhalen">
         </form>
-
+        <div class="Discount">
+            <p>Voeg hier je coupon toe!</p>
+            <input type="text" name="discount" class="input_discount">
+            <button class="addDiscount">Toevoegen code</button>
+            <p class="discountResult"></p>
+        </div>
         <br>
         <a style="text-decoration-line: none; color: white" href="payment.php">
         <button class="button">Verder naar betaling</button>
