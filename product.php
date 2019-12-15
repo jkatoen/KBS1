@@ -169,6 +169,3 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
     </div>
 </div>
 </body>
-<?php
-include ("footer.php");
-?>

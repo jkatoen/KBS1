@@ -43,6 +43,3 @@ $uri = getURI(); // Get uri of page
 </div>
 
 </body>
-<?php
-include ("footer.php");
-?>

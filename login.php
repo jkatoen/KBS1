@@ -3,7 +3,6 @@ session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
 include("header.php");
-include ("footer.php");
 ?>
 <body>
 <div class="row">

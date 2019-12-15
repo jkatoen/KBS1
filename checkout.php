@@ -126,6 +126,3 @@ print_r($_SESSION);
 
 </div>
 </body>
-<?php
-include ("footer.php");
-?>

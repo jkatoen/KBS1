@@ -3,7 +3,6 @@ session_start();
 include ("PHP/connectdb.php");
 include ("PHP/functions.php");
 include ("header.php");
-
 changeQuantity();
 removeIfQuantityBelow();
 removeFromCart();
@@ -92,5 +91,4 @@ removeFromCart();
                 </div>
                 ';
             }
-include ("footer.php");
-            ?>
+?>
