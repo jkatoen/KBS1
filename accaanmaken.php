@@ -7,7 +7,6 @@ include ("header.php");
 
 <body>
 <div class="row">
-
     <div class="leftcolumn">
         <div class="card">
         </div>

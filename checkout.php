@@ -31,20 +31,21 @@ $shippingCostsFreeLimit = 50;
                         $(".input_discount").attr("placeholder", "Geen geldige kortingscode!");
                     } else {
                         $(".discountResult").text(success + "% korting!");
+
                         // Now display the discount <tr>, change the style visibilty to visible and display to contents,
-                        // change the text of the td to display percentage
                         $(".hidden_discount_tr").css("visibility", "visible");
                         $(".hidden_discount_tr").css("display", "contents");
+
                         // Make it so the buttons dissapear when its filled, so that the user can't use the discount again
-                        $(".input_discount").css("display", "contents");
-                        $(".add_invis_p").css("display", "contents");
-                        $(".add_discount_button").css("display", "contents");
+                        $(".input_discount").css("display", "none");
+                        $(".add_invis").css("display", "none");
+                        $(".addDiscount").css("display", "none", "visibility", "hidden");
+
                         // change the text of the td to display percentage
                         $(".hidden_discount_td").text(success + "% korting!");
                         var oldPriceInt = Number($(".total_price").html().replace(/[^0-9.-]+/g,""));
                         var newPriceInt = oldPriceInt*((100-success)/100);
                         $(".total_price").html("€"+newPriceInt);
-
                     }
                 }
             })
@@ -94,6 +95,7 @@ $shippingCostsFreeLimit = 50;
                             echo "<tr class='hidden_discount_tr' style='visibility:hidden; display:none;'<td></td><td class='hidden_discount_td'></td><td></td></tr>";
                         }
                         // End Discount
+
                         // Shipping costs?
                         if (isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "bezorgen"){
                             $bezorgen = true;
@@ -111,6 +113,7 @@ $shippingCostsFreeLimit = 50;
                             //echo "<tr><td>Totaal</td><td></td><td class='total_price'>" . "€". number_format(($total),2) ."</td></tr>";
                         }
                         // End Shipping costs
+
                         // Display total
                         echo "<tr><td>Totaal</td><td></td><td class='total_price'>€".$totaal."</td></tr>";
                         // End display
@@ -127,12 +130,14 @@ $shippingCostsFreeLimit = 50;
             <input class="vervoer" type="submit" name="vervoer" value="bezorgen">
             <input class="vervoer" type="submit" name="vervoer" value="afhalen">
         </form>
+
         <div class="Discount">
             <p class="add_invis">Voeg hier je coupon toe!</p>
             <input type="text" name="discount" class="input_discount">
             <button class="addDiscount">Toevoegen code</button>
             <p class="discountResult"></p>
         </div>
+
         <br>
         <a style="text-decoration-line: none; color: white" href="payment.php">
         <button class="button">Verder naar betaling</button>
