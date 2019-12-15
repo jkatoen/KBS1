@@ -10,12 +10,8 @@ checkIfCartEmpty();
 $total = $_SESSION["total"];
 $shippingCostsFreeLimit = 50;
 
-unset($_SESSION["discountPercentage"]);
-if (isset($_SESSION["discountPercentage"])) {
-    $discountpercentage = $_SESSION["discountPercentage"];
-}
-print_r($_SESSION);
 ?>
+
 <head>
     <h1 style="text-align: center">Checkout</h1>
 </head>
