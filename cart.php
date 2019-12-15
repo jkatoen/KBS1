@@ -83,8 +83,8 @@ removeFromCart();
             }else{
                 echo'
                 <div class="alert" style="text-align: center;">
-                <alert><h1>Your cart seems a little empty</h1></alert>
-                <p>Do something about it!</p>
+                <alert><h1>Je winkelmand ziet er een beetje leeg uit.</h1></alert>
+                <p>Doe hier iets aan!</p>
                 </div>
                 <div style="text-align: center">
                 <img style="width: 25%; height: 25%;" src="https://vintagebakings.com/content/images/empty-cart.gif">

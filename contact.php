@@ -14,11 +14,11 @@ include ("header.php");
         <div class="midcolumn">
             <div class="inlog" class="inlog">
                 <h1>Contact opnemen</h1>
-                    <form action="index.php" method="POST" id="contact">
+                    <form action="mailto:jaapkatoen@gmail.com" method="POST" enctype="text/plain" id="contact">
                         E-mail: <br><input type="text" name="email" class="textinbox" value="" required/><br><br>
                        Telefoonnummer: <br><input type="text" name="telefoonnummer" class="textinbox" value=""/><br><br>
                        Onderwerp: <br><input type="text" name="onderwerp" class="textinbox" value="" required/><br><br>
-                        Bericht: <br><textarea form="contact" name="bericht" class="textinbox" required></textarea><br><br>
+                        Bericht: <br><textarea rows="8" cols="50" form="contact" name="bericht" class="textinbox" required></textarea><br><br>
                         <input type="submit" value="Versturen" name="verstuur" class="button" required/>
                     </form>
             </div>
