@@ -40,7 +40,10 @@ print_r($_SESSION);
                         $(".hidden_discount_tr").css("visibility", "visible");
                         $(".hidden_discount_tr").css("display", "contents");
                         $(".hidden_discount_td").text(success + "%");
-                        alert($(".total_price").text);
+                        var oldPriceInt = Number($(".total_price").html().replace(/[^0-9.-]+/g,""));
+                        var newPriceInt = oldPriceInt*((100-success)/100);
+                        $(".total_price").html("€"+newPriceInt);
+
                     }
                 }
             })
