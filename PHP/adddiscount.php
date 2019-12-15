@@ -20,7 +20,7 @@ function checkDiscount($connection, $discount_code) {
     // Geen resultaat, geen korting!
     } else {
         mysqli_stmt_close($stmt);
-        echo "";
+        echo "0";
     }
 }
 checkDiscount($connection, $discount_code);

@@ -77,6 +77,7 @@ $shippingCostsFreeLimit = 50;
                         echo "<table><th>Item</th><th>Aantal</th><th>Prijs</th>";
                         foreach ($_SESSION["shopping_cart"] as $item) {
                             echo "<tr><td>".$item["item_name"]."</td><td>".$item["item_quantity"]."</td><td>" . "€".number_format($item["item_price"]*$item["item_quantity"],2)."</td></tr>";
+                            echo "<tr><td>Korting</td><td>$discountpercentage</td></tr>";
                         }
                         if(isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "bezorgen"){
                             $bezorgen = true;
