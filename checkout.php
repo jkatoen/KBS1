@@ -9,6 +9,12 @@ checkIfCartEmpty();
 
 $total = $_SESSION["total"];
 $shippingCostsFreeLimit = 50;
+
+unset($_SESSION["discountPercentage"]);
+if (isset($_SESSION["discountPercentage"])) {
+    $discountpercentage = $_SESSION["discountPercentage"];
+}
+print_r($_SESSION);
 ?>
 <head>
     <h1 style="text-align: center">Checkout</h1>
@@ -29,6 +35,7 @@ $shippingCostsFreeLimit = 50;
                         $(".input_discount").attr("placeholder", "Geen geldige kortingscode!");
                     } else {
                         $(".discountResult").text(success + "% korting!");
+                        // Now display the discount <tr>, change the style visibilty to visible and display to block
                     }
                 }
             })
@@ -77,8 +84,14 @@ $shippingCostsFreeLimit = 50;
                         echo "<table><th>Item</th><th>Aantal</th><th>Prijs</th>";
                         foreach ($_SESSION["shopping_cart"] as $item) {
                             echo "<tr><td>".$item["item_name"]."</td><td>".$item["item_quantity"]."</td><td>" . "€".number_format($item["item_price"]*$item["item_quantity"],2)."</td></tr>";
-                            echo "<tr><td>Korting</td><td>$discountpercentage</td></tr>";
                         }
+                        // Discount
+                        if (isset($discountpercentage)) {
+                            echo "<tr><td>Korting</td><td>$discountpercentage</td></tr>";
+                        } else {
+                            echo "<tr class='hidden_discount_tr' style='visibility:hidden; display:none;'><td>Korting</td><td class='hidden_discount_td'></td></tr>";
+                        }
+                        // End Discount
                         if(isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "bezorgen"){
                             $bezorgen = true;
                             echo "<tr><td>Verzendkosten</td><td>1</td><td>€6.95</td></tr>";
