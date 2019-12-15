@@ -8,6 +8,7 @@ include ("header.php");
 checkIfCartEmpty();
 
 $total = $_SESSION["total"];
+$shippingCostsFreeLimit = 50;
 ?>
 <head>
     <h1 style="text-align: center">Checkout</h1>
@@ -23,7 +24,12 @@ $total = $_SESSION["total"];
                 data: {discount_code:discount_code},
                 cache: false,
                 success: function (success) {
-                    alert(success);
+                    if (success.length === 0) {
+                        $(".input_discount").css("border-color", "red")
+                        $(".input_discount").attr("placeholder", "Geen geldige kortingscode!");
+                    } else {
+                        $(".discountResult").text(success + "% korting!");
+                    }
                 }
             })
         })
@@ -59,6 +65,7 @@ $total = $_SESSION["total"];
             <p>Voeg hier je coupon toe!</p>
             <input type="text" name="discount" class="input_discount">
             <button class="addDiscount">Toevoegen code</button>
+            <p class="discountResult"></p>
         </div>
 
 
@@ -74,10 +81,7 @@ $total = $_SESSION["total"];
                         if(isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "bezorgen"){
                             $bezorgen = true;
                             echo "<tr><td>Verzendkosten</td><td>1</td><td>€6.95</td></tr>";
-                            if($discount_code){
-                                echo "<tr><td>Totaal</td><td></td><td>" . "€" . $total . "</td></tr>";
-                            }
-                            elseif($total > 50.00) {
+                            if($total > $shippingCostsFreeLimit) {
                                 echo "<tr><td>Totaal</td><td></td><td>" . "€" . number_format(($total + 6.95), 2) . "</td></tr>";
                             }else{
                                 echo "<tr><td>Totaal</td><td></td><td>" . "Gratis!" . "</td></tr>";
