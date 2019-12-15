@@ -35,7 +35,12 @@ $shippingCostsFreeLimit = 50;
                         // change the text of the td to display percentage
                         $(".hidden_discount_tr").css("visibility", "visible");
                         $(".hidden_discount_tr").css("display", "contents");
-                        $(".hidden_discount_td").text(success + "%");
+                        // Make it so the buttons dissapear when its filled, so that the user can't use the discount again
+                        $(".input_discount").css("display", "contents");
+                        $(".add_invis_p").css("display", "contents");
+                        $(".add_discount_button").css("display", "contents");
+                        // change the text of the td to display percentage
+                        $(".hidden_discount_td").text(success + "% korting!");
                         var oldPriceInt = Number($(".total_price").html().replace(/[^0-9.-]+/g,""));
                         var newPriceInt = oldPriceInt*((100-success)/100);
                         $(".total_price").html("€"+newPriceInt);
@@ -84,12 +89,10 @@ $shippingCostsFreeLimit = 50;
                         }
                         // Discount
                         if (isset($discountpercentage)) {
-                            echo "<tr><td>Korting</td><td>$discountpercentage</td><td></td></tr>";
+                            echo "<tr><td>Korting</td><td>$discountpercentage</td><td>leeg</td></tr>";
                         } else {
                             echo "<tr class='hidden_discount_tr' style='visibility:hidden; display:none;'<td></td><td class='hidden_discount_td'></td><td></td></tr>";
                         }
-
-                        if (isset())
                         // End Discount
                         // Shipping costs?
                         if (isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "bezorgen"){
@@ -125,7 +128,7 @@ $shippingCostsFreeLimit = 50;
             <input class="vervoer" type="submit" name="vervoer" value="afhalen">
         </form>
         <div class="Discount">
-            <p>Voeg hier je coupon toe!</p>
+            <p class="add_invis">Voeg hier je coupon toe!</p>
             <input type="text" name="discount" class="input_discount">
             <button class="addDiscount">Toevoegen code</button>
             <p class="discountResult"></p>
