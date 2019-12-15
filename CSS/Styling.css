@@ -59,7 +59,8 @@ body {
 }
 /* Change color on hover */
 .header a:hover {
-    color: grey;
+    color: #00AEEF;
+    border-bottom-color: black;
     border-bottom-width: 2px;
     border-bottom-style: solid;
 }
@@ -122,22 +123,19 @@ body {
 }
 
 .category-item{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-size: 20px;
-    padding-bottom: 6px;
 }
 
-.category-item:hover {
-    border-bottom-color: #757575;
+.category-item:hover{
     border-bottom-style: solid;
-    padding-bottom: 6px;
-    border-bottom-width: 2px;
+    border-bottom-color: black;
+    border-bottom-width: 3px;
 }
 
 .category-item a {
     color: black;
     text-decoration: none;
-    width: 100%;
 }
 
 .category-item a:hover{
@@ -163,9 +161,7 @@ body {
 }
 
 .product-item:hover {
-
     transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-
 }
 
 .row {
@@ -181,11 +177,4 @@ img {
 .row:after {
     display: table;
     clear: both;
-}
-
-.footer {
-    float: left;
-    background-color: #1A1A1A;
-    width: 100%;
-    bottom: 0px;
 }
