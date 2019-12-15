@@ -10,12 +10,8 @@ checkIfCartEmpty();
 $total = $_SESSION["total"];
 $shippingCostsFreeLimit = 50;
 
-unset($_SESSION["discountPercentage"]);
-if (isset($_SESSION["discountPercentage"])) {
-    $discountpercentage = $_SESSION["discountPercentage"];
-}
-print_r($_SESSION);
 ?>
+
 <head>
     <h1 style="text-align: center">Checkout</h1>
 </head>
@@ -31,11 +27,19 @@ print_r($_SESSION);
                 cache: false,
                 success: function (success) {
                     if (success.length === 0) {
-                        $(".input_discount").css("border-color", "red")
+                        $(".input_discount").css("border-color", "red");
                         $(".input_discount").attr("placeholder", "Geen geldige kortingscode!");
                     } else {
                         $(".discountResult").text(success + "% korting!");
-                        // Now display the discount <tr>, change the style visibilty to visible and display to block
+                        // Now display the discount <tr>, change the style visibilty to visible and display to contents,
+                        // change the text of the td to display percentage
+                        $(".hidden_discount_tr").css("visibility", "visible");
+                        $(".hidden_discount_tr").css("display", "contents");
+                        $(".hidden_discount_td").text(success + "%");
+                        var oldPriceInt = Number($(".total_price").html().replace(/[^0-9.-]+/g,""));
+                        var newPriceInt = oldPriceInt*((100-success)/100);
+                        $(".total_price").html("€"+newPriceInt);
+
                     }
                 }
             })
@@ -68,13 +72,6 @@ print_r($_SESSION);
                     }
                     ?>
                 </form>
-        <div class="Discount">
-            <p>Voeg hier je coupon toe!</p>
-            <input type="text" name="discount" class="input_discount">
-            <button class="addDiscount">Toevoegen code</button>
-            <p class="discountResult"></p>
-        </div>
-
 
     <div class="rightcolumn">
                     <p>Items in je winkelmand</p>
@@ -87,24 +84,33 @@ print_r($_SESSION);
                         }
                         // Discount
                         if (isset($discountpercentage)) {
-                            echo "<tr><td>Korting</td><td>$discountpercentage</td></tr>";
+                            echo "<tr><td>Korting</td><td>$discountpercentage</td><td></td></tr>";
                         } else {
-                            echo "<tr class='hidden_discount_tr' style='visibility:hidden; display:none;'><td>Korting</td><td class='hidden_discount_td'></td></tr>";
+                            echo "<tr class='hidden_discount_tr' style='visibility:hidden; display:none;'<td></td><td class='hidden_discount_td'></td><td></td></tr>";
                         }
+
+                        if (isset())
                         // End Discount
-                        if(isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "bezorgen"){
+                        // Shipping costs?
+                        if (isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "bezorgen"){
                             $bezorgen = true;
                             echo "<tr><td>Verzendkosten</td><td>1</td><td>€6.95</td></tr>";
-                            if($total > $shippingCostsFreeLimit) {
-                                echo "<tr><td>Totaal</td><td></td><td>" . "€" . number_format(($total + 6.95), 2) . "</td></tr>";
-                            }else{
-                                echo "<tr><td>Totaal</td><td></td><td>" . "Gratis!" . "</td></tr>";
+                            if ($total > $shippingCostsFreeLimit) {
+                                $totaal = number_format(($total + 6.95), 2);
+                                //echo "<tr><td>Totaal</td><td></td><td class='total_price'>" . "€" . number_format(($total + 6.95), 2) . "</td></tr>";
+                            } else {
+                                $totaal = number_format(($total),2);
+                                //echo "<tr><td>Totaal</td><td></td><td>" . "Gratis!" . "</td></tr>";
                             }
-
-                        }elseif(isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "afhalen"){
+                        } elseif (isset($_GET) && isset($_GET["vervoer"]) && $_GET["vervoer"] == "afhalen"){
                             $bezorgen = false;
-                            echo "<tr><td>Totaal</td><td></td><td>" . "€". number_format(($total),2) ."</td></tr>";
+                            $totaal = number_format(($total),2);
+                            //echo "<tr><td>Totaal</td><td></td><td class='total_price'>" . "€". number_format(($total),2) ."</td></tr>";
                         }
+                        // End Shipping costs
+                        // Display total
+                        echo "<tr><td>Totaal</td><td></td><td class='total_price'>€".$totaal."</td></tr>";
+                        // End display
                         echo "</table>";
                         if($bezorgen){
                             $datetime = new DateTime('tomorrow');
@@ -113,11 +119,17 @@ print_r($_SESSION);
                         }
                     }
                     ?>
-
+        <form action="checkout.php?vervoer=<?php echo $_GET["vervoer"] ?>" method="get">
             <p>Kies uw levertype</p>
             <input class="vervoer" type="submit" name="vervoer" value="bezorgen">
             <input class="vervoer" type="submit" name="vervoer" value="afhalen">
-
+        </form>
+        <div class="Discount">
+            <p>Voeg hier je coupon toe!</p>
+            <input type="text" name="discount" class="input_discount">
+            <button class="addDiscount">Toevoegen code</button>
+            <p class="discountResult"></p>
+        </div>
         <br>
         <a style="text-decoration-line: none; color: white" href="payment.php">
         <button class="button">Verder naar betaling</button>

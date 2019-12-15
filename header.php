@@ -6,6 +6,12 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'search.php') === false) {
         unset($_SESSION['searchinput']);
     }
 }
+
+if (strpos($_SERVER['SCRIPT_NAME'], 'payment.php') === false) {
+    if (isset($_SESSION['discountPercentage'])) {
+        unset($_SESSION['discountPercentage']);
+    }
+}
 ?>
 
 <!DOCTYPE html>
