@@ -154,7 +154,7 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                     }
                     ?>
                     <p>Schrijf een review:</p>
-                    <textarea name="user_review" placeholder="Degene die styling doet zal dit toch even moeten aanpassen" class="user_review"></textarea><br>
+                    <textarea name="user_review" placeholder="Review" class="user_review"></textarea><br>
                     <button class="addReview" value="<?php echo $item_id; ?>">Toevoegen Review</button>
                     <?php
                 } else {
