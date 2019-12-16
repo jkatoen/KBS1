@@ -56,7 +56,7 @@ $shippingCostsFreeLimit = 50;
 <div class="row">
     <div class="leftcolumn" style="margin-left: 5%">
     </div>
-    <div class="midcolumn" style="width: 25%;">
+    <div class="midcolumn" style="float:left; width: 25%;">
                 <form action="invoice.php" method="POST">
                     <?php if (!isset($_SESSION["ingelogd"])) { ?>
                         <p><a href="login.php">log in,</a> of voer uw NAW-gegevens in </p>
@@ -79,7 +79,7 @@ $shippingCostsFreeLimit = 50;
                     ?>
                 </form>
 
-    <div class="rightcolumn">
+    <div class="rightcolumn" style="float: left">
                     <p>Items in je winkelmand</p>
                     <?php
                     $bezorgen = true;
@@ -139,9 +139,27 @@ $shippingCostsFreeLimit = 50;
         </div>
 
         <br>
-        <a style="text-decoration-line: none; color: white" href="payment.php">
-        <button class="button">Verder naar betaling</button>
-        </a>
+        <form action="checkout.php" method="get">
+            <input style="width: 200px" class="vervoer" type="submit" value="Betaal" name="betaal">
+            <br>
+            <?php
+            if(isset($_GET["betaal"])) {
+                foreach ($_SESSION["shopping_cart"] as $item) {
+                    $item_id = $item["item_id"];
+                    $item_quantity = $item["item_quantity"];
+                        $stmt = mysqli_prepare($connection, "	
+                    	UPDATE stockitemholdings
+                        set quantityonhand = quantityonhand - ?
+                        where stockitemid = ? 
+");
+                        mysqli_stmt_bind_param($stmt, "ii", $item_quantity, $item_id);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_store_result($stmt);
+                }
+                mysqli_stmt_close($stmt);
+            }
+            ?>
+        </form>
     </div>
 
 </div>

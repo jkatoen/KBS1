@@ -32,6 +32,7 @@ if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["ad
         echo "<tr><td>{$item['item_name']}</td>
                   <td>{$item['item_quantity']}</td>
                   <td>".number_format($prijs,2)."</td></tr>";
+
     } ?>
     <tr><td></td><td><b>Totaal:</b></td><td><?php echo number_format($totaal,2); ?></td></tr>
 </table>
