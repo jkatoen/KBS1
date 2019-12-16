@@ -13,6 +13,10 @@ $shippingCostsFreeLimit = 50;
 ?>
 
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
     <h1 style="text-align: center">Checkout</h1>
 </head>
 <script>
@@ -53,18 +57,20 @@ $shippingCostsFreeLimit = 50;
     });
 </script>
 <body>
+
 <div class="row">
     <div class="leftcolumn" style="margin-left: 5%">
     </div>
-    <div class="midcolumn" style="float:left; width: 25%;">
-                <form action="invoice.php" method="POST">
+    <div class="midcolumn" style="width: 25%;">
+                <form action="<?php getURI() ?>" method="get">
                     <?php if (!isset($_SESSION["ingelogd"])) { ?>
                         <p><a href="login.php">log in,</a> of voer uw NAW-gegevens in </p>
                         <table>
-                            <tr><td class="vervoer">Achternaam:</td><td><input type="text" name="achternaam"/> </td></tr>
-                            <tr><td class="vervoer">Voornaam:</td><td><input type="text" name="voornaam"/>   </td></tr>
-                            <tr><td class="vervoer">Adres:</td><td><input type="text" name="adres"/>      </td></tr>
-                            <tr><td class="vervoer">Emailadres: </td><td><input type="email" name="emailadres"/> </td></tr>
+                            <tr><td class="vervoer">Achternaam:</td><td><input type="text" value="<?php if(isset($_GET["achternaam"])) {echo $_GET["achternaam"]; } else{echo "";}?>" name="achternaam"/> </td></tr>
+                            <tr><td class="vervoer">Voornaam:</td><td><input type="text" value="<?php if(isset($_GET["voornaam"])) {echo $_GET["voornaam"]; } else{echo "";}?>" name="voornaam"/>   </td></tr>
+                            <tr><td class="vervoer">Adres:</td><td><input type="text" value="<?php if(isset($_GET["adres"])) {echo $_GET["adres"]; } else{echo "";}?>"  name="adres"/>      </td></tr>
+                            <tr><td class="vervoer">Emailadres: </td><td><input type="email" value="<?php if(isset($_GET["emailadres"])) {echo $_GET["emailadres"]; } else{echo "";}?>" name="emailadres"/> </td></tr>
+                            <tr><td class="vervoer">submit: </td><td><input type="submit"  name="submit"/> </td></tr>
                         </table>
                     <?php }
                     else { ?>
@@ -78,8 +84,8 @@ $shippingCostsFreeLimit = 50;
                     }
                     ?>
                 </form>
-
-    <div class="rightcolumn" style="float: left">
+    </div>
+    <div class="rightcolumn" >
                     <p>Items in je winkelmand</p>
                     <?php
                     $bezorgen = true;
@@ -111,6 +117,8 @@ $shippingCostsFreeLimit = 50;
                             $bezorgen = false;
                             $totaal = number_format(($total),2);
                             //echo "<tr><td>Totaal</td><td></td><td class='total_price'>" . "€". number_format(($total),2) ."</td></tr>";
+                        }else{
+                            $totaal = $total;
                         }
                         // End Shipping costs
 
@@ -125,7 +133,7 @@ $shippingCostsFreeLimit = 50;
                         }
                     }
                     ?>
-        <form action="checkout.php?vervoer=<?php echo $_GET["vervoer"] ?>" method="get">
+        <form action="<?php 'http://'.$_SERVER['PHP_SELF']; ?>?vervoer=<?php echo $_GET["vervoer"] ?>" method="get">
             <p>Kies uw levertype</p>
             <input class="vervoer" type="submit" name="vervoer" value="bezorgen">
             <input class="vervoer" type="submit" name="vervoer" value="afhalen">
@@ -139,24 +147,97 @@ $shippingCostsFreeLimit = 50;
         </div>
 
         <br>
-        <form action="login.php" method="get">
+        <form action="<?php getURI() ?>" method="post">
             <input style="width: 200px" class="vervoer" type="submit" value="Betaal" name="betaal">
             <br>
             <?php
-            if(isset($_GET["betaal"])) {
+
+            if(isset($_POST["betaal"])) {
+                echo '
+                <script type="text/javascript">
+let timerInterval
+Swal.fire({
+  title: \'Betaling is gelukt!\',
+  html: \'Je wordt in <b></b> seconden naar de home pagina geleid.\',
+  timer: 10000,
+  timerProgressBar: true,
+  onOpen: () => {
+    Swal.showLoading()
+    timerInterval = setInterval(() => {
+      Swal.getContent().querySelector(\'b\')
+        .textContent = Math.ceil(Swal.getTimerLeft() / 1000)
+    }, 100)
+  },
+  onClose: () => {
+    clearInterval(timerInterval)
+    window.location.href = "index.php";
+  }
+}).then((result) => {
+  if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.timer
+  ) {
+    console.log(\'I was closed by the timer\') // eslint-disable-line
+  }
+})
+            </script>';
+            if (isset($_SESSION["ingelogd"])) {
                 foreach ($_SESSION["shopping_cart"] as $item) {
                     $item_id = $item["item_id"];
-                    $item_quantity = $item["item_quantity"];
-                        $stmt = mysqli_prepare($connection, "	
+                    $accountid = $_SESSION["AccountID"];
+                    $firstname = $_SESSION["Firstname"];
+                    $lastname = $_SESSION["LastName"];
+                    $cost = $item["item_price"];
+                    $quantity = $item["item_quantity"];
+                    $stmt = mysqli_prepare($connection, "
+                    insert into paymentnew (stockitemid, AccountID, FirstName, LastName, PayAmount, PayQuantity)
+                    values(?,?,?,?,?,?);
+                    ");
+                    mysqli_stmt_bind_param($stmt, "iissii",$item_id , $accountid, $firstname, $lastname, $cost, $quantity  );
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_store_result($stmt);
+                    mysqli_stmt_close($stmt);
+
+                    $stmt = mysqli_prepare($connection, "	
                     	UPDATE stockitemholdings
                         set quantityonhand = quantityonhand - ?
                         where stockitemid = ? 
 ");
-                        mysqli_stmt_bind_param($stmt, "ii", $item_quantity, $item_id);
-                        mysqli_stmt_execute($stmt);
-                        mysqli_stmt_store_result($stmt);
+                    mysqli_stmt_bind_param($stmt, "ii", $quantity, $item_id);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_store_result($stmt);
+
                 }
                 mysqli_stmt_close($stmt);
+            }else{
+                foreach ($_SESSION["shopping_cart"] as $item) {
+                    $item_id = $item["item_id"];
+                    $firstname = $_GET["voornaam"];
+                    $lastname = $_GET["achternaam"];
+                    $cost = $item["item_price"];
+                    $quantity = $item["item_quantity"];
+                    $stmt = mysqli_prepare($connection, "
+                    insert into paymentnew (stockitemid, FirstName, LastName, PayAmount, PayQuantity)
+                    values(?,?,?,?,?);
+                    ");
+                    mysqli_stmt_bind_param($stmt, "issii",$item_id , $firstname, $lastname, $cost, $quantity  );
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_store_result($stmt);
+                    mysqli_stmt_close($stmt);
+
+                    $stmt = mysqli_prepare($connection, "	
+                    	UPDATE stockitemholdings
+                        set quantityonhand = quantityonhand - ?
+                        where stockitemid = ? 
+");
+                    mysqli_stmt_bind_param($stmt, "ii", $quantity, $item_id);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_store_result($stmt);
+
+                }
+                mysqli_stmt_close($stmt);
+            }
+
             }
             ?>
         </form>
