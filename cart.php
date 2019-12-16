@@ -23,7 +23,7 @@ removeFromCart();
 <div class="">
     <div style="clear:both"></div>
     <br />
-    <h3>Order Details</h3>
+    <h3>Bestelgegevens</h3>
     <div class="table-responsive">
         <table class="table-bordered" style="width: 100%">
             <tr>
