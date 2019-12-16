@@ -139,7 +139,7 @@ $shippingCostsFreeLimit = 50;
         </div>
 
         <br>
-        <form action="checkout.php" method="get">
+        <form action="login.php" method="get">
             <input style="width: 200px" class="vervoer" type="submit" value="Betaal" name="betaal">
             <br>
             <?php
