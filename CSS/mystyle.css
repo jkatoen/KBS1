@@ -349,3 +349,7 @@ input:required {
     height: 20px;
     width: 20px;
 }
+
+.addProductToCart {
+    z-index: 9999;
+}

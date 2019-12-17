@@ -278,8 +278,9 @@ function DisplaySpecialItems($connection) {
     while ($stmt->fetch()) {
         $pricewithoutsale = number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2);
         $saleprice = '€'. number_format(round((($UnitPrice*1.25)+(($TaxRate/100)*$UnitPrice)),2),2);
-        print("<a class='logolink' href='product.php?id=$StockItemId'>");
+
         print("<div class='product-item'>");
+        print("<a class='logolink' href='product.php?id=$StockItemId'>");
         if (!empty($StockImagePath)) {
             print("<div class=\"fakeimg\" >");
             echo "<img class='img' src='{$StockImagePath}'/>";
@@ -289,21 +290,24 @@ function DisplaySpecialItems($connection) {
             echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
             print("</div>");
         }
-
         print("</br>".$StockItemName." €<bold style= color:;>$pricewithoutsale</bold>");
+        print("</a>");
         //print("<div class='grid-item-content'>");
+
         ?>
-        <form action="" method="post">
-        <input type="hidden" name="hidden_id" value="<?php echo $StockItemId ?>">
-        <input type="hidden" name="hidden_name"  value="<?php echo $StockItemName ?>">
-            <input type="hidden" name="hidden_price"  value="<?php echo $UnitPrice ?>">
-        <input type="hidden" name="quantity"  value="1">
-            <input class="vervoer" type="submit" name="toevoegen_aan_winkelwagen" value="toevoegen aan winkelwagen">
-        </form>
+<!--        <form action="" method="post">-->
+        <input type="hidden" name="hidden_id" class="hidden_id" value="<?php echo $StockItemId;?>">
+        <input type="hidden" name="hidden_name"  class="hidden_name" value="<?php echo $StockItemName;?>">
+            <input type="hidden" name="hidden_price" class="hidden_price" value="<?php echo $UnitPrice;?>">
+        <input type="hidden" name="quantity" class="hidden_quantity"  value="1">
+        <button class="addProductToCart" value="<?php echo $StockItemId;?>">Toevoegen aan winkelwagen</button>
+<!--            <input class="addProductToCart" type="submit" name="toevoegen_aan_winkelwagen" value="toevoegen aan winkelwagen">-->
+<!--        </form>-->
         <?php
 
         print("</div>");
-        print("</a>");
+
+
     }
     $stmt->close();
 }

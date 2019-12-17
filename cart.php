@@ -81,7 +81,7 @@ removeFromCart();
 </html>
 <?php
 }else{
-    echo'q
+    echo'
     <div class="alert" style="text-align: center;">
     <alert><h1>Je winkelmand ziet er een beetje leeg uit.</h1></alert>
     </div>

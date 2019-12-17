@@ -9,7 +9,23 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
     addToCart();
 }
 ?>
-
+<script>
+    $(document).ready(function(){
+        $(".addProductToCart").click(function(){
+            var hidden_id  = this.value;
+            // AJAX Code To Submit Form.
+            $.ajax({
+                type: "POST",
+                url: "PHP/addtocart.php",
+                data: {hidden_id},
+                cache: false,
+                success: function (result) {
+                    $(".displayResult").text(result);
+                }
+            });
+        });
+    });
+</script>
 <body>
 <div class="row">
     <div class="leftcolumn">
@@ -32,6 +48,7 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
             else {
             ?>
             <h2>Speciale aanbiedingen</h2>
+                <p class="displayResult"></p>
             <?php
             }
             ?>
