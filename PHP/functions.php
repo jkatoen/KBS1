@@ -324,6 +324,7 @@ function accountAanmaken($connection) {
         $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
         $stmt->execute();
         //printf("Registreren gelukt!", $stmt->affected_rows);
+        $_SESSION["accountID"] = mysqli_insert_id($connection);
         $stmt->close();
         $connection->close();
         $_SESSION["ingelogd"] = true;
