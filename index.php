@@ -2,10 +2,12 @@
 session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
-addToCart();
 include ("header.php");
 $uri = getURI(); // Get uri of page
 
+if (isset($_POST["toevoegen_aan_winkelwagen"])) {
+    addToCart();
+}
 ?>
 
 <body>

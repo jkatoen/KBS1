@@ -292,6 +292,16 @@ function DisplaySpecialItems($connection) {
 
         print("</br>".$StockItemName." €<bold style= color:;> $pricewithoutsale</bold>");
         //print("<div class='grid-item-content'>");
+        ?>
+        <form action="" method="post">
+        <input type="hidden" name="hidden_id" value="<?php echo $StockItemId ?>">
+        <input type="hidden" name="hidden_name"  value="<?php echo $StockItemName ?>">
+            <input type="hidden" name="hidden_price"  value="<?php echo $UnitPrice ?>">
+        <input type="hidden" name="quantity"  value="1">
+            <input class="vervoer" type="submit" name="toevoegen_aan_winkelwagen" value="toevoegen aan winkelwagen">
+        </form>
+        <?php
+
         print("</div>");
         print("</a>");
     }
@@ -437,7 +447,7 @@ function removeIfQuantityBelow() {
 }
 
 function addToCart() {
-    if (isset($_POST["add_to_cart"]) && isset($_GET['id'])) {
+    if (isset($_POST["add_to_cart"]) && isset($_GET['id']) || isset($_POST["toevoegen_aan_winkelwagen"]) && isset($_GET['id']) ) {
         if (isset($_SESSION["shopping_cart"])) {
             $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
             if (!in_array($_GET["id"], $item_array_id)) {
@@ -509,7 +519,7 @@ function getReviewScoreTotal($connection, $item_id) {
     $amountReviews = mysqli_stmt_num_rows($stmt);
 
     if ($amountReviews === 0) {
-        echo "No rating has been made yet!";
+        echo "Er is nog geen review toegevoegd!";
     } else {
         $totalRating = 0;
         while (mysqli_stmt_fetch($stmt)) {
