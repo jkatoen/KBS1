@@ -336,9 +336,6 @@ function accountAanmaken($connection) {
     }
 }
 
-function logIn($connection) {
-}
-
 function displayPagination($total_pages, $pageno) {
     // css
     echo "<div class='page-border'>";
@@ -568,4 +565,8 @@ function displayReview($connection, $item_id) {
         echo "</table>";
     }
 }
+
+//function emailInForm($connection) {
+//
+//}
 ?>

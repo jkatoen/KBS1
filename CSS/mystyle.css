@@ -326,7 +326,7 @@ input:required {
     box-shadow: 5px 10px 8px lightgray;
     text-align: center;
     padding: 20px;
-    background-color: rgb(0,174,239);
+    background-color: #1A1A1A;
     color: white;
 }
 
