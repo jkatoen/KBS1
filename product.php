@@ -92,7 +92,7 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
             <?php
             $i = 0;
             foreach ($imageResult as $image) {
-                print "<div class='column'><img class='productImage cursor' src='".$image['StockImagePath']."' onclick='currentSlide({$i})'></div>";
+                print "<div class='column' style='width:70px!important;'><img class='productImage cursor' src='".$image['StockImagePath']."' onclick='currentSlide({$i})'></div>";
                 $i++;
             }  ?>
             <a class="next" onclick="plusSlides(1)">❯</a>
@@ -141,7 +141,8 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 // TRUE als user al een review heeft gemaakt bij dit product
                 if (!checkUserMadeReview($connection, $_SESSION["accountID"], $item_id)) {
                     for ($i = 1; $i < 6; $i++) {
-                        echo "<input name='user_rating' class='user_rating' type='radio' value='{$i}'/>";
+                        $checked = ($i === 5) ? "checked" : "" ;
+                        echo "<input name='user_rating' class='user_rating' type='radio' value='{$i}' $checked/>";
                         // volle sterren
                         for ($y = 0; $y < $i; $y++) {
                             echo "<img class='review_star' src='IMG/fullstar.png'>";
@@ -154,7 +155,7 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                     }
                     ?>
                     <p>Schrijf een review:</p>
-                    <textarea name="user_review" placeholder="Degene die styling doet zal dit toch even moeten aanpassen" class="user_review"></textarea><br>
+                    <textarea name="user_review" placeholder="Review" class="user_review"></textarea><br>
                     <button class="addReview" value="<?php echo $item_id; ?>">Toevoegen Review</button>
                     <?php
                 } else {

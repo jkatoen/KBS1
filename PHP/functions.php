@@ -182,7 +182,7 @@ function displayCategoryProducts($connection, $category, $offset, $no_of_records
             print("</div>");
         }
         //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-        print("</br>".$StockItemName." €".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+        print("</br>".$StockItemName." €".number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
         print("</div></a>");
     }
     $stmt->close();
@@ -223,7 +223,7 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
                     print("</div>");
                 }
                 //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-                print("</br>".$StockItemName." €".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+                print("</br>".$StockItemName." €".number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
                 print("</div></a>");
             }
 
@@ -278,8 +278,9 @@ function DisplaySpecialItems($connection) {
     while ($stmt->fetch()) {
         $pricewithoutsale = number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2);
         $saleprice = '€'. number_format(round((($UnitPrice*1.25)+(($TaxRate/100)*$UnitPrice)),2),2);
-        print("<a class='logolink' href='product.php?id=$StockItemId'>");
+
         print("<div class='product-item'>");
+        print("<a class='logolink' href='product.php?id=$StockItemId'>");
         if (!empty($StockImagePath)) {
             print("<div class=\"fakeimg\" >");
             echo "<img class='img' src='{$StockImagePath}'/>";
@@ -289,11 +290,24 @@ function DisplaySpecialItems($connection) {
             echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
             print("</div>");
         }
-
-        print("</br>".$StockItemName." €<bold style= color:;> $pricewithoutsale</bold>");
-        //print("<div class='grid-item-content'>");
-        print("</div>");
+        print("</br>".$StockItemName." €<bold style= color:;>$pricewithoutsale</bold>");
         print("</a>");
+        //print("<div class='grid-item-content'>");
+
+        ?>
+<!--        <form action="" method="post">-->
+        <input type="hidden" name="hidden_id" class="hidden_id" value="<?php echo $StockItemId;?>">
+        <input type="hidden" name="hidden_name"  class="hidden_name" value="<?php echo $StockItemName;?>">
+            <input type="hidden" name="hidden_price" class="hidden_price" value="<?php echo $UnitPrice;?>">
+        <input type="hidden" name="quantity" class="hidden_quantity"  value="1">
+        <button class="addProductToCart" value="<?php echo $StockItemId;?>">Toevoegen aan winkelwagen</button>
+<!--            <input class="addProductToCart" type="submit" name="toevoegen_aan_winkelwagen" value="toevoegen aan winkelwagen">-->
+<!--        </form>-->
+        <?php
+
+        print("</div>");
+
+
     }
     $stmt->close();
 }
@@ -434,7 +448,7 @@ function removeIfQuantityBelow() {
 }
 
 function addToCart() {
-    if (isset($_POST["add_to_cart"]) && isset($_GET['id'])) {
+    if (isset($_POST["add_to_cart"]) && isset($_GET['id']) || isset($_POST["toevoegen_aan_winkelwagen"]) && isset($_GET['id']) ) {
         if (isset($_SESSION["shopping_cart"])) {
             $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
             if (!in_array($_GET["id"], $item_array_id)) {
@@ -506,7 +520,7 @@ function getReviewScoreTotal($connection, $item_id) {
     $amountReviews = mysqli_stmt_num_rows($stmt);
 
     if ($amountReviews === 0) {
-        echo "No rating has been made yet!";
+        echo "Er is nog geen review toegevoegd!";
     } else {
         $totalRating = 0;
         while (mysqli_stmt_fetch($stmt)) {
