@@ -5,6 +5,7 @@ include("PHP/functions.php");
 addToCart();
 include ("header.php");
 $uri = getURI(); // Get uri of page
+print_r($_SESSION);
 
 ?>
 

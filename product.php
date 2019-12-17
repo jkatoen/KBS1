@@ -129,7 +129,7 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 <input type="submit" name="add_to_cart" class="cart-btn" value="Add to Cart" />
             </form>
             <!-- End adding product to cart -->
-            <h3>Rating</h3>
+            <h3>Beoordeling</h3>
             <?php
             getReviewScoreTotal($connection, $item_id);
             displayReview($connection, $item_id);
