@@ -4,6 +4,7 @@ session_start();
 include("PHP/connectdb.php");
 include("PHP/functions.php");
 include ("header.php");
+print_r($_SESSION);
 
 checkIfCartEmpty();
 
@@ -97,6 +98,7 @@ $shippingCostsFreeLimit = 50;
                             <tr><td>Voornaam: </td><td><input type="text" name="voornaam" value="<?php print($_SESSION["firstname"])?>"/>     </td></tr>
                             <tr><td>Adres: </td><td><input type="text" name="adres" value="<?php print($_SESSION["address"])?>"/>          </td></tr>
                             <tr><td>Emailadres: </td><td><input type="email" name="emailadres" value="<?php print($_SESSION["email"])?>"/>      </td></tr>
+                            <input type="hidden" name="accountid" value="<?php print($_SESSION["accountID"])?>"/>
                             <tr><td class="vervoer">submit: </td><td><button class="add_naw" > toevoegen </button></td></tr>
                         </table>
                         <?php
@@ -203,9 +205,9 @@ Swal.fire({
             if (isset($_SESSION["ingelogd"])) {
                 foreach ($_SESSION["shopping_cart"] as $item) {
                     $item_id = $item["item_id"];
-                    $accountid = $_SESSION["AccountID"];
-                    $firstname = $_SESSION["Firstname"];
-                    $lastname = $_SESSION["LastName"];
+                    $accountid = $_SESSION["accountID"];
+                    $firstname = $_SESSION["firstname"];
+                    $lastname = $_SESSION["lastname"];
                     $cost = $item["item_price"];
                     $quantity = $item["item_quantity"];
                     $stmt = mysqli_prepare($connection, "
