@@ -178,3 +178,7 @@ img {
     display: table;
     clear: both;
 }
+
+.end {
+    text-decoration: none;
+}
