@@ -19,6 +19,7 @@ $shippingCostsFreeLimit = 50;
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
     <h1 style="text-align: center">Checkout</h1>
 </head>
+
 <script>
     $(document).ready(function(){
         $(".addDiscount").click(function(){
@@ -55,6 +56,23 @@ $shippingCostsFreeLimit = 50;
             })
         })
     });
+    $(document).ready(function(){
+        $(".add_naw").click(function(){
+            var lastname = $(".lastname").val();
+            var firstname = $(".firstname").val();
+            var address = $(".address").val();
+            var email = $(".email").val();
+            // AJAX Code To Submit Form.
+            $.ajax({
+                type: "POST",
+                url: "PHP/addnaw.php",
+                data: {lastname, firstname, address, email},
+                cache: false,
+                success: function (result) {
+                }
+            });
+        });
+    });
 </script>
 <body>
 
@@ -62,15 +80,15 @@ $shippingCostsFreeLimit = 50;
     <div class="leftcolumn" style="margin-left: 5%">
     </div>
     <div class="midcolumn" style="width: 25%;">
-                <form action="<?php getURI() ?>" method="get">
+<!--                <form action="--><?php //getURI() ?><!--" method="get">-->
                     <?php if (!isset($_SESSION["ingelogd"])) { ?>
                         <p><a href="login.php">log in,</a> of voer uw NAW-gegevens in </p>
                         <table>
-                            <tr><td class="vervoer">Achternaam:</td><td><input type="text" value="<?php if(isset($_GET["achternaam"])) {echo $_GET["achternaam"]; } else{echo "";}?>" name="achternaam"/> </td></tr>
-                            <tr><td class="vervoer">Voornaam:</td><td><input type="text" value="<?php if(isset($_GET["voornaam"])) {echo $_GET["voornaam"]; } else{echo "";}?>" name="voornaam"/>   </td></tr>
-                            <tr><td class="vervoer">Adres:</td><td><input type="text" value="<?php if(isset($_GET["adres"])) {echo $_GET["adres"]; } else{echo "";}?>"  name="adres"/>      </td></tr>
-                            <tr><td class="vervoer">Emailadres: </td><td><input type="email" value="<?php if(isset($_GET["emailadres"])) {echo $_GET["emailadres"]; } else{echo "";}?>" name="emailadres"/> </td></tr>
-                            <tr><td class="vervoer">submit: </td><td><input type="submit"  name="submit"/> </td></tr>
+                            <tr><td class="vervoer">Achternaam:</td><td><input class="lastname" type="text"> </td></tr>
+                            <tr><td class="vervoer">Voornaam:</td><td><input class="firstname" type="text" >   </td></tr>
+                            <tr><td class="vervoer">Adres:</td><td><input class="address" type="text">      </td></tr>
+                            <tr><td class="vervoer">Emailadres: </td><td><input class="email" type="email" > </td></tr>
+                        <tr><td class="vervoer">submit: </td><td><button class="add_naw" > toevoegen </button></td></tr>
                         </table>
                     <?php }
                     else { ?>
@@ -79,11 +97,12 @@ $shippingCostsFreeLimit = 50;
                             <tr><td>Voornaam: </td><td><input type="text" name="voornaam" value="<?php print($_SESSION["firstname"])?>"/>     </td></tr>
                             <tr><td>Adres: </td><td><input type="text" name="adres" value="<?php print($_SESSION["address"])?>"/>          </td></tr>
                             <tr><td>Emailadres: </td><td><input type="email" name="emailadres" value="<?php print($_SESSION["email"])?>"/>      </td></tr>
+                            <tr><td class="vervoer">submit: </td><td><button class="add_naw" > toevoegen </button></td></tr>
                         </table>
                         <?php
                     }
                     ?>
-                </form>
+<!--                </form>-->
     </div>
     <div class="rightcolumn" >
                     <p>Items in je winkelmand</p>
@@ -212,8 +231,8 @@ Swal.fire({
             }else{
                 foreach ($_SESSION["shopping_cart"] as $item) {
                     $item_id = $item["item_id"];
-                    $firstname = $_GET["voornaam"];
-                    $lastname = $_GET["achternaam"];
+                    $firstname = $_SESSION["firstname"];
+                    $lastname = $_SESSION["lastname"];
                     $cost = $item["item_price"];
                     $quantity = $item["item_quantity"];
                     $stmt = mysqli_prepare($connection, "
@@ -235,6 +254,7 @@ Swal.fire({
                     mysqli_stmt_store_result($stmt);
 
                 }
+                session_destroy();
                 mysqli_stmt_close($stmt);
             }
 

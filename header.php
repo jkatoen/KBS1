@@ -33,7 +33,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], 'payment.php') === false) {
         </div>
         <div class="head-right">
             <a href="cart.php"><img style="margin-top: 13px" src="IMG/winkelmand.png" height="50"></a>
-            <a href="favorites.php"><h4>Favorieten</h4></a>
+<!--            <a href="favorites.php"><h4>Favorieten</h4></a>-->
             <a href="contact.php"><h4>Contact</h4></a>
             <?php
             if (isset($_SESSION["ingelogd"])) {
