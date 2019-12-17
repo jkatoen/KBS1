@@ -19,7 +19,7 @@ include ("header.php");
                     Voornaam: <br><input type="text" name="voornaam" class="textinbox" value="" required/><br><br>
                     Achternaam: <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
                     Adres: <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
-                    Email adres: <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br>
+                    Emailadres: <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br>
                     Wachtwoord: <br><input type="password" name="ww" class="textinbox" value="" required/><br><br>
                     Herhaal het wachtwoord: <br><input type="password" name="ww2" class="textinbox" value="" required/><br><br><br>
                     <input type="submit" value="Account aanmaken" name="register" class="button" required/>
