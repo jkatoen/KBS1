@@ -4,7 +4,6 @@ include("PHP/connectdb.php");
 include("PHP/functions.php");
 include ("header.php");
 $uri = getURI(); // Get uri of page
-print_r($_SESSION);
 
 if (isset($_POST["toevoegen_aan_winkelwagen"])) {
     addToCart();

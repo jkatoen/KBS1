@@ -254,6 +254,7 @@ Swal.fire({
                     mysqli_stmt_store_result($stmt);
 
                 }
+                session_destroy();
                 mysqli_stmt_close($stmt);
             }
 
