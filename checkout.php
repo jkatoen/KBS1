@@ -1,7 +1,6 @@
 
 <?php
 session_start();
-print_r($_SESSION);
 include("PHP/connectdb.php");
 include("PHP/functions.php");
 include ("header.php");
