@@ -182,7 +182,7 @@ function displayCategoryProducts($connection, $category, $offset, $no_of_records
             print("</div>");
         }
         //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-        print("</br>".$StockItemName." €".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+        print("</br>".$StockItemName." €".number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
         print("</div></a>");
     }
     $stmt->close();
@@ -223,7 +223,7 @@ function displaySearchProducts($connection, $searchinput, $offset, $no_of_record
                     print("</div>");
                 }
                 //print("<div class=\"fakeimg\" style=\"height:200px;\">Image</div>");
-                print("</br>".$StockItemName." €".  number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
+                print("</br>".$StockItemName." €".number_format(round(($UnitPrice+(($TaxRate/100)*$UnitPrice)),2),2));
                 print("</div></a>");
             }
 
@@ -290,7 +290,7 @@ function DisplaySpecialItems($connection) {
             print("</div>");
         }
 
-        print("</br>".$StockItemName." €<bold style= color:;> $pricewithoutsale</bold>");
+        print("</br>".$StockItemName." €<bold style= color:;>$pricewithoutsale</bold>");
         //print("<div class='grid-item-content'>");
         ?>
         <form action="" method="post">
