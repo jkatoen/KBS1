@@ -97,8 +97,29 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
             }  ?>
             <a class="next" onclick="plusSlides(1)">❯</a>
             <?php } // END ELSE STATEMENT ?>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
 
 
+            <iframe width="430" height="295" src="https://www.youtube.com/embed/8yDkraOEgmM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
         <div class="product-right-info">
             <?php // GETTING PRODUCT INFO AND DISPLAY IT
@@ -119,6 +140,7 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 <h2> <?php echo "€" . $productPrice; ?> </h2>
                 <p> <?php echo $productComment; ?> </p>
                 <p> <?php echo $productQuantity; ?></p>
+
             </div>
             <!-- Adding product to cart -->
             <form method="post" action="">
@@ -164,7 +186,6 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 ?><p>Je moet ingelogd zijn om een review te schrijven</p><?php
             }
             ?>
-            <iframe class="productVideo" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
         </div>
