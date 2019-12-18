@@ -126,7 +126,7 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 <input type="hidden" name="hidden_id" value="<?php echo $productId; ?>" />
                 <input type="hidden" name="hidden_name" value="<?php echo htmlspecialchars($productName); ?>" />
                 <input type="hidden" name="hidden_price" value="<?php echo $productPrice; ?>" />
-                <input type="submit" name="add_to_cart" class="cart-btn" value="Add to Cart" />
+                <input type="submit" name="add_to_cart" class="cart-btn" value="Voeg toe aan winkelwagen" />
             </form>
             <!-- End adding product to cart -->
             <h3>Beoordeling</h3>
@@ -165,6 +165,10 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 ?><p>Je moet ingelogd zijn om een review te schrijven</p><?php
             }
             ?>
+
+            <iframe width="420" height="345" src="https://youtu.be/8yDkraOEgmM">
+            </iframe>
+
         </div>
         </div>
     </div>
