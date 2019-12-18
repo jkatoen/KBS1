@@ -523,6 +523,8 @@ function getReviewScoreTotal($connection, $item_id) {
     if ($amountReviews === 0) {
         echo "Er is nog geen review toegevoegd!";
     } else {
+        echo "<h3>Beoordeling</h3>";
+        $messageAmountReviews = ($amountReviews === 1) ? "review" : "reviews";
         $totalRating = 0;
         while (mysqli_stmt_fetch($stmt)) {
             $totalRating += $Rating;
@@ -545,6 +547,7 @@ function getReviewScoreTotal($connection, $item_id) {
                 echo "<img class='review_star' src='IMG/emptystar.png'>";
             }
         }
+        echo "<br>{$amountReviews} {$messageAmountReviews}";
     }
 }
 
@@ -558,8 +561,16 @@ function displayReview($connection, $item_id) {
         echo "<table class='display_reviews'><th>Rating</th><th>Door</th>";
         while (mysqli_stmt_fetch($stmt)) {
             echo "<tr><td>";
+            $amountColoredStars = 0;
             for ($i = 0; $i < $Rating; $i++) {
                 echo "<img class='review_star' src='IMG/fullstar.png'>";
+                $amountColoredStars++;
+            }
+            if ($amountColoredStars != 5) {
+                $x = 5 - $amountColoredStars;
+                for ($z = 0; $z < $x; $z++) {
+                    echo "<img class='review_star' src='IMG/emptystar.png'>";
+                }
             }
             echo "<tr><td>{$Review}</td></td><td>{$FirstName} {$LastName}</td></tr></tr>";
         }
