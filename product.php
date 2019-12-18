@@ -97,8 +97,8 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
             }  ?>
             <a class="next" onclick="plusSlides(1)">❯</a>
             <?php } // END ELSE STATEMENT ?>
-               <!-- <iframe class="productVideo" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-            <!--End display product image and/or video -->
+
+
         </div>
         <div class="product-right-info">
             <?php // GETTING PRODUCT INFO AND DISPLAY IT
@@ -164,9 +164,8 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 ?><p>Je moet ingelogd zijn om een review te schrijven</p><?php
             }
             ?>
+            <iframe class="productVideo" src="https://www.youtube.com/embed/XyNlqQId-nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-            <iframe width="420" height="345" src="https://youtu.be/8yDkraOEgmM">
-            </iframe>
 
         </div>
         </div>
