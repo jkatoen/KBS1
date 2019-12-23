@@ -305,6 +305,16 @@ function DisplaySpecialItems($connection) {
 <!--        </form>-->
         <?php
 
+        if (isset($_SESSION["favorites_array"]) && !empty($_SESSION["favorites_array"])) {
+            foreach ($_SESSION["favorites_array"] as $key => $value) {
+                $favoriteMessage = ($value["item_id"] == $StockItemId) ? "title='Verwijderen van favorieten' src='IMG/favorite_full.png'" : "title='Toevoegen aan favorieten' src='IMG/favorite_empty.png'" ;
+            }
+        } else {
+            $favoriteMessage = "title='Toevoegen aan favorieten' src='IMG/favorite_empty.png'";
+        }
+
+        echo "<img class='favorite' alt='{$StockItemId}' $favoriteMessage'/>";
+
         print("</div>");
 
 

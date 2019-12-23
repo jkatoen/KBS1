@@ -24,6 +24,40 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
                 }
             });
         });
+
+        $(".favorite").click(function(){
+            var hidden_id = this.alt;
+            $.ajax({
+                type: "POST",
+                url: "PHP/ajax_favorites.php",
+                data: {hidden_id},
+                cache: false,
+                success: function (result) {
+                    //$(".displayResult").text(result);
+                    // add
+                    if (result === "Toegevoegd!") {
+                        $(".favorite").each(function () {
+                            var alt = $(this).attr("alt");
+                            if (alt == hidden_id) {
+                                $(this).attr('src', 'IMG/favorite_full.png');
+                                $(this).attr('title', 'Verwijderen van favorieten');
+                            }
+                        });
+                    }
+                    // remove
+                    if (result === "Verwijderd!") {
+                        $(".favorite").each(function () {
+                            var alt = $(this).attr("alt");
+                            if (alt == hidden_id) {
+                                $(this).attr('src', 'IMG/favorite_empty.png');
+                                $(this).attr('title', 'Toevoegen aan favorieten');
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
     });
 </script>
 <body>
@@ -41,7 +75,7 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
             <?php
             if (isset($_SESSION["ingelogd"])) {
             ?>
-            <h3>Welkom: <?php print($_SESSION["firstname"]);?></h3>
+            <h3>Welkom: <?php print($_SESSION["firstname"]); ?></h3>
             <h2>Speciale aanbiedingen</h2>
             <?php
             }
