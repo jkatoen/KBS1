@@ -11,16 +11,36 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
 ?>
 <script>
     $(document).ready(function(){
-        $(".addProductToCart").click(function(){
-            var hidden_id  = this.value;
+        $(".productCart").click(function(){
+            var hidden_id  = this.alt;
             // AJAX Code To Submit Form.
             $.ajax({
                 type: "POST",
-                url: "PHP/addtocart.php",
+                url: "PHP/ajax_cart.php",
                 data: {hidden_id},
                 cache: false,
                 success: function (result) {
-                    $(".displayResult").text(result);
+                    //$(".displayResult").text(result);
+                    // added
+                    if (result === "Toegevoegd!") {
+                        $(".productCart").each(function () {
+                            var alt = $(this).attr("alt");
+                            if (alt == hidden_id) {
+                                $(this).attr('src', 'IMG/iconfinder_shopping_cart_delete_61808.png');
+                                $(this).attr('title', 'Verwijderen uit winkelwagen');
+                            }
+                        });
+                    }
+                    // removed
+                    if (result === "Verwijderd!") {
+                        $(".productCart").each(function () {
+                            var alt = $(this).attr("alt");
+                            if (alt == hidden_id) {
+                                $(this).attr('src', 'IMG/iconfinder_shopping_cart_add_61807.png');
+                                $(this).attr('title', 'Toevoegen aan winkelwagen');
+                            }
+                        });
+                    }
                 }
             });
         });
@@ -40,7 +60,7 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
                             var alt = $(this).attr("alt");
                             if (alt == hidden_id) {
                                 $(this).attr('src', 'IMG/favorite_full.png');
-                                $(this).attr('title', 'Verwijderen van favorieten');
+                                $(this).attr('title', 'Verwijderen uit favorieten');
                             }
                         });
                     }

@@ -20,7 +20,7 @@ if (!isset($_SESSION["favorites_array"])) {
         </div>
     </div>
     <div class="midcolumn">
-        <div class="card">
+        <h1>Favorieten</h1>
         <?php
 //        echo "<pre>";
 //        print_r($_SESSION["favorites_array"]);
@@ -39,7 +39,6 @@ if (!isset($_SESSION["favorites_array"])) {
             echo "</table>";
         }
         ?>
-        </div>
     </div>
 </div>
 

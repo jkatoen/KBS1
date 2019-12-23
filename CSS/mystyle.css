@@ -350,8 +350,10 @@ input:required {
     width: 20px;
 }
 
-.addProductToCart {
-    z-index: 9999;
+.productCart {
+    cursor: pointer;
+    width: 26px;
+
 }
 
 .favorite {
