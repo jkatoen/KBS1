@@ -33,7 +33,7 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
                 data: {hidden_id},
                 cache: false,
                 success: function (result) {
-                    //$(".displayResult").text(result);
+                    $(".displayResult").text(result);
                     // add
                     if (result === "Toegevoegd!") {
                         $(".favorite").each(function () {
@@ -73,6 +73,7 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
     <div class="midcolumn">
         <div class="card">
             <?php
+            print_r($_SESSION["favorites_array"]);
             if (isset($_SESSION["ingelogd"])) {
             ?>
             <h3>Welkom: <?php print($_SESSION["firstname"]); ?></h3>

@@ -8,12 +8,10 @@ if (!isset($_SESSION["favorites_array"])) {
 }
 
 function inFavoriteArray($Id) {
-    if (!empty($_SESSION["favorites_array"])) {
-        foreach ($_SESSION["favorites_array"] as $key => $result) {
-            if (in_array($Id, $_SESSION["favorites_array"][$key])) {
-                return TRUE;
-            }
-        }
+    $found = array_search($Id, array_column($_SESSION["favorites_array"], 'item_id'));
+    if ($found !== FALSE) {
+        return TRUE;
+    } else {
         return FALSE;
     }
 }

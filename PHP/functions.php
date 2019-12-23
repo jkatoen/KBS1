@@ -306,15 +306,18 @@ function DisplaySpecialItems($connection) {
         <?php
 
         if (isset($_SESSION["favorites_array"]) && !empty($_SESSION["favorites_array"])) {
-            foreach ($_SESSION["favorites_array"] as $key => $value) {
-                $favoriteMessage = ($value["item_id"] == $StockItemId) ? "title='Verwijderen van favorieten' src='IMG/favorite_full.png'" : "title='Toevoegen aan favorieten' src='IMG/favorite_empty.png'" ;
+            // if in array
+            $found = array_search($StockItemId, array_column($_SESSION["favorites_array"], 'item_id'));
+            if ($found !== FALSE) {
+                echo "<img class='favorite' alt='{$StockItemId}' title='Verwijderen van favorieten' src='IMG/favorite_full.png'/>";
+            }
+            // if not in array
+            else {
+                echo "<img class='favorite' alt='{$StockItemId}' title='Toevoegen aan favorieten' src='IMG/favorite_empty.png'/>";
             }
         } else {
-            $favoriteMessage = "title='Toevoegen aan favorieten' src='IMG/favorite_empty.png'";
+            echo "<img class='favorite' alt='{$StockItemId}' title='Toevoegen aan favorieten' src='IMG/favorite_empty.png'/>";
         }
-
-        echo "<img class='favorite' alt='{$StockItemId}' $favoriteMessage'/>";
-
         print("</div>");
 
 
