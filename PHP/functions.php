@@ -281,15 +281,14 @@ function DisplaySpecialItems($connection) {
 
         print("<div class='product-item'>");
         print("<a class='logolink' href='product.php?id=$StockItemId'>");
+        print("<div class='fakeimg' >");
         if (!empty($StockImagePath)) {
-            print("<div class=\"fakeimg\" >");
             echo "<img class='img' src='{$StockImagePath}'/>";
-            print("</div>");
         } else {
-            print("<div class=\"fakeimg\" >");
             echo "<img class='img' src='IMG/category{$StockGroupID}.png'/>";
-            print("</div>");
+
         }
+        print("</div>");
         print("</br>".$StockItemName." €<bold style= color:;>$pricewithoutsale</bold>");
         print("</a>");
         //print("<div class='grid-item-content'>");
@@ -298,7 +297,7 @@ function DisplaySpecialItems($connection) {
 <!--        <form action="" method="post">-->
         <input type="hidden" name="hidden_id" class="hidden_id" value="<?php echo $StockItemId;?>">
         <input type="hidden" name="hidden_name"  class="hidden_name" value="<?php echo $StockItemName;?>">
-            <input type="hidden" name="hidden_price" class="hidden_price" value="<?php echo $UnitPrice;?>">
+        <input type="hidden" name="hidden_price" class="hidden_price" value="<?php echo $UnitPrice;?>">
         <input type="hidden" name="quantity" class="hidden_quantity"  value="1">
         <button class="addProductToCart" value="<?php echo $StockItemId;?>">Toevoegen aan winkelwagen</button>
 <!--            <input class="addProductToCart" type="submit" name="toevoegen_aan_winkelwagen" value="toevoegen aan winkelwagen">-->

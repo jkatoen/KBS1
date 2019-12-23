@@ -33,8 +33,8 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
                 data: {hidden_id},
                 cache: false,
                 success: function (result) {
-                    $(".displayResult").text(result);
-                    // add
+                    //$(".displayResult").text(result);
+                    // add to session
                     if (result === "Toegevoegd!") {
                         $(".favorite").each(function () {
                             var alt = $(this).attr("alt");
@@ -44,7 +44,7 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
                             }
                         });
                     }
-                    // remove
+                    // remove from session
                     if (result === "Verwijderd!") {
                         $(".favorite").each(function () {
                             var alt = $(this).attr("alt");
@@ -73,7 +73,6 @@ if (isset($_POST["toevoegen_aan_winkelwagen"])) {
     <div class="midcolumn">
         <div class="card">
             <?php
-            print_r($_SESSION["favorites_array"]);
             if (isset($_SESSION["ingelogd"])) {
             ?>
             <h3>Welkom: <?php print($_SESSION["firstname"]); ?></h3>
