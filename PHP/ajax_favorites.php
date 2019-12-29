@@ -7,14 +7,6 @@ if (!isset($_SESSION["favorites_array"])) {
     $_SESSION["favorites_array"] = array();
 }
 
-function inFavoriteArray($Id) {
-    $found = array_search($Id, array_column($_SESSION["favorites_array"], 'item_id'));
-    if ($found !== FALSE) {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
-}
 
 if (isset($_POST["hidden_id"])) {
     if (inFavoriteArray($_POST["hidden_id"])) {

@@ -597,6 +597,15 @@ function displayReview($connection, $item_id) {
     }
 }
 
+function inFavoriteArray($Id) {
+    $found = array_search($Id, array_column($_SESSION["favorites_array"], 'item_id'));
+    if ($found !== FALSE) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
 //function emailInForm($connection) {
 //
 //}

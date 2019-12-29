@@ -16,7 +16,7 @@ function inShoppingArray($Id) {
     }
 }
 
-if (isset($_POST)) {
+if (isset($_POST["hidden_id"])) {
     if (inShoppingArray($_POST["hidden_id"])) {
         foreach ($_SESSION["shopping_cart"] as $key => $value) {
             if ($value["item_id"] == $_POST["hidden_id"]) {
@@ -41,5 +41,31 @@ if (isset($_POST)) {
             array_push($_SESSION["shopping_cart"], $itemArray);
         }
         echo "Toegevoegd!";
+    }
+}
+
+if (isset($_POST["addCart_id"])) {
+    $StockItemID = $_POST["addCart_id"];
+    if (!empty($_SESSION["favorites_array"])) {
+        if (inShoppingArray($_POST["addCart_id"])) {
+            foreach ($_SESSION["shopping_cart"] as $key => $value) {
+                if ($value["item_id"] == $_POST["hidden_id"]) {
+                    unset ($_SESSION["shopping_cart"][$key]);
+                }
+            }
+            echo "Verwijderd!";
+        } else {
+            foreach ($_SESSION["favorites_array"] as $key => $value) {
+                if ($value["item_id"] == $_POST["addCart_id"]) {
+                    $itemArray = array(
+                        "item_id" => $value["item_id"],
+                        "item_name" => $value["item_name"],
+                        "item_price" => $value["item_price"],
+                        "item_quantity" => 1);
+                    array_push($_SESSION["shopping_cart"], $itemArray);
+                    echo "Toegevoegd!";
+                }
+            }
+        }
     }
 }
