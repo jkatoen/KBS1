@@ -17,6 +17,41 @@ include("header.php");
 ?>
 <script>
     $(document).ready(function(){
+
+        $(".favorite").click(function(){
+            var hidden_id = this.alt;
+            $.ajax({
+                type: "POST",
+                url: "PHP/ajax_favorites.php",
+                data: {hidden_id},
+                cache: false,
+                success: function (result) {
+                    //$(".displayResult").text(result);
+                    // add to session
+                    if (result === "Toegevoegd!") {
+                        $(".favorite").each(function () {
+                            var alt = $(this).attr("alt");
+                            if (alt == hidden_id) {
+                                $(this).attr('src', 'IMG/favorite_full.png');
+                                $(this).attr('title', 'Verwijderen uit favorieten');
+                            }
+                        });
+                    }
+                    // remove from session
+                    if (result === "Verwijderd!") {
+                        $(".favorite").each(function () {
+                            var alt = $(this).attr("alt");
+                            if (alt == hidden_id) {
+                                $(this).attr('src', 'IMG/favorite_empty.png');
+                                $(this).attr('title', 'Toevoegen aan favorieten');
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+
         $(".addReview").click(function(){
             if (!$.trim($(".user_review").val())) {
                 $(".displayResult").text("Review is leeg");
@@ -140,8 +175,8 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 <h2> <?php echo "€" . $productPrice; ?> </h2>
                 <p> <?php echo $productComment; ?> </p>
                 <p> <?php echo $productQuantity; ?></p>
-
             </div>
+
             <!-- Adding product to cart -->
             <form method="post" action="">
                 <input type="number" name="quantity" value="1" class="form-control" />
@@ -151,6 +186,24 @@ if(isset($_GET) && isset($_GET["alert"]) && $_GET["alert"] == "2"){
                 <input type="submit" name="add_to_cart" class="cart-btn" value="Voeg toe aan winkelwagen" />
             </form>
             <!-- End adding product to cart -->
+
+
+            <?php
+            // Show favorites add or remove button on product display overview
+            if (isset($_SESSION["favorites_array"]) && !empty($_SESSION["favorites_array"])) {
+                // if in array
+                $found = array_search($productId, array_column($_SESSION["favorites_array"], 'item_id'));
+                if ($found !== FALSE) {
+                    echo "<img class='favorite' alt='{$productId}' title='Verwijderen uit favorieten' src='IMG/favorite_full.png'/>";
+                } // if not in array
+                else {
+                    echo "<img class='favorite' alt='{$productId}' title='Toevoegen aan favorieten' src='IMG/favorite_empty.png'/>";
+                }
+            } else {
+                echo "<img class='favorite' alt='{$productId}' title='Toevoegen aan favorieten' src='IMG/favorite_empty.png'/>";
+            }
+            ?>
+
             <?php
             getReviewScoreTotal($connection, $item_id);
             displayReview($connection, $item_id);
