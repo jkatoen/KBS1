@@ -61,11 +61,12 @@ $shippingCostsFreeLimit = 50;
             var firstname = $(".firstname").val();
             var address = $(".address").val();
             var email = $(".email").val();
+            var postalcode = $(".postalcode").val();
             // AJAX Code To Submit Form.
             $.ajax({
                 type: "POST",
                 url: "PHP/addnaw.php",
-                data: {lastname, firstname, address, email},
+                data: {lastname, firstname, address, email, postalcode},
                 cache: false,
                 success: function (result) {
                 }
@@ -87,15 +88,17 @@ $shippingCostsFreeLimit = 50;
                             <tr><td class="vervoer">Voornaam:</td><td><input class="firstname" type="text" >   </td></tr>
                             <tr><td class="vervoer">Adres:</td><td><input class="address" type="text">      </td></tr>
                             <tr><td class="vervoer">Emailadres: </td><td><input class="email" type="email" > </td></tr>
+                            <tr><td class="vervoer">Postcode: </td><td><input class="postalcode" type="text" > </td></tr>
                         <tr><td class="vervoer">submit: </td><td><button class="add_naw" > toevoegen </button></td></tr>
                         </table>
                     <?php }
                     else { ?>
                         <table>
-                            <tr><td class="vervoer">Achternaam: </td><td><input type="text" name="achternaam" value="<?php print($_SESSION["lastname"])?>"/>    </td></tr>
-                            <tr><td class="vervoer">Voornaam: </td><td><input type="text" name="voornaam" value="<?php print($_SESSION["firstname"])?>"/>     </td></tr>
-                            <tr><td class="vervoer">Adres: </td><td><input type="text" name="adres" value="<?php print($_SESSION["address"])?>"/>          </td></tr>
-                            <tr><td class="vervoer">Emailadres: </td><td><input type="email" name="emailadres" value="<?php print($_SESSION["email"])?>"/>      </td></tr>
+                            <tr><td class="vervoer">Achternaam: </td><td><input class="lastname" type="text" value="<?php print($_SESSION["lastname"])?>"/>    </td></tr>
+                            <tr><td class="vervoer">Voornaam: </td><td><input class="firstname" type="text" value="<?php print($_SESSION["firstname"])?>"/>     </td></tr>
+                            <tr><td class="vervoer">Adres: </td><td><input class="address" type="text" value="<?php print($_SESSION["address"])?>"/>          </td></tr>
+                            <tr><td class="vervoer">Emailadres: </td><td><input class="email" type="email" value="<?php print($_SESSION["email"])?>"/>      </td></tr>
+                            <tr><td class="vervoer">Postcode: </td><td><input class="postalcode" type="text"  value="<?php print($_SESSION["postalcode"])?>" > </td></tr>
                             <input type="hidden" name="accountid" value="<?php print($_SESSION["accountID"])?>"/>
                         </table>
                         <?php
