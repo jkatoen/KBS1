@@ -49,8 +49,8 @@ removeFromCart();
                         </td>
 
 
-                        <td>$ <?php echo $values["item_price"]; ?></td>
-                        <td>$ <?php echo number_format( $_SESSION['shopping_cart'][$keys]['item_quantity'] * $values["item_price"], 2);?></td>
+                        <td>€ <?php echo $values["item_price"]; ?></td>
+                        <td>€ <?php echo number_format( $_SESSION['shopping_cart'][$keys]['item_quantity'] * $values["item_price"], 2);?></td>
                         <td><a href="cart.php?action=delete&id=<?php echo $_SESSION['shopping_cart'][$keys]['item_id'] ?>"><span style="color: red; text-decoration: none">Remove</span></a></td>
                     </tr>
                     <?php
@@ -62,7 +62,7 @@ removeFromCart();
                 ?>
                 <tr>
                     <td colspan="3" align="right">Total</td>
-                    <td align="right">$ <?php echo number_format($total, 2); ?></td>
+                    <td align="right">€ <?php echo number_format($total, 2); ?></td>
                     <td></td>
                 </tr>
             </table>
