@@ -330,7 +330,11 @@ function DisplaySpecialItems($connection) {
     }
     $stmt->close();
 }
-
+/**
+ * Creating an account in the database
+ * Julian van   Rijckevorsel
+ * @param $connection
+ */
 function accountAanmaken($connection) {
     $firstname = $_POST["voornaam"];
     $lastname= $_POST["achternaam"];
@@ -358,6 +362,12 @@ function accountAanmaken($connection) {
         exit();
     }
 }
+
+/**
+ * Updating an account in the database
+ * Bas Hendriks
+ * @param $connection
+ */
 function accountUpdaten($connection) {
     $firstname = $_POST["voornaam"];
     $lastname = $_POST["achternaam"];
@@ -469,6 +479,15 @@ function checkIfAlreadyExists($inputEmail, $connection) {
     return ($stmt->num_rows === 0) ? FALSE : TRUE;
 }
 
+/**
+ * Checks if user account has a password assigned to it
+ * Bas Hendriks
+ * @param $firstname
+ * @param $lastname
+ * @param $postalcode
+ * @param $address
+ * @param $connection
+ */
 function checkIfAlreadyExistsPW($firstname, $lastname, $address, $postalcode, $connection) {
     $stmt = $connection->prepare("select active from user where firstname = ? AND lastname= ? AND address = ? and  PostalCode = ?;");
     $stmt->bind_param("ssss", $firstname, $lastname, $address, $postalcode);
@@ -482,6 +501,11 @@ function checkIfAlreadyExistsPW($firstname, $lastname, $address, $postalcode, $c
     }
 }
 
+/**
+ * changes item quiantity in shopping cart
+ * Bas Hendriks
+ * Frans tuinstra
+ */
 function changeQuantity() {
     if (isset($_SESSION["shopping_cart"])) {
         foreach ($_SESSION["shopping_cart"] as $keys => $values) {
@@ -508,6 +532,11 @@ function removeIfQuantityBelow() {
     }
 }
 
+
+/**
+ * adds item to cart
+ * Bas Hendriks
+ */
 function addToCart() {
     if (isset($_POST["add_to_cart"]) && isset($_GET['id']) || isset($_POST["toevoegen_aan_winkelwagen"]) && isset($_GET['id']) ) {
         if (isset($_SESSION["shopping_cart"])) {
@@ -538,6 +567,10 @@ function addToCart() {
     }
 }
 
+/**
+ * removes item from cart
+ * Bas Hendriks
+ */
 function removeFromCart() {
     if (isset($_GET["action"])) {
         if ($_GET["action"] == "delete") {
@@ -551,6 +584,10 @@ function removeFromCart() {
     }
 }
 
+/**
+ * Checks if cart is empty
+ * Bas Hendriks
+ */
 function checkIfCartEmpty() {
     if (empty($_SESSION['shopping_cart'])) {
         header('location: index.php');
