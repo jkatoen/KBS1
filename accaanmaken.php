@@ -20,6 +20,7 @@ include ("header.php");
                     Achternaam: <br><input type="text" name="achternaam" class="textinbox" value="" required/><br><br>
                     Adres: <br><input type="text" name="adres" class="textinbox" value="" required/><br><br>
                     Emailadres: <br><input type="email" name="emailadres" class="textinbox" value="" required/><br><br>
+                    Postcode: <br><input type="text" name="postalcode" class="textinbox" value="" required/><br><br>
                     Wachtwoord: <br><input type="password" name="ww" class="textinbox" value="" required/><br><br>
                     Herhaal het wachtwoord: <br><input type="password" name="ww2" class="textinbox" value="" required/><br><br><br>
                     <input type="submit" value="Account aanmaken" name="register" class="button" required/>
@@ -27,13 +28,17 @@ include ("header.php");
                 <div class="product-container">
                     <?php
                     if (isset($_POST['register'])) {
-                        if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["ww"]) && isset($_POST["ww2"]) && isset($_POST["emailadres"])) {
+                        if (isset($_POST["voornaam"]) && isset($_POST["achternaam"]) && isset($_POST["adres"]) && isset($_POST["ww"]) && isset($_POST["ww2"]) && isset($_POST["emailadres"]) && isset($_POST["postalcode"])) {
                             if ($_POST["ww"] == $_POST["ww2"]) {
                                 // Mag pas registreren als email NIET in de database bestaat
                                 if(!checkIfAlreadyExists($_POST["emailadres"], $connection)) {
                                     accountAanmaken($connection);
-                                } else { echo "Email bestaat al!"; }
-                            } else { echo "Registreren mislukt!"; }
+                                } elseif(!checkIfAlreadyExistsPW($_POST["voornaam"],$_POST["achternaam"],$_POST["adres"],$_POST["postalcode"],$connection)) {
+                                    accountUpdaten($connection);
+                                    }
+                                else { echo "Email bestaat al!"; }
+                                }
+                            else { echo "Registreren mislukt!"; }
                         }
                     }
                     ?>

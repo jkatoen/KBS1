@@ -330,27 +330,65 @@ function DisplaySpecialItems($connection) {
     }
     $stmt->close();
 }
-
+/**
+ * Creating an account in the database
+ * Julian van   Rijckevorsel
+ * @param $connection
+ */
 function accountAanmaken($connection) {
-    $voornaam = $_POST["voornaam"];
-    $achternaam = $_POST["achternaam"];
+    $firstname = $_POST["voornaam"];
+    $lastname= $_POST["achternaam"];
     $address = $_POST["adres"];
-    $ww = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
-    $mail = $_POST["emailadres"];
-    $sqlinsert1 = ("INSERT INTO user (FirstName, LastName, Address, Password, Emailadres)
-                        VALUES (?,?,?,?,?)");
+    $pw = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
+    $email = $_POST["emailadres"];
+    $postalcode = $_POST["postalcode"];
+    $active = 1;
+    $sqlinsert1 = ("INSERT INTO user (FirstName, LastName, Address, Password, Emailadres, PostalCode, Active)
+                        VALUES (?,?,?,?,?,?,?)");
     if ($stmt = $connection->prepare($sqlinsert1)) {
-        $stmt->bind_param('sssss', $voornaam, $achternaam, $address, $ww, $mail);
+        $stmt->bind_param('ssssssi', $firstname, $lastname, $address, $pw, $email,$postalcode,$active);
         $stmt->execute();
         //printf("Registreren gelukt!", $stmt->affected_rows);
         $_SESSION["accountID"] = mysqli_insert_id($connection);
         $stmt->close();
         $connection->close();
         $_SESSION["ingelogd"] = true;
-        $_SESSION["email"] = $mail;
-        $_SESSION["firstname"] = $voornaam;
-        $_SESSION["lastname"] = $achternaam;
+        $_SESSION["email"] = $email;
+        $_SESSION["firstname"] = $firstname;
+        $_SESSION["lastname"] = $lastname;
         $_SESSION["address"] = $address;
+        $_SESSION["postalcode"] = $postalcode;
+        header('location: index.php');
+        exit();
+    }
+}
+
+/**
+ * Updating an account in the database
+ * Bas Hendriks
+ * @param $connection
+ */
+function accountUpdaten($connection) {
+    $firstname = $_POST["voornaam"];
+    $lastname = $_POST["achternaam"];
+    $address = $_POST["adres"];
+    $pw = password_hash(($_POST["ww"]), PASSWORD_DEFAULT);
+    $email = $_POST["emailadres"];
+    $postalcode = $_POST["postalcode"];
+    $sqlinsert2 = ("update user set password = ? AND active = 1 where accountid = (select accountid from user where firstname = ? AND lastname= ? AND address = ? and  PostalCode = ?)");
+    if ($stmt = $connection->prepare($sqlinsert2)) {
+        $stmt->bind_param('sssss', $pw, $firstname, $lastname, $address,$postalcode);
+        $stmt->execute();
+        //printf("Registreren gelukt!", $stmt->affected_rows);
+        $_SESSION["accountID"] = mysqli_insert_id($connection);
+        $stmt->close();
+        $connection->close();
+        $_SESSION["ingelogd"] = true;
+        $_SESSION["email"] = $email;
+        $_SESSION["firstname"] = $firstname;
+        $_SESSION["lastname"] = $lastname;
+        $_SESSION["address"] = $address;
+        $_SESSION["postalcode"] = $postalcode;
         header('location: index.php');
         exit();
     }
@@ -441,6 +479,33 @@ function checkIfAlreadyExists($inputEmail, $connection) {
     return ($stmt->num_rows === 0) ? FALSE : TRUE;
 }
 
+/**
+ * Checks if user account has a password assigned to it
+ * Bas Hendriks
+ * @param $firstname
+ * @param $lastname
+ * @param $postalcode
+ * @param $address
+ * @param $connection
+ */
+function checkIfAlreadyExistsPW($firstname, $lastname, $address, $postalcode, $connection) {
+    $stmt = $connection->prepare("select active from user where firstname = ? AND lastname= ? AND address = ? and  PostalCode = ?;");
+    $stmt->bind_param("ssss", $firstname, $lastname, $address, $postalcode);
+    $stmt->execute();
+    $stmt->store_result();
+    mysqli_stmt_bind_result($stmt, $active);
+    if ($active == 1){
+        return TRUE;
+    }elseif($active == 0){
+        return FALSE;
+    }
+}
+
+/**
+ * changes item quiantity in shopping cart
+ * Bas Hendriks
+ * Frans tuinstra
+ */
 function changeQuantity() {
     if (isset($_SESSION["shopping_cart"])) {
         foreach ($_SESSION["shopping_cart"] as $keys => $values) {
@@ -467,6 +532,11 @@ function removeIfQuantityBelow() {
     }
 }
 
+
+/**
+ * adds item to cart
+ * Bas Hendriks
+ */
 function addToCart() {
     if (isset($_POST["add_to_cart"]) && isset($_GET['id']) || isset($_POST["toevoegen_aan_winkelwagen"]) && isset($_GET['id']) ) {
         if (isset($_SESSION["shopping_cart"])) {
@@ -497,6 +567,10 @@ function addToCart() {
     }
 }
 
+/**
+ * removes item from cart
+ * Bas Hendriks
+ */
 function removeFromCart() {
     if (isset($_GET["action"])) {
         if ($_GET["action"] == "delete") {
@@ -510,6 +584,10 @@ function removeFromCart() {
     }
 }
 
+/**
+ * Checks if cart is empty
+ * Bas Hendriks
+ */
 function checkIfCartEmpty() {
     if (empty($_SESSION['shopping_cart'])) {
         header('location: index.php');
