@@ -205,13 +205,15 @@ Swal.fire({
                     $accountid = $_SESSION["accountID"];
                     $firstname = $_SESSION["firstname"];
                     $lastname = $_SESSION["lastname"];
+                    $email = $_SESSION["email"];
+                    $address = $_SESSION["address"];
                     $cost = $item["item_price"];
                     $quantity = $item["item_quantity"];
                     $stmt = mysqli_prepare($connection, "
-                    insert into paymentnew (stockitemid, AccountID, FirstName, LastName, PayAmount, PayQuantity)
-                    values(?,?,?,?,?,?);
+                    insert into paymentnew (stockitemid, AccountID, FirstName, LastName, Email, Address, PayAmount, PayQuantity)
+                    values(?,?,?,?,?,?,?,?);
                     ");
-                    mysqli_stmt_bind_param($stmt, "iissii",$item_id , $accountid, $firstname, $lastname, $cost, $quantity  );
+                    mysqli_stmt_bind_param($stmt, "iissssii",$item_id , $accountid, $firstname, $lastname, $email, $address, $cost, $quantity  );
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_store_result($stmt);
                     mysqli_stmt_close($stmt);
@@ -234,13 +236,15 @@ Swal.fire({
                     $item_id = $item["item_id"];
                     $firstname = $_SESSION["firstname"];
                     $lastname = $_SESSION["lastname"];
+                    $email = $_SESSION["email"];
+                    $address = $_SESSION["address"];
                     $cost = $item["item_price"];
                     $quantity = $item["item_quantity"];
                     $stmt = mysqli_prepare($connection, "
-                    insert into paymentnew (stockitemid, FirstName, LastName, PayAmount, PayQuantity)
-                    values(?,?,?,?,?);
+                    insert into paymentnew (stockitemid, FirstName, LastName, Email, Address, PayAmount, PayQuantity)
+                    values(?,?,?,?,?,?,?);
                     ");
-                    mysqli_stmt_bind_param($stmt, "issii",$item_id , $firstname, $lastname, $cost, $quantity  );
+                    mysqli_stmt_bind_param($stmt, "issssii",$item_id , $firstname, $lastname, $email, $address, $cost, $quantity  );
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_store_result($stmt);
                     mysqli_stmt_close($stmt);
